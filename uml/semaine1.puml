@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package "entite"
+{
+/'Définitions des classes'/
+abstract Entite<<abstract>>
+{
+#m_pv : Integer
+#m_force : Integer
+#m_dexterite : Integer
+#m_vitesse : Integer
+#m_initiative : Integer
+}
+class Personnage
+class Monstre
+
+abstract Classe<<abstract>>
+class Clerc
+class Guerrier
+class Magicien
+class Roublard
+
+abstract Race<<abstract>>
+class Elfe
+class Humain
+class Halfelin
+class Nain
+/'Définitions des relations'/
+Personnage -up-|> Entite
+Monstre -up-|> Entite
+
+Clerc -up-|> Classe
+Guerrier -up-|> Classe
+Magicien -up-|> Classe
+Roublard -up-|> Classe
+
+Elf -up-|> Race
+Humain -up-|> Race
+Halfelin -up-|> Race
+Nain -up-|> Race
+
+}
+package "equipement"
+{
+
+}
+package "plateau"
+{
+
+}
+
+@enduml
