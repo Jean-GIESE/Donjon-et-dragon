@@ -38,7 +38,21 @@ class Roublard
 
 package "race"
 {
+/'Définitions des classes'/
 abstract Race<<abstract>>
+{
+#m_pv : Integer
+#m_force : Integer
+#m_dexterite : Integer
+#m_vitesse : Integer
+#m_initiative : Integer
++getPv():Integer
++getForce():Integer
++getDexterite():Integer
++getVitesse():Integer
++getInitiative():Integer
++toString():String
+}
 class Elfe
 class Humain
 class Halfelin
@@ -62,11 +76,19 @@ Nain -up-|> Race
 }
 package "equipement"
 {
+/'Définitions des classes'/
+abstract equipement<<abstract>>
+{
+
+}
+/'Définitions des relations'/
 
 }
 package "plateau"
 {
+/'Définitions des classes'/
 
+/'Définitions des relations'/
 }
 
 @enduml
