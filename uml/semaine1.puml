@@ -30,10 +30,27 @@ class Monstre
 package "classe"
 {
 abstract Classe<<abstract>>
+{
+#m_nom:String
+#m_pv:Integer
+#m_equipementDepart:Equipement[*]
+}
 class Clerc
+{
++«Create» Clerc(): Clerc
+}
 class Guerrier
+{
++«Create» Guerrier(): Guerrier
+}
 class Magicien
+{
++«Create» Magicien(): Magicien
+}
 class Roublard
+{
++«Create» Roublard(): Roublard
+}
 }
 
 package "race"
@@ -54,9 +71,21 @@ abstract Race<<abstract>>
 +toString():String
 }
 class Elfe
+{
++«Create» Elfe(): Elfe
+}
 class Humain
+{
++«Create» Humain(): Humain
+}
 class Halfelin
+{
++«Create» Halfelin(): Halfelin
+}
 class Nain
+{
++«Create» Nain(): Nain
+}
 }
 
 /'Définitions des relations'/
@@ -77,18 +106,38 @@ Nain -up-|> Race
 package "equipement"
 {
 /'Définitions des classes'/
-abstract equipement<<abstract>>
+abstract Equipement<<abstract>>
 {
-
+#m_nom:String
+#m_lourd:Boolean
+}
+class Armure
+{
+-m_classeArmure:Integer
++«Create» Armure(): Armure
+}
+class Arme
+{
+-m_degat:De
+-m_portee:Integer
++«Create» Armure(): Armure
 }
 /'Définitions des relations'/
-
+Armure -up-|> Equipement
+Arme -up-|> Equipement
 }
 package "plateau"
 {
 /'Définitions des classes'/
 
 /'Définitions des relations'/
+}
+class De
+{
+-m_nombre:Integer
+-m_face:Integer
++Lancer():Integer
++«Create» De(): De
 }
 
 @enduml
