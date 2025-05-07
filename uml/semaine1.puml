@@ -26,6 +26,10 @@ abstract Entite<<abstract>>
 
 }
 class Personnage
+{
+-m_inventaire:Equipement[*]
+
+}
 class Monstre
 package "classe"
 {
