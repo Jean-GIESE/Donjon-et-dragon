@@ -1,0 +1,147 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package "entite"
+{
+/'Définitions des classes'/
+abstract Entite<<abstract>>
+{
+#m_nom : String
+#m_pv : Integer
+#m_force : Integer
+#m_dexterite : Integer
+#m_vitesse : Integer
+#m_initiative : Integer
+
++getNom():String
++getPv():Integer
++getForce():Integer
++getDexterite():Integer
++getVitesse():Integer
++getInitiative():Integer
++setPv(pv:Integer)
++attaquer()
++seDeplacer()
++toString():String
+
+}
+class Personnage
+{
+-m_inventaire:Equipement[*]
+
+}
+class Monstre
+package "classe"
+{
+abstract Classe<<abstract>>
+{
+#m_nom:String
+#m_pv:Integer
+#m_equipementDepart:Equipement[*]
+}
+class Clerc
+{
++«Create» Clerc(): Clerc
+}
+class Guerrier
+{
++«Create» Guerrier(): Guerrier
+}
+class Magicien
+{
++«Create» Magicien(): Magicien
+}
+class Roublard
+{
++«Create» Roublard(): Roublard
+}
+}
+
+package "race"
+{
+/'Définitions des classes'/
+abstract Race<<abstract>>
+{
+#m_pv : Integer
+#m_force : Integer
+#m_dexterite : Integer
+#m_vitesse : Integer
+#m_initiative : Integer
++getPv():Integer
++getForce():Integer
++getDexterite():Integer
++getVitesse():Integer
++getInitiative():Integer
++toString():String
+}
+class Elfe
+{
++«Create» Elfe(): Elfe
+}
+class Humain
+{
++«Create» Humain(): Humain
+}
+class Halfelin
+{
++«Create» Halfelin(): Halfelin
+}
+class Nain
+{
++«Create» Nain(): Nain
+}
+}
+
+/'Définitions des relations'/
+Personnage -up-|> Entite
+Monstre -up-|> Entite
+
+Clerc -up-|> Classe
+Guerrier -up-|> Classe
+Magicien -up-|> Classe
+Roublard -up-|> Classe
+
+Elfe -up-|> Race
+Humain -up-|> Race
+Halfelin -up-|> Race
+Nain -up-|> Race
+
+}
+package "equipement"
+{
+/'Définitions des classes'/
+abstract Equipement<<abstract>>
+{
+#m_nom:String
+#m_lourd:Boolean
+}
+class Armure
+{
+-m_classeArmure:Integer
++«Create» Armure(): Armure
+}
+class Arme
+{
+-m_degat:De
+-m_portee:Integer
++«Create» Armure(): Armure
+}
+/'Définitions des relations'/
+Armure -up-|> Equipement
+Arme -up-|> Equipement
+}
+package "plateau"
+{
+/'Définitions des classes'/
+
+/'Définitions des relations'/
+}
+class De
+{
+-m_nombre:Integer
+-m_face:Integer
++Lancer():Integer
++«Create» De(): De
+}
+
+@enduml
