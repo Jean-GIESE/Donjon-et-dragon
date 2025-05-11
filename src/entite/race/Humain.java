@@ -1,9 +1,9 @@
-package entite.race;
-
-public class Humain extends Race
-{
-    public Humain()
-    {
-    
-    }
-}
+// package entite.race;
+// 
+// public class Humain extends Race
+// {
+//     public Humain()
+//     {
+//     
+//     }
+// }

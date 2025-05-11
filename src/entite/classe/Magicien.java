@@ -1,9 +1,9 @@
-package entite.classe;
-
-public class Magicien extends Classe
-{
-    public Magicien()
-    {
-    
-    }
-}
+// package entite.classe;
+// 
+// public class Magicien extends Classe
+// {
+//     public Magicien()
+//     {
+//     
+//     }
+// }

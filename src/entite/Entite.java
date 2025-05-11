@@ -39,15 +39,15 @@ public abstract class Entite
         return m_initiative;
     }
     
-    public void attaquer();
-    {
-    
-    }
-    
-    public void seDeplacer()
-    {
-    
-    }
+//     public void attaquer();
+//     {
+//     
+//     }
+//     
+//     public void seDeplacer()
+//     {
+//     
+//     }
     
     public String toString()
     {

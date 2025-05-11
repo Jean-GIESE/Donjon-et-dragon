@@ -1,6 +1,6 @@
 package entite;
 
-public class Personnage extends Entite
-{
-    
-}
+// public class Personnage extends Entite
+// {
+//     
+// }

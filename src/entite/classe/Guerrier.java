@@ -1,9 +1,9 @@
-package entite.classe;
-
-public class Guerrier extends Classe
-{
-    public Guerrier()
-    {
-    
-    }
-}
+// package entite.classe;
+// 
+// public class Guerrier extends Classe
+// {
+//     public Guerrier()
+//     {
+//     
+//     }
+// }
