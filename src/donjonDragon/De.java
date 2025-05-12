@@ -1,3 +1,5 @@
+package donjonDragon;
+
 public class De
 {
     private int m_nombre;

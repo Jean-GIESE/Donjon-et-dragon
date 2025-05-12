@@ -1,4 +1,4 @@
-package entite;
+package donjonDragon.entite;
 
 public abstract class Entite
 {
