@@ -12,7 +12,6 @@ abstract Entite<<abstract>>
 #m_vitesse : Integer
 #m_initiative : Integer
 
-+getNom():String
 +getPv():Integer
 +getForce():Integer
 +getDexterite():Integer
@@ -32,9 +31,18 @@ class Personnage
 -m_inventaire:Equipement[*]
 -m_arme : Arme
 -m_armure : Armure
+
 +«Create» Personnage(): Personnage
 +sEquiper(): Void
 +Ramasser(): Void
++getNom():String
++getRcae():Race
++getClasse():Classe
++getInventaire():Equipement[*]
++getArme():Arme
++getArmure():Armure
++toString():String
+
 }
 class Monstre
 {
@@ -42,6 +50,10 @@ class Monstre
 -m_numero : Integer
 -m_degat : De
 -m_portee : Integer
++getEspece():String
++getNumero():Integer
++toString():String
+
 }
 package "classe"
 {
@@ -50,6 +62,9 @@ abstract Classe<<abstract>>
 #m_nom:String
 #m_pv:Integer
 #m_equipementDepart:Equipement[*]
+
++getPv():Integer
++toString():String
 }
 class Clerc
 {
@@ -126,6 +141,9 @@ abstract Equipement<<abstract>>
 {
 #m_nom:String
 #m_lourd:Boolean
+
+
++toString():String
 }
 class Armure
 {
