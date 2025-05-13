@@ -2,17 +2,11 @@ package donjonDragon.entite;
 
 public abstract class Entite
 {
-    protected String m_nom;
     protected int m_pv;
     protected int m_force;
     protected int m_dexterite;
     protected int m_vitesse;
     protected int m_initiative;
-    
-    public String getNom()
-    {
-        return m_nom;
-    }
     
     public int getPv()
     {
@@ -51,6 +45,6 @@ public abstract class Entite
     
     public String toString()
     {
-        return m_nom;
+        return "Nom de l'instance";
     }
 }
