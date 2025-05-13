@@ -12,4 +12,8 @@ public class Personnage extends Entite{
     {
         return m_nom;
     }
+    @Override
+    public String ToString(){
+        return "";
+    }
 }
