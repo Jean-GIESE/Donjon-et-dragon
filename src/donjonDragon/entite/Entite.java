@@ -2,12 +2,17 @@ package donjonDragon.entite;
 
 public abstract class Entite
 {
+    protected  int m_pvMax;
     protected int m_pv;
     protected int m_force;
     protected int m_dexterite;
     protected int m_vitesse;
     protected int m_initiative;
-    
+
+    public int getPvMax()
+    {
+        return m_pvMax;
+    }
     public int getPv()
     {
         return m_pv;
@@ -42,9 +47,6 @@ public abstract class Entite
 //     {
 //     
 //     }
-    
-    public String toString()
-    {
-        return "Nom de l'instance";
-    }
+
+    public abstract String toString();
 }
