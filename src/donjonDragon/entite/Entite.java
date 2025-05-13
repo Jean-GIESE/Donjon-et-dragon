@@ -2,7 +2,6 @@ package donjonDragon.entite;
 
 public abstract class Entite
 {
-    protected String m_nom;
     protected int m_pv;
     protected int m_force;
     protected int m_dexterite;
