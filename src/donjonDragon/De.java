@@ -24,4 +24,7 @@ public class De
         }
         return total;
     }
+    public String ToString(){
+        return m_nombre+"d"+m_face;
+    }
 }
