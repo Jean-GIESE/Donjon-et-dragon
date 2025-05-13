@@ -142,7 +142,8 @@ abstract Equipement<<abstract>>
 #m_nom:String
 #m_lourd:Boolean
 
-
++getNom():String
++getLourd():Boolean
 +toString():String
 }
 class Armure
