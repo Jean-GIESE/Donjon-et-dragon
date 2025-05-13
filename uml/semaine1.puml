@@ -6,7 +6,6 @@ package "entite"
 /'Définitions des classes'/
 abstract Entite<<abstract>>
 {
-#m_nom : String
 #m_pv : Integer
 #m_force : Integer
 #m_dexterite : Integer
@@ -27,10 +26,23 @@ abstract Entite<<abstract>>
 }
 class Personnage
 {
+-m_nom : String
+-m_race : Race
+-m_classe : Classe
 -m_inventaire:Equipement[*]
-
+-m_arme : Arme
+-m_armure : Armure
++«Create» Personnage(): Personnage
++sEquiper(): Void
++Ramasser(): Void
 }
 class Monstre
+{
+-m_espece : String
+-m_numero : Integer
+-m_degat : De
+-m_portee : Integer
+}
 package "classe"
 {
 abstract Classe<<abstract>>
