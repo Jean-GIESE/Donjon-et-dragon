@@ -1,6 +1,6 @@
-package entite.classe;
+package donjonDragon.entite.classe;
 
-import equipement;
+import donjonDragon.equipement.*;
 
 public abstract class Classe
 {

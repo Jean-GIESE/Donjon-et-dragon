@@ -1,4 +1,4 @@
-package equipement;
+package donjonDragon.equipement;
 
 public abstract class Equipement
 {

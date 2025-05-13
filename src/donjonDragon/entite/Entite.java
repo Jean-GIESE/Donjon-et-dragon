@@ -1,12 +1,18 @@
-package entite.race;
+package donjonDragon.entite;
 
-public abstract class Race
+public abstract class Entite
 {
+    protected String m_nom;
     protected int m_pv;
     protected int m_force;
     protected int m_dexterite;
     protected int m_vitesse;
     protected int m_initiative;
+    
+    public String getNom()
+    {
+        return m_nom;
+    }
     
     public int getPv()
     {
@@ -31,5 +37,20 @@ public abstract class Race
     public int getInitiative()
     {
         return m_initiative;
+    }
+    
+//     public void attaquer();
+//     {
+//     
+//     }
+//     
+//     public void seDeplacer()
+//     {
+//     
+//     }
+    
+    public String toString()
+    {
+        return m_nom;
     }
 }
