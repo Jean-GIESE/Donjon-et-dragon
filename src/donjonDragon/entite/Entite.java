@@ -8,11 +8,6 @@ public abstract class Entite
     protected int m_vitesse;
     protected int m_initiative;
     
-    public String getNom()
-    {
-        return m_nom;
-    }
-    
     public int getPv()
     {
         return m_pv;
@@ -50,6 +45,6 @@ public abstract class Entite
     
     public String toString()
     {
-        return m_nom;
+        return "Nom de l'instance";
     }
 }

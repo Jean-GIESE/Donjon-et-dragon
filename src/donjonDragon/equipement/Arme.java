@@ -4,7 +4,6 @@ import donjonDragon.De;
 
 public class Arme extends Equipement
 {
-    private String m_nom;
     private De m_degat;
     private int m_portee;
     
@@ -13,6 +12,16 @@ public class Arme extends Equipement
         m_nom = nom;
         m_degat = degat;
         m_portee = portee;
-        m_lourd = lourd;
+        m_lourd = est_lourd;
+    }
+    
+    public De getDegat()
+    {
+        return m_degat;
+    }
+    
+    public int getPortee()
+    {
+        return m_portee;
     }
 }

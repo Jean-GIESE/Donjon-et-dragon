@@ -2,7 +2,6 @@ package donjonDragon.equipement;
 
 public class Armure extends Equipement
 {
-    private String m_nom;
     private int m_classeArmure;
     
     public Armure(String nom, int classeArmure, boolean est_lourd)
@@ -10,5 +9,10 @@ public class Armure extends Equipement
         m_nom = nom;
         m_classeArmure = classeArmure;
         m_lourd = est_lourd;
+    }
+    
+    public int getClasse()
+    {
+        return m_classeArmure;
     }
 }

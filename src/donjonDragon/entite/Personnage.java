@@ -7,4 +7,9 @@ public class Personnage extends Entite{
     {
     
     }
+    
+    public String getNom()
+    {
+        return m_nom;
+    }
 }

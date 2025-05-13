@@ -13,4 +13,9 @@ public class Monstre extends Entite
     {
     
     }
+    
+    public String getEspece()
+    {
+        return m_espece;
+    }
 }
