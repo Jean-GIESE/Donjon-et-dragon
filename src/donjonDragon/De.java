@@ -20,7 +20,7 @@ public class De
         int total=0;
         for(int i=0;i<nombre;i++)
         {
-            total+= rand.nextInt(1,face);
+            total+= rand.nextInt(face-1) + 1;
         }
         return total;
     }
