@@ -12,6 +12,7 @@ abstract Entite<<abstract>>
 #m_vitesse : Integer
 #m_initiative : Integer
 
++getPvMax():Integer
 +getPv():Integer
 +getForce():Integer
 +getDexterite():Integer
@@ -34,9 +35,9 @@ class Personnage
 
 +«Create» Personnage(): Personnage
 +sEquiper(): Void
-+Ramasser(): Void
++ramasser(): Void
 +getNom():String
-+getRcae():Race
++getRace():Race
 +getClasse():Classe
 +getInventaire():Equipement[*]
 +getArme():Arme
@@ -50,6 +51,7 @@ class Monstre
 -m_numero : Integer
 -m_degat : De
 -m_portee : Integer
+-m_classeArmure : Integer
 +getEspece():String
 +getNumero():Integer
 +toString():String
