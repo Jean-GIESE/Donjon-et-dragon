@@ -15,12 +15,12 @@ public class De
         m_face = face;
     }
     
-    public int lancer(int nombre, int face)
+    public int lancer()
     {
         int total=0;
-        for(int i=0;i<nombre;i++)
+        for(int i=0;i<m_nombre;i++)
         {
-            total+= rand.nextInt(1,face);
+            total+= rand.nextInt(m_face-1)+1;
         }
         return total;
     }
