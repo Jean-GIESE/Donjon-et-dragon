@@ -103,10 +103,19 @@ public class Personnage extends Entite{
     public String toString()
     {
         String texte = m_nom + "\n\t";
-        texte += "Vie: " + m_pv + "/"/* + m_pvMax*/ + "\n\t";
+        texte += "Vie: " + m_pv + "/" + m_pvMax + "\n\t";
         texte += "Armure: " + m_armure.toString() + "\n\t";
         texte += "Arme: " + m_arme.toString() + "\n\t";
-        texte += "Inventaire: " + m_inventaire.toString() + "\n\t";
+        texte += "Inventaire: [" + m_inventaire.size() + "] ";
+        for (int i=0; i<m_inventaire.size(); i++)
+        {
+            if (i == (m_inventaire.size() - 1)) {
+                texte += m_inventaire.get(i) + "\n\t";
+            }
+            else {
+                texte += m_inventaire.get(i) + ", ";
+            }
+        }
         texte += "Force: " + m_force + "\n\t";
         texte += "Dextérité: " + m_dexterite + "\n\t";
         texte += "Vitesse: " + m_vitesse + "\n\t";
