@@ -7,6 +7,11 @@ public class Arme extends Equipement
     private De m_degat;
     private int m_portee;
     
+    public Arme()
+    {
+    
+    }
+    
     public Arme(String nom, De degat, int portee, boolean est_lourd)
     {
         m_nom = nom;

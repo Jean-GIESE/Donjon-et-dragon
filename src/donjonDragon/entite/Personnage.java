@@ -27,8 +27,8 @@ public class Personnage extends Entite{
         m_vitesse = vitesse;
         m_initiative = initiative;
         m_inventaire = new ArrayList<Equipement>();
-        m_arme = null;
-        m_armure = null;
+        m_arme = new Arme();
+        m_armure = new Armure();
     }
     
     public void sEquiper(Equipement objet)
