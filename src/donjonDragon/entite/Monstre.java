@@ -23,6 +23,7 @@ public class Monstre extends Entite
         m_vitesse=vitesse;
         m_initiative=initiative;
         m_classeArmure=classeArmure;
+        m_enVie=true;
     }
     
     public String getEspece()
@@ -30,9 +31,47 @@ public class Monstre extends Entite
         return m_espece;
     }
 
-    public Integer getNumero()
+    public Integer getNumero() { return m_numero; }
+    public int getClasseArmure(){
+        return m_classeArmure;
+    }
+    @Override
+    public String getNom(){
+        return m_espece+m_numero;
+    }
+    public void attaquer(Entite cible)
     {
-        return m_numero;
+        De UnDeVingt = new De(1,20);
+        int attaque =0;
+        if(m_portee==1)
+        {
+
+            attaque = UnDeVingt.lancer()+m_force;
+        }
+        else {
+            attaque = UnDeVingt.lancer()+m_dexterite;
+        }
+        if(attaque>cible.getClasseArmure())
+        {
+            System.out.println("Votre attaque perce l'armure de"+cible.getNom()+" ("+cible.getClasseArmure()+").");
+            int degatInflige=0;
+            System.out.println("Lancer de dé(s) pour les dégats :");
+            degatInflige=m_degat.lancer();
+            System.out.println(cible.getNom()+" subit "+degatInflige+" dégâts !");
+            int pvFinal = cible.getPv()-degatInflige;
+            if(pvFinal>0)
+            {
+                cible.setPv(pvFinal);
+                System.out.println("Il lui reste "+pvFinal+" PV.");
+            }
+            else {
+                System.out.println(cible.getNom()+" meurt sur le coup !");
+                cible.setEnVie(false);
+            }
+        }
+        else {
+            System.out.println("L'attaque manque sa cible ! "+cible.getNom()+"("+cible.getClasseArmure()+") a esquivé de peu !");
+        }
     }
     @Override
     public String toString()
