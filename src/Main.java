@@ -3,6 +3,9 @@ import donjonDragon.equipement.*;
 import donjonDragon.entite.*;
 import donjonDragon.entite.race.*;
 import donjonDragon.entite.classe.*;
+import donjonDragon.plateau.*;
+
+import java.io.*; 
 
 public class Main {
     public static void main(String args[]){
@@ -13,7 +16,14 @@ public class Main {
 //         
 //         System.out.println(test.getClass().getName() == test2.getClass().getName());
         
-        Entite perso = new Personnage("Jean", new Clerc(), new Halfelin(), 20, 18, 4, 1, 5, 2);
-        System.out.println(perso);
+//         Entite perso = new Personnage("Jean", new Clerc(), new Halfelin(), 20, 18, 4, 1, 5, 2);
+//         System.out.println(perso);
+
+//         System.out.println("Entrez quelque chose\n");
+//         String chaine = System.console.readline("Entrez quelque chose v2\n");
+//         System.out.println(chaine);
+
+        Donjon carte = new Donjon();
+        carte.CreerCarte();
     }
 }
