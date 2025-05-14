@@ -30,9 +30,19 @@ public class Monstre extends Entite
         return m_espece;
     }
 
-    public Integer getNumero()
+    public Integer getNumero() { return m_numero; }
+    public void attaquer(Entite cible)
     {
-        return m_numero;
+        De UnDeVingt = new De(1,20);
+        if(m_portee==1)
+        {
+
+            int attaque = UnDeVingt.lancer()+m_force;
+        }
+        else {
+            int attaque = UnDeVingt.lancer()+m_dexterite;
+        }
+        //if(attaque)
     }
     @Override
     public String toString()
