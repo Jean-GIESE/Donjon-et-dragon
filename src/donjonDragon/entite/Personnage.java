@@ -68,6 +68,10 @@ public class Personnage extends Entite{
     {
         return m_armure;
     }
+    @Override
+    public void attaquer(Entite cible){
+
+    }
     
     @Override
     public String toString()
