@@ -4,11 +4,6 @@ public class Armure extends Equipement
 {
     private int m_classeArmure;
     
-    public Armure()
-    {
-    
-    }
-    
     public Armure(String nom, int classeArmure, boolean est_lourd)
     {
         m_nom = nom;
