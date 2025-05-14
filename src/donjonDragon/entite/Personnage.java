@@ -26,6 +26,7 @@ public class Personnage extends Entite{
         m_dexterite = dexterite;
         m_vitesse = vitesse;
         m_initiative = initiative;
+        m_enVie=true;
     }
     
     public void sEquiper()
@@ -37,7 +38,7 @@ public class Personnage extends Entite{
     {
     
     }
-    
+    @Override
     public String getNom()
     {
         return m_nom;
@@ -67,6 +68,9 @@ public class Personnage extends Entite{
     public Armure getArmure()
     {
         return m_armure;
+    }
+    public int getClasseArmure(){
+        return m_armure.getClasse();
     }
     @Override
     public void attaquer(Entite cible){
