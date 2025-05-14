@@ -29,6 +29,7 @@ public class Personnage extends Entite{
         m_inventaire = new ArrayList<Equipement>();
         m_arme = null;
         m_armure = null;
+        m_enVie=true;
     }
     
     public void sEquiper(Equipement objet)
@@ -58,7 +59,7 @@ public class Personnage extends Entite{
     {
     
     }
-    
+    @Override
     public String getNom()
     {
         return m_nom;
@@ -88,6 +89,13 @@ public class Personnage extends Entite{
     public Equipement getArmure()
     {
         return m_armure;
+    }
+    public int getClasseArmure(){
+        return m_armure.getClasse();
+    }
+    @Override
+    public void attaquer(Entite cible){
+
     }
     
     @Override

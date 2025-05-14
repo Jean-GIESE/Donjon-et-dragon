@@ -14,14 +14,27 @@ public class De
         m_nombre = nombre;
         m_face = face;
     }
+
     
     public int lancer()
     {
+        System.out.println("Lancer "+m_nombre+" dé(s) de "+m_face+" (appuyer sur Entré)");
+        System.console().readLine();
+        String to_print="Vous avez fait ";
         int total=0;
+        int res=0;
         for(int i=0;i<m_nombre;i++)
         {
-            total+= rand.nextInt(m_face-1)+1;
+            res=rand.nextInt(m_face-1)+1;
+            total+= res;
+            to_print+=res;
+            res=0;
+            if(i!=m_nombre-1)
+            {
+                to_print+=", ";
+            }
         }
+        System.out.println(to_print+"!\nPour un total de : "+total);
         return total;
     }
     
