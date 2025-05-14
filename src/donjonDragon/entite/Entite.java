@@ -8,6 +8,7 @@ public abstract class Entite
     protected int m_dexterite;
     protected int m_vitesse;
     protected int m_initiative;
+    protected  boolean m_enVie;
 
     public int getPvMax()
     {
@@ -37,8 +38,20 @@ public abstract class Entite
     {
         return m_initiative;
     }
-    
-     public abstract void attaquer(Entite cible);
+    public abstract int getClasseArmure();
+    public abstract String getNom();
+    public void setPv(int pv)
+    {
+        m_pv=pv;
+    };
+    public void setEnVie(boolean vie){
+        m_enVie=vie;
+    }
+
+
+
+    public abstract void attaquer(Entite cible);
+
 
 //     public void seDeplacer()
 //     {
