@@ -11,8 +11,8 @@ public class Personnage extends Entite{
     private Classe m_classe;
     private Race m_race;
     private ArrayList<Equipement> m_inventaire;
-    private Equipement m_arme;
-    private Equipement m_armure;
+    private Arme m_arme;
+    private Armure m_armure;
 
     
     public Personnage(String nom, Classe classe, Race race, int pvMax, int pv, int force, int dexterite, int vitesse, int initiative)
@@ -29,7 +29,7 @@ public class Personnage extends Entite{
         m_inventaire = new ArrayList<Equipement>();
         m_arme = null;
         m_armure = null;
-        m_enVie=true;
+        m_enVie = true;
     }
     
     public void sEquiper(Equipement objet)
@@ -41,14 +41,14 @@ public class Personnage extends Entite{
                 if (objet.getClass().getName() == m_arme.getClass().getName())
                 {
                     m_inventaire.add(m_arme);
-                    m_arme = objet;
+                    m_arme = (Arme) objet;
                     m_inventaire.remove(i);
                 }
                 
                 if (objet.getClass().getName() == m_armure.getClass().getName())
                 {
                     m_inventaire.add(m_armure);
-                    m_armure = objet;
+                    m_armure = (Armure) objet;
                     m_inventaire.remove(i);
                 }
             }
@@ -80,16 +80,17 @@ public class Personnage extends Entite{
         return m_inventaire;
     }
     
-    public Equipement getArme()
+    public Arme getArme()
     {
         return m_arme;
     }
     
     
-    public Equipement getArmure()
+    public Armure getArmure()
     {
         return m_armure;
     }
+    
     public int getClasseArmure(){
         return m_armure.getClasse();
     }
@@ -102,10 +103,19 @@ public class Personnage extends Entite{
     public String toString()
     {
         String texte = m_nom + "\n\t";
-        texte += "Vie: " + m_pv + "/"/* + m_pvMax*/ + "\n\t";
+        texte += "Vie: " + m_pv + "/" + m_pvMax + "\n\t";
         texte += "Armure: " + m_armure.toString() + "\n\t";
         texte += "Arme: " + m_arme.toString() + "\n\t";
-        texte += "Inventaire: " + m_inventaire.toString() + "\n\t";
+        texte += "Inventaire: [" + m_inventaire.size() + "] ";
+        for (int i=0; i<m_inventaire.size(); i++)
+        {
+            if (i == (m_inventaire.size() - 1)) {
+                texte += m_inventaire.get(i) + "\n\t";
+            }
+            else {
+                texte += m_inventaire.get(i) + ", ";
+            }
+        }
         texte += "Force: " + m_force + "\n\t";
         texte += "Dextérité: " + m_dexterite + "\n\t";
         texte += "Vitesse: " + m_vitesse + "\n\t";
