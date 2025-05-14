@@ -38,11 +38,8 @@ public abstract class Entite
         return m_initiative;
     }
     
-//     public void attaquer();
-//     {
-//     
-//     }
-//     
+     public abstract void attaquer(Entite cible);
+
 //     public void seDeplacer()
 //     {
 //     
