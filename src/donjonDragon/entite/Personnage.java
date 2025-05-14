@@ -11,8 +11,8 @@ public class Personnage extends Entite{
     private Classe m_classe;
     private Race m_race;
     private ArrayList<Equipement> m_inventaire;
-    private Arme m_arme;
-    private Armure m_armure;
+    private Equipement m_arme;
+    private Equipement m_armure;
 
     
     public Personnage(String nom, Classe classe, Race race, int pvMax, int pv, int force, int dexterite, int vitesse, int initiative)
@@ -26,11 +26,32 @@ public class Personnage extends Entite{
         m_dexterite = dexterite;
         m_vitesse = vitesse;
         m_initiative = initiative;
+        m_inventaire = new ArrayList<Equipement>();
+        m_arme = null;
+        m_armure = null;
     }
     
-    public void sEquiper()
+    public void sEquiper(Equipement objet)
     {
-    
+        for (int i=0; i<m_inventaire.size(); i++)
+        {
+            if (objet == m_inventaire.get(i))
+            {
+                if (objet.getClass().getName() == m_arme.getClass().getName())
+                {
+                    m_inventaire.add(m_arme);
+                    m_arme = objet;
+                    m_inventaire.remove(i);
+                }
+                
+                if (objet.getClass().getName() == m_armure.getClass().getName())
+                {
+                    m_inventaire.add(m_armure);
+                    m_armure = objet;
+                    m_inventaire.remove(i);
+                }
+            }
+        }
     }
     
     public void ramasser()
@@ -58,13 +79,13 @@ public class Personnage extends Entite{
         return m_inventaire;
     }
     
-    public Arme getArme()
+    public Equipement getArme()
     {
         return m_arme;
     }
     
     
-    public Armure getArmure()
+    public Equipement getArmure()
     {
         return m_armure;
     }

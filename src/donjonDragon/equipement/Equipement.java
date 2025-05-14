@@ -14,7 +14,7 @@ public abstract class Equipement
     {
         return m_nom;
     }
-    
+        
     public String toString()
     {
         return m_nom;
