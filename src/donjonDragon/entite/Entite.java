@@ -9,6 +9,7 @@ public abstract class Entite
     protected int m_vitesse;
     protected int m_initiative;
     protected  boolean m_enVie;
+    protected  String[] m_pos;
 
     public int getPvMax()
     {
