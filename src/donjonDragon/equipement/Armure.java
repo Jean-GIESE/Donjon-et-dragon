@@ -10,7 +10,7 @@ public class Armure extends Equipement
         m_nom = nom;
         m_classeArmure = classeArmure;
         m_lourd = est_lourd;
-        m_pos=new String[2];
+        m_pos=new int[2];
     }
     
     public int getClasse()

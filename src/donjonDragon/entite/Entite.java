@@ -9,7 +9,7 @@ public abstract class Entite
     protected int m_vitesse;
     protected int m_initiative;
     protected  boolean m_enVie;
-    protected  String[] m_pos;
+    protected  int[] m_pos;
 
     public int getPvMax()
     {
@@ -54,10 +54,10 @@ public abstract class Entite
     public abstract void attaquer(Entite cible);
 
 
-//     public void seDeplacer()
-//     {
-//     
-//     }
+    public void seDeplacer()
+    {
+
+    }
 
     public abstract String toString();
 }

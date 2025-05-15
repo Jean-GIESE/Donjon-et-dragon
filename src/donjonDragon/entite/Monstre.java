@@ -25,7 +25,7 @@ public class Monstre extends Entite
         m_initiative=initiative;
         m_classeArmure=classeArmure;
         m_enVie=true;
-        m_pos=new String[2];
+        m_pos=new int[2];
     }
     
     public String getEspece()

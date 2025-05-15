@@ -4,7 +4,7 @@ public abstract class Equipement
 {
     protected String m_nom;
     protected boolean m_lourd;
-    protected String[] m_pos;
+    protected int[] m_pos;
     
     public boolean getLourd()
     {

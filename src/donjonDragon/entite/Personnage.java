@@ -32,7 +32,7 @@ public class Personnage extends Entite{
         m_arme = null;
         m_armure = null;
         m_enVie = true;
-        m_pos=new String[2];
+        m_pos=new int[2];
     }
     
     public void sEquiper(Equipement objet)
