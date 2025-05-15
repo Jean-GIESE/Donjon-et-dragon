@@ -1,5 +1,7 @@
 package donjonDragon.equipement;
 
+import donjonDragon.plateau.Donjon;
+
 public abstract class Equipement
 {
     protected String m_nom;
@@ -14,6 +16,18 @@ public abstract class Equipement
     public String getNom()
     {
         return m_nom;
+    }
+    public void setPos(int[]pos){
+        m_pos[0]=pos[0];
+        m_pos[1]=pos[1];
+    }
+    public void positionnerEquipement(Donjon donjon, int[]pos)
+    {
+        if (donjon.getCarte()[pos[0]][pos[1]].equals(".") || donjon.getCarte()[pos[0]][pos[1]].equals("*")) {
+            setPos(pos);
+        } else {
+            System.out.println("Cette endroit est occupé !");
+        }
     }
         
     public String toString()
