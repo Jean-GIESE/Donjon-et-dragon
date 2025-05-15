@@ -24,5 +24,8 @@ public class Main {
 //         System.out.println(chaine);
 
         Donjon carte = new Donjon();
+        carte.afficherCarte();
+        carte.placerObstacle();
+        carte.afficherCarte();
     }
 }
