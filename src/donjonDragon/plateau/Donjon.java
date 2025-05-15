@@ -59,4 +59,8 @@ public class Donjon
 //             
 //         }
     }
+    public String[][] getCarte()
+    {
+        return m_carte;
+    }
 }

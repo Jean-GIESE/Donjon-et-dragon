@@ -1,5 +1,7 @@
 package donjonDragon.entite;
 
+import donjonDragon.plateau.Donjon;
+
 public abstract class Entite
 {
     protected  int m_pvMax;
@@ -49,14 +51,28 @@ public abstract class Entite
         m_enVie=vie;
     }
 
-
+    public void setPos(int[]pos){
+        m_pos[0]=pos[0];
+        m_pos[1]=pos[1];
+    }
 
     public abstract void attaquer(Entite cible);
 
 
-    public void seDeplacer()
+    public void seDeplacer(Donjon donjon, int[]pos)
     {
-
+        if(pos[0]-m_vitesse>=0 && pos[1]-m_vitesse>=0)
+        {
+            if (donjon.getCarte()[pos[0]][pos[1]].equals(".") || donjon.getCarte()[pos[0]][pos[1]].equals("*")) {
+                setPos(pos);
+            } else {
+                System.out.println("Cette endroit est occupé !");
+            }
+        }
+        else
+        {
+            System.out.println("Vous êtes trop lent pour aller si loin !");
+        }
     }
 
     public abstract String toString();
