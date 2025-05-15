@@ -15,6 +15,7 @@ public class Personnage extends Entite{
     private Arme m_arme;
     private Armure m_armure;
 
+
     
     public Personnage(String nom, Classe classe, Race race, int pvMax, int pv, int force, int dexterite, int vitesse, int initiative)
     {
@@ -31,6 +32,7 @@ public class Personnage extends Entite{
         m_arme = null;
         m_armure = null;
         m_enVie = true;
+        m_pos=new String[2];
     }
     
     public void sEquiper(Equipement objet)

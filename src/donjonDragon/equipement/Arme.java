@@ -6,6 +6,7 @@ public class Arme extends Equipement
 {
     private De m_degat;
     private int m_portee;
+
     
     public Arme(String nom, De degat, int portee, boolean est_lourd)
     {
@@ -13,6 +14,7 @@ public class Arme extends Equipement
         m_degat = degat;
         m_portee = portee;
         m_lourd = est_lourd;
+        m_pos=new String[2];
     }
     
     public De getDegat()
