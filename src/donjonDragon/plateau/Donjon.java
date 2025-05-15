@@ -63,4 +63,14 @@ public class Donjon
     {
         return m_carte;
     }
+    public void setCarte(String[][]carte)
+    {
+        for (int i=0; i<m_taille; i++)
+        {
+            for (int j=0; j<m_taille; j++)
+            {
+                m_carte[i][j] = carte[i][j];
+            }
+        }
+    }
 }
