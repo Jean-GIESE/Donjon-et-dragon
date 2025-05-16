@@ -1,8 +1,10 @@
 package donjonDragon.plateau;
 
 import donjonDragon.entite.*;
+import donjonDragon.equipement.*;
 
 import java.io.*; 
+import java.util.ArrayList;
 
 public class Donjon
 {
@@ -12,6 +14,12 @@ public class Donjon
     public Donjon()
     {
         m_taille = this.creerCarte();
+        m_carte = this.initialiserCarte();
+    }
+    
+    public Donjon(int taille)
+    {
+        m_taille = taille;
         m_carte = this.initialiserCarte();
     }
         
@@ -127,13 +135,7 @@ public class Donjon
             {
                 valide = false;
                 int coordX=0, coordY=0;
-                String nomEntite;
-                if (entite instanceof Personnage) {
-                    nomEntite = entite.getNom();
-                } else {
-                    Monstre temp = (Monstre) entite;
-                    nomEntite = temp.getEspece();
-                }
+                String nomEntite = entite.getNom();
                 
                 String coordonne = System.console().readLine("Postionnez l'entité " + nomEntite + " (au format <lettre><numéro>): ");
                 char lettre = coordonne.charAt(0);
@@ -166,6 +168,82 @@ public class Donjon
                 }
             } catch (Exception erreur) {
                 System.out.println("Veuillez insérer les coordonnées dans le bon format!");
+            }
+        }
+    }
+    
+    public void placerEquipement(Equipement objet)
+    {
+        boolean valide = false;
+        while (!valide)
+        {
+            try 
+            {
+                valide = false;
+                int coordX=0, coordY=0;
+                String coordonne = System.console().readLine("Placer l'équipement " + objet.getNom() + " (au format <lettre><numéro>): ");
+                char lettre = coordonne.charAt(0);
+                
+                coordX = coordonneX(lettre);
+                coordY = Integer.parseInt(coordonne.substring(1)) - 1;
+                
+                if (coordonneValide(coordX, coordY)) {
+                    int[] pos = {coordY,coordX};
+                    if (getValeurEmplacement(pos) == 1) {
+                        m_carte[coordY][coordX] = " * ";
+                        objet.setPos(pos);
+                        valide = true;
+                    }
+                }
+                                
+                if (!valide) {
+                    System.out.println("Erreur: coordonnées mauvaises");
+                }
+            } catch (Exception erreur) {
+                System.out.println("Veuillez insérer les coordonnées dans le bon format!");
+            }
+        }
+    }
+    
+    public void donjonDefaut(ArrayList<Personnage> persos, ArrayList<Equipement> objets, ArrayList<Monstre> monstres)
+    {
+        if ((persos.size() >= m_taille-1) || (objets.size() >= m_taille-1) || (monstres.size() >= m_taille-1))
+        {
+            System.out.println("Trop de persos ou trop d'objets ou trop de monstres!");
+        }
+        
+        else 
+        {
+            m_carte[3][1] = "[ ]";
+            m_carte[13][14] = "[ ]";
+            m_carte[8][3] = "[ ]";
+            m_carte[9][9] = "[ ]";
+            
+            int X = 3;
+            for (Personnage perso : persos)
+            {
+                String nomPerso = perso.getNom();
+                if (nomPerso.length() >= 3) {
+                    m_carte[4][X++] = nomPerso.substring(0, 3);
+                } else {
+                    m_carte[4][X++] = nomPerso;
+                }
+                int[] pos = {4, X};
+                perso.setPos(pos);
+            }
+            X = 1;
+            for (Equipement objet : objets)
+            {
+                m_carte[10][X++] = " * ";
+                int[] pos = {4, X};
+                objet.setPos(pos);
+            }
+            X = 5;
+            for (Monstre monstre : monstres)
+            {
+                m_carte[14][X++] = "uwu";
+                int[] pos = {4, X};
+                monstre.setPos(pos);
             }
         }
     }
