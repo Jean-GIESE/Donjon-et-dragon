@@ -41,14 +41,13 @@ public class Personnage extends Entite{
         {
             if (objet == m_inventaire.get(i))
             {
-                if (objet.getClass().getName() == m_arme.getClass().getName())
+                if (objet instanceof Arme)
                 {
                     m_inventaire.add(m_arme);
                     m_arme = (Arme) objet;
                     m_inventaire.remove(i);
                 }
-                
-                if (objet.getClass().getName() == m_armure.getClass().getName())
+                else
                 {
                     m_inventaire.add(m_armure);
                     m_armure = (Armure) objet;

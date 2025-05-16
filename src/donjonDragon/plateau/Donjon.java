@@ -1,6 +1,10 @@
 package donjonDragon.plateau;
 
+import donjonDragon.entite.*;
+import donjonDragon.equipement.*;
+
 import java.io.*; 
+import java.util.ArrayList;
 
 public class Donjon
 {
@@ -10,6 +14,12 @@ public class Donjon
     public Donjon()
     {
         m_taille = this.creerCarte();
+        m_carte = this.initialiserCarte();
+    }
+    
+    public Donjon(int taille)
+    {
+        m_taille = taille;
         m_carte = this.initialiserCarte();
     }
         
@@ -47,42 +57,193 @@ public class Donjon
         return carte;
     }
 
+    public int coordonneX(char lettreX)
+    {
+        char[] alphabet = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+        for (int i=0; i<alphabet.length; i++)
+        {
+            if (lettreX == alphabet[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public boolean coordonneValide(int coordX, int coordY)
+    {
+        if ((0 <= coordX) && (coordX <= (m_taille-1)) && (0 <= coordY) && (coordY <= (m_taille-1)))
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public int getValeurEmplacement(int[] pos)
+    {
+        if (m_carte[pos[0]][pos[1]] == " . ")
+        {
+            return 1;
+        }
+        else if (m_carte[pos[0]][pos[1]] == " * ")
+        {
+            return 2;
+        }
+        else
+        {
+            return -1;
+        }
+    }
     
     public void placerObstacle()
     {
-        boolean xValide = false, yValide = false;
-        while (!xValide || !yValide)
+        boolean valide = false;
+        while (!valide)
         {
             try 
             {
-                xValide = false;
-                yValide = false;
+                valide = false;
                 int coordX=0, coordY=0;
-                String coordonne = System.console().readLine("Insérer les coordonnées de l'obstacle (au format <lettre><numéro>: ");
+                String coordonne = System.console().readLine("Insérer les coordonnées de l'obstacle (au format <lettre><numéro>): ");
                 char lettre = coordonne.charAt(0);
                 
-                char[] alphabet = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-                for (int i=0; i<alphabet.length; i++)
-                {
-                    if (lettre == alphabet[i]) {
-                        coordX = i;
-                        if ((0 <= coordX) && (coordX <= (m_taille-1))) {
-                            xValide = true;
-                        }
+                coordX = coordonneX(lettre);
+                coordY = Integer.parseInt(coordonne.substring(1)) - 1;
+                
+                if (coordonneValide(coordX, coordY)) {
+                    int[] pos = {coordY,coordX};
+                    if (getValeurEmplacement(pos) == 1) {
+                        m_carte[coordY][coordX] = "[ ]";
+                        valide = true;
                     }
                 }
-                coordY = Integer.parseInt(coordonne.substring(1)) - 1;
-                if ((0 <= coordY) && (coordY <= (m_taille-1))) {
-                    yValide = true;
-                }
-                
-                m_carte[coordY][coordX] = "[ ]";
-                
-                if (!xValide || !yValide) {
+                                
+                if (!valide) {
                     System.out.println("Erreur: coordonnées mauvaises");
                 }
             } catch (Exception erreur) {
                 System.out.println("Veuillez insérer les coordonnées dans le bon format!");
+            }
+        }
+    }
+    
+    public void placerEntite(Entite entite)
+    {
+        boolean valide = false;
+        while (!valide)
+        {
+            try 
+            {
+                valide = false;
+                int coordX=0, coordY=0;
+                String nomEntite = entite.getNom();
+                
+                String coordonne = System.console().readLine("Postionnez l'entité " + nomEntite + " (au format <lettre><numéro>): ");
+                char lettre = coordonne.charAt(0);
+                
+                coordX = coordonneX(lettre);
+                coordY = Integer.parseInt(coordonne.substring(1)) - 1;
+                
+                if (coordonneValide(coordX, coordY)) {
+                    int[] pos = {coordY,coordX};
+                    if (getValeurEmplacement(pos) == 1)
+                    {
+                        if (entite instanceof Monstre) {
+                            m_carte[coordY][coordX] = "uwu";
+                        } 
+                        else 
+                        {
+                            if (nomEntite.length() >= 3) {
+                                m_carte[coordY][coordX] = nomEntite.substring(0, 3);
+                            } else {
+                                m_carte[coordY][coordX] = nomEntite;
+                            }
+                        }
+                        entite.setPos(pos);
+                        valide = true;
+                    }
+                }
+                                
+                if (!valide) {
+                    System.out.println("Erreur: coordonnées mauvaises");
+                }
+            } catch (Exception erreur) {
+                System.out.println("Veuillez insérer les coordonnées dans le bon format!");
+            }
+        }
+    }
+    
+    public void placerEquipement(Equipement objet)
+    {
+        boolean valide = false;
+        while (!valide)
+        {
+            try 
+            {
+                valide = false;
+                int coordX=0, coordY=0;
+                String coordonne = System.console().readLine("Placer l'équipement " + objet.getNom() + " (au format <lettre><numéro>): ");
+                char lettre = coordonne.charAt(0);
+                
+                coordX = coordonneX(lettre);
+                coordY = Integer.parseInt(coordonne.substring(1)) - 1;
+                
+                if (coordonneValide(coordX, coordY)) {
+                    int[] pos = {coordY,coordX};
+                    if (getValeurEmplacement(pos) == 1) {
+                        m_carte[coordY][coordX] = " * ";
+                        objet.setPos(pos);
+                        valide = true;
+                    }
+                }
+                                
+                if (!valide) {
+                    System.out.println("Erreur: coordonnées mauvaises");
+                }
+            } catch (Exception erreur) {
+                System.out.println("Veuillez insérer les coordonnées dans le bon format!");
+            }
+        }
+    }
+    
+    public void donjonDefaut(ArrayList<Personnage> persos, ArrayList<Equipement> objets, ArrayList<Monstre> monstres)
+    {
+        if ((persos.size() >= m_taille-1) || (objets.size() >= m_taille-1) || (monstres.size() >= m_taille-1))
+        {
+            System.out.println("Trop de persos ou trop d'objets ou trop de monstres!");
+        }
+        
+        else 
+        {
+            m_carte[3][1] = "[ ]";
+            m_carte[13][14] = "[ ]";
+            m_carte[8][3] = "[ ]";
+            m_carte[9][9] = "[ ]";
+            
+            int X = 3;
+            for (Personnage perso : persos)
+            {
+                String nomPerso = perso.getNom();
+                if (nomPerso.length() >= 3) {
+                    m_carte[4][X++] = nomPerso.substring(0, 3);
+                } else {
+                    m_carte[4][X++] = nomPerso;
+                }
+                int[] pos = {4, X};
+                perso.setPos(pos);
+            }
+            X = 1;
+            for (Equipement objet : objets)
+            {
+                m_carte[10][X++] = " * ";
+                int[] pos = {4, X};
+                objet.setPos(pos);
+            }
+            X = 5;
+            for (Monstre monstre : monstres)
+            {
+                m_carte[14][X++] = "uwu";
+                int[] pos = {4, X};
+                monstre.setPos(pos);
             }
         }
     }
