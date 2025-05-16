@@ -47,38 +47,48 @@ public class Donjon
         return carte;
     }
 
+    public int coordonneX(char lettreX)
+    {
+        char[] alphabet = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+        for (int i=0; i<alphabet.length; i++)
+        {
+            if (lettreX == alphabet[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public boolean coordonneValide(int coordX, int coordY)
+    {
+        if ((0 <= coordX) && (coordX <= (m_taille-1)) && (0 <= coordY) && (coordY <= (m_taille-1)))
+        {
+            return true;
+        }
+        return false;
+    }
     
     public void placerObstacle()
     {
-        boolean xValide = false, yValide = false;
-        while (!xValide || !yValide)
+        boolean valide = false;
+        while (!valide)
         {
             try 
             {
-                xValide = false;
-                yValide = false;
+                valide = false;
                 int coordX=0, coordY=0;
                 String coordonne = System.console().readLine("Insérer les coordonnées de l'obstacle (au format <lettre><numéro>: ");
                 char lettre = coordonne.charAt(0);
                 
-                char[] alphabet = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-                for (int i=0; i<alphabet.length; i++)
-                {
-                    if (lettre == alphabet[i]) {
-                        coordX = i;
-                        if ((0 <= coordX) && (coordX <= (m_taille-1))) {
-                            xValide = true;
-                        }
-                    }
-                }
+                coordX = coordonneX(lettre);
                 coordY = Integer.parseInt(coordonne.substring(1)) - 1;
-                if ((0 <= coordY) && (coordY <= (m_taille-1))) {
-                    yValide = true;
+                
+                if (coordonneValide(coordX, coordY)) {
+                    m_carte[coordY][coordX] = "[ ]";
+                    valide = true;
                 }
-                
-                m_carte[coordY][coordX] = "[ ]";
-                
-                if (!xValide || !yValide) {
+                                
+                if (!valide) {
                     System.out.println("Erreur: coordonnées mauvaises");
                 }
             } catch (Exception erreur) {
