@@ -1,5 +1,6 @@
 package donjonDragon.entite;
 
+import donjonDragon.De;
 import donjonDragon.entite.classe.*;
 import donjonDragon.entite.race.*;
 import donjonDragon.equipement.*;
@@ -13,6 +14,7 @@ public class Personnage extends Entite{
     private ArrayList<Equipement> m_inventaire;
     private Arme m_arme;
     private Armure m_armure;
+
 
     
     public Personnage(String nom, Classe classe, Race race, int pvMax, int pv, int force, int dexterite, int vitesse, int initiative)
@@ -30,6 +32,7 @@ public class Personnage extends Entite{
         m_arme = null;
         m_armure = null;
         m_enVie = true;
+        m_pos=new int[2];
     }
     
     public void sEquiper(Equipement objet)
@@ -96,7 +99,37 @@ public class Personnage extends Entite{
     }
     @Override
     public void attaquer(Entite cible){
+        De UnDeVingt = new De(1,20);
+        int attaque =0;
+        if(m_arme.getPortee()==1)
+        {
 
+            attaque = UnDeVingt.lancer()+m_force;
+        }
+        else {
+            attaque = UnDeVingt.lancer()+m_dexterite;
+        }
+        if(attaque>cible.getClasseArmure())
+        {
+            System.out.println("Votre attaque perce l'armure de"+cible.getNom()+" ("+cible.getClasseArmure()+").");
+            int degatInflige=0;
+            System.out.println("Lancer de dé(s) pour les dégats :");
+            degatInflige=m_arme.getDegat().lancer();
+            System.out.println(cible.getNom()+" subit "+degatInflige+" dégâts !");
+            int pvFinal = cible.getPv()-degatInflige;
+            if(pvFinal>0)
+            {
+                cible.setPv(pvFinal);
+                System.out.println("Il lui reste "+pvFinal+" PV.");
+            }
+            else {
+                System.out.println(cible.getNom()+" meurt sur le coup !");
+                cible.setEnVie(false);
+            }
+        }
+        else {
+            System.out.println("L'attaque manque sa cible ! "+cible.getNom()+"("+cible.getClasseArmure()+") a esquivé de peu !");
+        }
     }
     
     @Override
