@@ -70,6 +70,22 @@ public class Donjon
         return false;
     }
     
+    public int getValeurEmplacement(int[] pos)
+    {
+        if (m_carte[pos[0]][pos[1]] == " . ")
+        {
+            return 1;
+        }
+        else if (m_carte[pos[0]][pos[1]] == " * ")
+        {
+            return 2;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    
     public void placerObstacle()
     {
         boolean valide = false;
@@ -86,8 +102,11 @@ public class Donjon
                 coordY = Integer.parseInt(coordonne.substring(1)) - 1;
                 
                 if (coordonneValide(coordX, coordY)) {
-                    m_carte[coordY][coordX] = "[ ]";
-                    valide = true;
+                    int[] pos = {coordY,coordX};
+                    if (getValeurEmplacement(pos) == 1) {
+                        m_carte[coordY][coordX] = "[ ]";
+                        valide = true;
+                    }
                 }
                                 
                 if (!valide) {
@@ -123,20 +142,23 @@ public class Donjon
                 coordY = Integer.parseInt(coordonne.substring(1)) - 1;
                 
                 if (coordonneValide(coordX, coordY)) {
-                    if (entite instanceof Monstre) {
-                        m_carte[coordY][coordX] = ";-;";
-                    } 
-                    else 
+                    int[] pos = {coordY,coordX};
+                    if (getValeurEmplacement(pos) == 1)
                     {
-                        if (nomEntite.length() >= 3) {
-                            m_carte[coordY][coordX] = nomEntite.substring(0, 3);
-                        } else {
-                            m_carte[coordY][coordX] = nomEntite;
+                        if (entite instanceof Monstre) {
+                            m_carte[coordY][coordX] = "uwu";
+                        } 
+                        else 
+                        {
+                            if (nomEntite.length() >= 3) {
+                                m_carte[coordY][coordX] = nomEntite.substring(0, 3);
+                            } else {
+                                m_carte[coordY][coordX] = nomEntite;
+                            }
                         }
+                        entite.setPos(pos);
+                        valide = true;
                     }
-                    int[] pos = {coordX, coordY};
-                    entite.setPos(pos);
-                    valide = true;
                 }
                                 
                 if (!valide) {

@@ -28,6 +28,8 @@ public class Main {
         Donjon carte = new Donjon();
         carte.afficherCarte();
         carte.placerEntite(perso);
+        carte.placerObstacle();
+        carte.placerObstacle();
         carte.placerEntite(leMonstre);
         carte.afficherCarte();
     }
