@@ -1,5 +1,7 @@
 package donjonDragon.plateau;
 
+import donjonDragon.entite.*;
+
 import java.io.*; 
 
 public class Donjon
@@ -77,7 +79,7 @@ public class Donjon
             {
                 valide = false;
                 int coordX=0, coordY=0;
-                String coordonne = System.console().readLine("Insérer les coordonnées de l'obstacle (au format <lettre><numéro>: ");
+                String coordonne = System.console().readLine("Insérer les coordonnées de l'obstacle (au format <lettre><numéro>): ");
                 char lettre = coordonne.charAt(0);
                 
                 coordX = coordonneX(lettre);
@@ -85,6 +87,55 @@ public class Donjon
                 
                 if (coordonneValide(coordX, coordY)) {
                     m_carte[coordY][coordX] = "[ ]";
+                    valide = true;
+                }
+                                
+                if (!valide) {
+                    System.out.println("Erreur: coordonnées mauvaises");
+                }
+            } catch (Exception erreur) {
+                System.out.println("Veuillez insérer les coordonnées dans le bon format!");
+            }
+        }
+    }
+    
+    public void placerEntite(Entite entite)
+    {
+        boolean valide = false;
+        while (!valide)
+        {
+            try 
+            {
+                valide = false;
+                int coordX=0, coordY=0;
+                String nomEntite;
+                if (entite instanceof Personnage) {
+                    nomEntite = entite.getNom();
+                } else {
+                    Monstre temp = (Monstre) entite;
+                    nomEntite = temp.getEspece();
+                }
+                
+                String coordonne = System.console().readLine("Postionnez l'entité " + nomEntite + " (au format <lettre><numéro>): ");
+                char lettre = coordonne.charAt(0);
+                
+                coordX = coordonneX(lettre);
+                coordY = Integer.parseInt(coordonne.substring(1)) - 1;
+                
+                if (coordonneValide(coordX, coordY)) {
+                    if (entite instanceof Monstre) {
+                        m_carte[coordY][coordX] = ";-;";
+                    } 
+                    else 
+                    {
+                        if (nomEntite.length() >= 3) {
+                            m_carte[coordY][coordX] = nomEntite.substring(0, 3);
+                        } else {
+                            m_carte[coordY][coordX] = nomEntite;
+                        }
+                    }
+                    int[] pos = {coordX, coordY};
+                    entite.setPos(pos);
                     valide = true;
                 }
                                 

@@ -23,9 +23,12 @@ public class Main {
 //         String chaine = System.console.readline("Entrez quelque chose v2\n");
 //         System.out.println(chaine);
 
+        Entite perso = new Personnage("Jean", new Clerc(), new Halfelin(), 20, 18, 4, 1, 5, 2);
+        Entite leMonstre = new Monstre("Dragon", 0, new De(1,6), 3, 20, 5, 0, 4, 2, 8);
         Donjon carte = new Donjon();
         carte.afficherCarte();
-        carte.placerObstacle();
+        carte.placerEntite(perso);
+        carte.placerEntite(leMonstre);
         carte.afficherCarte();
     }
 }
