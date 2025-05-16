@@ -41,7 +41,7 @@ public class Donjon
         {
             for (int j=0; j<m_taille; j++)
             {
-                carte[i][j] = ".";
+                carte[i][j] = " . ";
             }
         }
         return carte;
@@ -107,15 +107,15 @@ public class Donjon
         for (int i=0; i<m_taille; i++)
         {
             if (i < 9) {
-                carte += (i+1) + "  |";
+                carte += (i+1) + "  | ";
             } else {
-                carte += (i+1) + " |";
+                carte += (i+1) + " | ";
             }
             for (int j=0; j<m_taille; j++)
             {
-                carte += "  " + m_carte[i][j];
+                carte += m_carte[i][j];
             }
-            carte += "  |\n";
+            carte += " |\n";
         }
         
         carte += "   *";
