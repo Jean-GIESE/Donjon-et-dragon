@@ -23,7 +23,7 @@ public abstract class Equipement
     }
     public void positionnerEquipement(Donjon donjon, int[]pos)
     {
-        if (donjon.getCarte()[pos[0]][pos[1]].equals(".") || donjon.getCarte()[pos[0]][pos[1]].equals("*")) {
+        if (donjon.getCarte()[pos[0]][pos[1]].equals(" . ") || donjon.getCarte()[pos[0]][pos[1]].equals(" * ")) {
             setPos(pos);
         } else {
             System.out.println("Cette endroit est occupé !");

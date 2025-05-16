@@ -63,7 +63,7 @@ public abstract class Entite
     {
         if(pos[0]-m_vitesse>=0 && pos[1]-m_vitesse>=0)
         {
-            if (donjon.getCarte()[pos[0]][pos[1]].equals(".") || donjon.getCarte()[pos[0]][pos[1]].equals("*")) {
+            if (donjon.getCarte()[pos[0]][pos[1]].equals(" . ") || donjon.getCarte()[pos[0]][pos[1]].equals(" * ")) {
                 setPos(pos);
             } else {
                 System.out.println("Cette endroit est occupé !");
