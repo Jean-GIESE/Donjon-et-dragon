@@ -164,12 +164,16 @@ abstract Equipement<<abstract>>
 +positionnerEquipement(donjon:Donjon,pos:Integer[*])
 +toString():String
 }
+'--- Relations d'appel ---
+Equipement .> Donjon : "«call»"
 class Armure
 {
 -m_classeArmure:Integer
 +«Create» Armure(nom:Integer,classeArmure,est_lourd:Boolean): Armure
 +getClasse():Integer
 }
+'--- Relations d'appel ---
+Armure .> Equipement : "«call»"
 class Arme
 {
 -m_degat:De
@@ -178,6 +182,9 @@ class Arme
 +getDegat():De
 +getPortee():Integer
 }
+'--- Relations d'appel ---
+Arme .> Equipement : "«call»"
+Arme .> De : "«call»"
 /'Définitions des relations'/
 Armure -up-|> Equipement
 Arme -up-|> Equipement
