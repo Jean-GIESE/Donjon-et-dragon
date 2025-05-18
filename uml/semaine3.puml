@@ -6,11 +6,14 @@ package "entite"
 /'Définitions des classes'/
 abstract Entite<<abstract>>
 {
+#m_pvMax : Integer
 #m_pv : Integer
 #m_force : Integer
 #m_dexterite : Integer
 #m_vitesse : Integer
 #m_initiative : Integer
+#m_enVie : Boolean
+#m_pos : Integer[*]
 
 +getPvMax():Integer
 +getPv():Integer
@@ -18,10 +21,13 @@ abstract Entite<<abstract>>
 +getDexterite():Integer
 +getVitesse():Integer
 +getInitiative():Integer
++getClasseArmure():Integer {abstract}
++getNom():String {abstract}
 +setPv(pv:Integer)
-+attaquer()
-+seDeplacer()
-+toString():String
++setEnVie(vie:Boolean)
++attaquer(cible:Entite) {abstract}
++seDeplacer(donjon:Donjon,pos:Integer[*])
++toString():String {abstract}
 
 }
 class Personnage
@@ -33,8 +39,8 @@ class Personnage
 -m_arme : Arme
 -m_armure : Armure
 
-+«Create» Personnage(): Personnage
-+sEquiper(): Void
++«Create» Personnage(nom:String,classe:Classe,race:Race,pvMax:Integer,pv:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer): Personnage
++sEquiper(objet:Equipement): Void
 +ramasser(): Void
 +getNom():String
 +getRace():Race
@@ -42,6 +48,8 @@ class Personnage
 +getInventaire():Equipement[*]
 +getArme():Arme
 +getArmure():Armure
++getClasseArmure():Integer
++attaquer(cible:Entite)
 +toString():String
 
 }
@@ -52,8 +60,12 @@ class Monstre
 -m_degat : De
 -m_portee : Integer
 -m_classeArmure : Integer
++«Create» Monstre(espece:String,numero:Integer,degat:De,portee:Integer,pvMax:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer,classeArmure:Integer): Monstre
 +getEspece():String
 +getNumero():Integer
++getClasseArmure():Integer
++getNom():String
++attaquer(cible:Entite)
 +toString():String
 
 }
@@ -63,7 +75,7 @@ abstract Classe<<abstract>>
 {
 #m_nom:String
 #m_pv:Integer
-#m_equipementDepart:Equipement[*]
+#m_equipementDepart:Equipement
 
 +getPv():Integer
 +toString():String
@@ -143,21 +155,27 @@ abstract Equipement<<abstract>>
 {
 #m_nom:String
 #m_lourd:Boolean
+#m_pos:Integer[*]
 
 +getNom():String
 +getLourd():Boolean
++setPos(pos:Integer[*])
++positionnerEquipement(donjon:Donjon,pos:Integer[*])
 +toString():String
 }
 class Armure
 {
 -m_classeArmure:Integer
-+«Create» Armure(): Armure
++«Create» Armure(nom:Integer,classeArmure,est_lourd:Boolean): Armure
++getClasse():Integer
 }
 class Arme
 {
 -m_degat:De
 -m_portee:Integer
-+«Create» Armure(): Armure
++«Create» Armure(nom:String,portee:Integer,est_lourd:Boolean): Armure
++getDegat():De
++getPortee():Integer
 }
 /'Définitions des relations'/
 Armure -up-|> Equipement
@@ -166,15 +184,36 @@ Arme -up-|> Equipement
 package "plateau"
 {
 /'Définitions des classes'/
-
+class Donjon
+{
+-m_taille:Integer
+-m_carte:String[*][*]
+-m_monstres:ArrayList<Monstre>
++«Create» Donjon(): Donjon
++«Create» Donjon(taille:Integer): Donjon
++creerCarte():Integer
++initialiserCarte():String[*][*]
++cordonneX(lettreX:char):Integer
++cordonneValide(coordX:Integer,coordY:Integer):Boolean
++getValeurEmplacement(pos:Integer[*]):Integer
++placerObstacle()
++placerEntite(entite:Entite)
++placerEquipement(objet:Equipement)
++donjonDefaut(persos:ArrayList<Personnage>,objets:ArrayList<Equipement>,monstres:ArrayList<Monstre>)
++afficherCarte()
++getCarte():String[*][*]
++getMonstres():ArrayList<Monstre>
++addMonstres()
+}
 /'Définitions des relations'/
 }
 class De
 {
 -m_nombre:Integer
 -m_face:Integer
-+Lancer():Integer
-+«Create» De(): De
++«Create» De(nombre:Integer,face:Integer): De
++lancer():Integer
++toString():String
 }
 
 @enduml
