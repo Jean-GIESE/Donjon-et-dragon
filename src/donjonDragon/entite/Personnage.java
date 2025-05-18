@@ -136,8 +136,8 @@ public class Personnage extends Entite{
     {
         String texte = m_nom + "\n\t";
         texte += "Vie: " + m_pv + "/" + m_pvMax + "\n\t";
-        texte += "Armure: " + m_armure.toString() + "\n\t";
-        texte += "Arme: " + m_arme.toString() + "\n\t";
+        texte += "Armure: " + (m_armure != null ? m_armure.toString() : "Aucune") + "\n\t";
+        texte += "Arme: " + (m_armure != null ? m_arme.toString() : "Aucune") + "\n\t";
         texte += "Inventaire: [" + m_inventaire.size() + "] ";
         for (int i=0; i<m_inventaire.size(); i++)
         {
