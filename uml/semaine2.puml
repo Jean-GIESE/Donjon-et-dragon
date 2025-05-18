@@ -1,6 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
-
+package "donjonDragon"
+{
 package "entite"
 {
 /'Définitions des classes'/
@@ -187,12 +188,16 @@ abstract Equipement<<abstract>>
 +positionnerEquipement(donjon:Donjon,pos:Integer[*])
 +toString():String
 }
+'--- Relations d'appel ---
+Equipement .> Donjon : "«call»"
 class Armure
 {
 -m_classeArmure:Integer
 +«Create» Armure(nom:Integer,classeArmure,est_lourd:Boolean): Armure
 +getClasse():Integer
 }
+'--- Relations d'appel ---
+Armure .> Equipement : "«call»"
 class Arme
 {
 -m_degat:De
@@ -201,6 +206,9 @@ class Arme
 +getDegat():De
 +getPortee():Integer
 }
+'--- Relations d'appel ---
+Arme .> Equipement : "«call»"
+Arme .> De : "«call»"
 /'Définitions des relations'/
 Armure -up-|> Equipement
 Arme -up-|> Equipement
@@ -212,13 +220,13 @@ class Donjon
 {
 -m_taille:Integer
 -m_carte:String[*][*]
--m_monstres:ArrayList<Monstre>
+-m_monstres:Donjon[*]
 +«Create» Donjon(): Donjon
 +«Create» Donjon(taille:Integer): Donjon
 +creerCarte():Integer
 +initialiserCarte():String[*][*]
 +cordonneX(lettreX:char):Integer
-+cordonneValide(coordX:Integer,coordY:Integer):Boolean
++cordonneValide(coordX:Integer,coordY:Integer):Booleans
 +getValeurEmplacement(pos:Integer[*]):Integer
 +placerObstacle()
 +placerEntite(entite:Entite)
@@ -230,6 +238,14 @@ class Donjon
 +addMonstres()
 }
 /'Définitions des relations'/
+'--- Relations d'appel ---
+Donjon .> Entite : "«call»"
+Donjon .> Equipement : "«call»"
+Donjon .> Monstre : "«call»"
+Donjon .> Personnage : "«call»"
+
+'--- Agrégations ---
+Donjon "1" o--> "0..*\n-m_monstres" Monstre : contient
 }
 class De
 {
@@ -238,6 +254,48 @@ class De
 +«Create» De(nombre:Integer,face:Integer): De
 +lancer():Integer
 +toString():String
+}
+class Jeu
+{
+-m_donjons : Donjon[*]
+-m_donjonActuel : int
+-m_joueurs : Personnage[*]
+-m_scanner :
+
++«Create» Jeu(joueurs : Personnage[*]) : Jeu
++lancerPartie() : void
++proposerMiseEnPlace(donjon : Donjon) : void
++calculerInitiative(donjon : Donjon) : Entite[*]
++gererTourPersonnage(joueur : Personnage, donjon : Donjon) : void
++gererTourMonstre(monstre : Monstre, donjon : Donjon) : void
++donjonEstTermine(donjon : Donjon) : boolean
++restaurerVieJoueurs() : void
++auMoinsUnJoueurMort() : boolean
++afficherDefaite() : void
++afficherVictoire() : void
+}
+/'Définitions des relations'/
+' --- Relations d'appel ---
+Jeu .> Donjon : "«call»"
+Jeu .> Personnage : "«call»"
+Jeu .> Monstre : "«call»"
+Jeu .> Entite : "«call»"
+Jeu .> Armure : "«call»"
+Jeu .> Arme : "«call»"
+Jeu .> Scanner : "«call»"
+Jeu .> De : "«call»"
+
+' --- Relations d'instanciation ---
+Jeu .> Donjon : "«instantiate»"
+Jeu .> Armure : "«instantiate»"
+Jeu .> Arme : "«instantiate»"
+Jeu .> Monstre : "«instantiate»"
+Jeu .> De : "«instantiate»"
+Jeu .> Scanner : "«instantiate»"
+
+' --- Agrégations ---
+Jeu "1" *--> "3\n-m_donjons" Donjon : contient
+Jeu "1" o--> "1..*\n-m_joueurs" Personnage : se joue avec
 }
 
 @enduml
