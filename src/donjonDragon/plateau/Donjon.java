@@ -147,16 +147,20 @@ public class Donjon
                     int[] pos = {coordY,coordX};
                     if (getValeurEmplacement(pos) == 1)
                     {
-                        if (entite instanceof Monstre) {
-                            m_carte[coordY][coordX] = "uwu";
-                        } 
-                        else 
-                        {
-                            if (nomEntite.length() >= 3) {
-                                m_carte[coordY][coordX] = nomEntite.substring(0, 3);
-                            } else {
-                                m_carte[coordY][coordX] = nomEntite;
-                            }
+                        switch (entite.getType()) {
+                            case MONSTRE:
+                                m_carte[coordY][coordX] = "uwu";
+                                break;
+                            case JOUEUR:
+                                if (nomEntite.length() >= 3) {
+                                    m_carte[coordY][coordX] = nomEntite.substring(0, 3);
+                                } else {
+                                    m_carte[coordY][coordX] = nomEntite;
+                                }
+                                break;
+                            default:
+                                m_carte[coordY][coordX] = " ??? ";
+                                break;
                         }
                         entite.setPos(pos);
                         valide = true;
