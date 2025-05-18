@@ -4,6 +4,7 @@ import donjonDragon.De;
 import donjonDragon.entite.classe.*;
 import donjonDragon.entite.race.*;
 import donjonDragon.equipement.*;
+import donjonDragon.plateau.Donjon;
 
 import java.util.ArrayList;
 
@@ -57,9 +58,19 @@ public class Personnage extends Entite{
         }
     }
     
-    public void ramasser()
+    public void ramasser(Donjon donjon, Equipement e)
     {
-    
+        if (e == null) {
+            System.out.println("Il n'y a rien à ramasser ici.");
+        }
+        else{
+            m_inventaire.add(e);
+            System.out.println(getNom() + " ramasse " + e.getNom() + ".");
+            int[] pos = e.getPos();
+            donjon.getCarte()[pos[0]][pos[1]] = " . ";
+            e.setPosNull();
+        }
+
     }
     @Override
     public String getNom()
