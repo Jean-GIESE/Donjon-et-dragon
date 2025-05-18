@@ -34,6 +34,7 @@ public class Personnage extends Entite{
         m_armure = null;
         m_enVie = true;
         m_pos=new int[2];
+        m_type=TypeEntite.JOUEUR;
     }
     
     public void sEquiper(Equipement objet)
