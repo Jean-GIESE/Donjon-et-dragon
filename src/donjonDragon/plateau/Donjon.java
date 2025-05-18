@@ -80,11 +80,11 @@ public class Donjon
     
     public int getValeurEmplacement(int[] pos)
     {
-        if (m_carte[pos[0]][pos[1]] == " . ")
+        if (m_carte[pos[0]][pos[1]].equals(" . "))
         {
             return 1;
         }
-        else if (m_carte[pos[0]][pos[1]] == " * ")
+        else if (m_carte[pos[0]][pos[1]].equals(" * "))
         {
             return 2;
         }
