@@ -21,6 +21,12 @@ public abstract class Equipement
         m_pos[0]=pos[0];
         m_pos[1]=pos[1];
     }
+    public void setPosNull(){
+        m_pos=null;
+    }
+    public int[] getPos(){
+        return m_pos;
+    }
     public void positionnerEquipement(Donjon donjon, int[]pos)
     {
         if (donjon.getCarte()[pos[0]][pos[1]].equals(" . ") || donjon.getCarte()[pos[0]][pos[1]].equals(" * ")) {

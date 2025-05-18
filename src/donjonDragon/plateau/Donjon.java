@@ -3,18 +3,19 @@ package donjonDragon.plateau;
 import donjonDragon.entite.*;
 import donjonDragon.equipement.*;
 
-import java.io.*; 
 import java.util.ArrayList;
 
 public class Donjon
 {
     private int m_taille;
     private String[][] m_carte;
+    private ArrayList<Monstre>m_monstres;
     
     public Donjon()
     {
         m_taille = this.creerCarte();
         m_carte = this.initialiserCarte();
+        m_monstres= new ArrayList<Monstre>();
     }
     
     public Donjon(int taille)
@@ -80,11 +81,11 @@ public class Donjon
     
     public int getValeurEmplacement(int[] pos)
     {
-        if (m_carte[pos[0]][pos[1]] == " . ")
+        if (m_carte[pos[0]][pos[1]].equals(" . "))
         {
             return 1;
         }
-        else if (m_carte[pos[0]][pos[1]] == " * ")
+        else if (m_carte[pos[0]][pos[1]].equals(" * "))
         {
             return 2;
         }
@@ -147,16 +148,20 @@ public class Donjon
                     int[] pos = {coordY,coordX};
                     if (getValeurEmplacement(pos) == 1)
                     {
-                        if (entite instanceof Monstre) {
-                            m_carte[coordY][coordX] = "uwu";
-                        } 
-                        else 
-                        {
-                            if (nomEntite.length() >= 3) {
-                                m_carte[coordY][coordX] = nomEntite.substring(0, 3);
-                            } else {
-                                m_carte[coordY][coordX] = nomEntite;
-                            }
+                        switch (entite.getType()) {
+                            case MONSTRE:
+                                m_carte[coordY][coordX] = "uwu";
+                                break;
+                            case JOUEUR:
+                                if (nomEntite.length() >= 3) {
+                                    m_carte[coordY][coordX] = nomEntite.substring(0, 3);
+                                } else {
+                                    m_carte[coordY][coordX] = nomEntite;
+                                }
+                                break;
+                            default:
+                                m_carte[coordY][coordX] = " ??? ";
+                                break;
                         }
                         entite.setPos(pos);
                         valide = true;
@@ -292,14 +297,12 @@ public class Donjon
     {
         return m_carte;
     }
-    public void setCarte(String[][]carte)
+    public ArrayList<Monstre> getMonstres()
     {
-        for (int i=0; i<m_taille; i++)
-        {
-            for (int j=0; j<m_taille; j++)
-            {
-                m_carte[i][j] = carte[i][j];
-            }
-        }
+        return m_monstres;
+    }
+    public void addMonstres()
+    {
+        // à implémenter
     }
 }

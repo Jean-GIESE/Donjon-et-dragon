@@ -4,6 +4,7 @@ import donjonDragon.De;
 import donjonDragon.entite.classe.*;
 import donjonDragon.entite.race.*;
 import donjonDragon.equipement.*;
+import donjonDragon.plateau.Donjon;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class Personnage extends Entite{
         m_armure = null;
         m_enVie = true;
         m_pos=new int[2];
+        m_type=TypeEntite.JOUEUR;
     }
     
     public void sEquiper(Equipement objet)
@@ -57,9 +59,22 @@ public class Personnage extends Entite{
         }
     }
     
-    public void ramasser()
+    public void ramasser(Donjon donjon, Equipement e)
     {
-    
+        if (e == null) {
+            System.out.println("Il n'y a rien à ramasser ici.");
+        }
+        else{
+            m_inventaire.add(e);
+            System.out.println(getNom() + " ramasse " + e.getNom() + ".");
+            int[] pos = e.getPos();
+            donjon.getCarte()[pos[0]][pos[1]] = " . ";
+            e.setPosNull();
+        }
+
+    }
+    public void choisirEquipementDepart(){
+        // à implémenter
     }
     @Override
     public String getNom()
@@ -136,8 +151,8 @@ public class Personnage extends Entite{
     {
         String texte = m_nom + "\n\t";
         texte += "Vie: " + m_pv + "/" + m_pvMax + "\n\t";
-        texte += "Armure: " + m_armure.toString() + "\n\t";
-        texte += "Arme: " + m_arme.toString() + "\n\t";
+        texte += "Armure: " + (m_armure != null ? m_armure.toString() : "Aucune") + "\n\t";
+        texte += "Arme: " + (m_armure != null ? m_arme.toString() : "Aucune") + "\n\t";
         texte += "Inventaire: [" + m_inventaire.size() + "] ";
         for (int i=0; i<m_inventaire.size(); i++)
         {

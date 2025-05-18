@@ -4,6 +4,10 @@ import donjonDragon.plateau.Donjon;
 
 public abstract class Entite
 {
+    public enum TypeEntite {
+        JOUEUR,
+        MONSTRE
+    }
     protected  int m_pvMax;
     protected int m_pv;
     protected int m_force;
@@ -12,6 +16,7 @@ public abstract class Entite
     protected int m_initiative;
     protected  boolean m_enVie;
     protected  int[] m_pos;
+    protected TypeEntite m_type;
 
     public int getPvMax()
     {
@@ -43,6 +48,9 @@ public abstract class Entite
     }
     public abstract int getClasseArmure();
     public abstract String getNom();
+    public boolean estEnVie() {
+        return m_enVie;
+    }
     public void setPv(int pv)
     {
         m_pv=pv;
@@ -57,6 +65,10 @@ public abstract class Entite
     }
 
     public abstract void attaquer(Entite cible);
+
+    public TypeEntite getType() {
+        return m_type;
+    }
 
 
     public void seDeplacer(Donjon donjon, int[]pos)
