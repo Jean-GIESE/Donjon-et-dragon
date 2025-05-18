@@ -147,6 +147,30 @@ Humain -up-|> Race
 Halfelin -up-|> Race
 Nain -up-|> Race
 
+Classe -> Equipement : «call»
+Classe -> Arme : «call»
+Classe -> Armure : «call»
+
+Entite -> Donjon : «call»
+Monstre -> De : «call»
+
+Personnage -> De : «call»
+Personnage -> Classe : «call»
+Personnage -> Clerc : «call»
+Personnage -> Classe : «call»
+Personnage -> Guerrier : «call»
+Personnage -> Magicien : «call»
+Personnage -> Roublard : «call»
+Personnage -> Elfe : «call»
+Personnage -> Halfelin : «call»
+Personnage -> Humain : «call»
+Personnage -> Nain : «call»
+Personnage -> Race : «call»
+Personnage -> Equipement : «call»
+Personnage -> Arme : «call»
+Personnage -> Armure : «call»
+Personnage -> Donjon : «call»
+
 }
 package "equipement"
 {
