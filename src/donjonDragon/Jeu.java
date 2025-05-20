@@ -117,10 +117,9 @@ public class Jeu {
         entites.addAll(donjon.getMonstres());
 
         entites.sort((a, b) -> {
-            De de1 = new De(1, a.getInitiative());
-            De de2 = new De(1, b.getInitiative());
-            int initiativeA = de1.lancer();
-            int initiativeB = de2.lancer();
+            De UnDeVingt = new De(1, 20);
+            int initiativeA = UnDeVingt.lancer()+a.getInitiative();
+            int initiativeB = UnDeVingt.lancer()+b.getInitiative();
             return Integer.compare(initiativeB, initiativeA);
         });
 
