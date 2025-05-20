@@ -15,6 +15,7 @@ public class Arme extends Equipement
         m_portee = portee;
         m_lourd = est_lourd;
         m_pos=new int[2];
+        m_type=TypeEntite.ARME;
     }
     
     public De getDegat()
