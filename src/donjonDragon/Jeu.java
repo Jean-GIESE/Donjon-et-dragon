@@ -93,6 +93,7 @@ public class Jeu {
             equipementsParDefaut.add(new Arme("Arbalète légère", new De(1, 8), 16, false));
             equipementsParDefaut.add(new Arme("Fronde", new De(1, 4), 6, false));
             equipementsParDefaut.add(new Arme("Arc court",  new De(1, 6), 16, false));
+            equipementsParDefaut.add(new Arme("l'épée à deux mains", new De(2,6), 1,true));
             ArrayList<Monstre> monstresParDefaut = new ArrayList<>();
             monstresParDefaut.add(new Monstre("Gobelin", 0, new De(1, 4), 1, 6, 1, 2, 2, 1, 8));
             monstresParDefaut.add(new Monstre("Gobelin", 1, new De(1, 4), 1, 6, 1, 2, 2, 1, 8));
