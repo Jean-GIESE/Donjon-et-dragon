@@ -5,9 +5,8 @@ import donjonDragon.entite.Entite;
 import java.util.ArrayList;
 
 public class ArmeMagique implements Sort{
-
-    public void lancer()
-    {
+    @Override
+    public void lancer(ArrayList<Entite> entites) {
 
     }
 }

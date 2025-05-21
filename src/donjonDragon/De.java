@@ -21,7 +21,7 @@ public class De
     
     public int lancer()
     {
-        System.out.println("Lancer "+m_nombre+" dé(s) de "+m_face);
+        System.out.println("Lancer "+m_nombre+" dé(s) de "+m_face+" (appuyer sur entré)");
         m_scanner.nextLine();
         String to_print="Vous avez fait ";
         int total=0;
