@@ -15,6 +15,7 @@ public class De
     {
         m_nombre = nombre;
         m_face = face;
+        m_scanner = new Scanner(System.in);
     }
 
     
