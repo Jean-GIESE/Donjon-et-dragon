@@ -160,7 +160,7 @@ public class Donjon
                                 }
                                 break;
                             default:
-                                m_carte[coordY][coordX] = " ??? ";
+                                m_carte[coordY][coordX] = "???";
                                 break;
                         }
                         entite.setPos(pos);

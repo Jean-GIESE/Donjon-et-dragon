@@ -41,21 +41,24 @@ public class Personnage extends Entite{
     {
         for (int i=0; i<m_inventaire.size(); i++)
         {
-            if (objet == m_inventaire.get(i))
+            if (objet.getNom().equals(m_inventaire.get(i).getNom()))
             {
-                if (objet instanceof Arme)
-                {
-                    m_inventaire.add(m_arme);
-                    m_arme = (Arme) objet;
-                    m_inventaire.remove(i);
-                }
-                else
-                {
-                    m_inventaire.add(m_armure);
-                    m_armure = (Armure) objet;
-                    m_inventaire.remove(i);
+                switch (objet.getType()) {
+                    case ARME:
+                        m_inventaire.add(m_arme);
+                        m_arme = (Arme) objet;
+                        m_inventaire.remove(i);
+                        break;
+                    case ARMURE:
+                        m_inventaire.add(m_armure);
+                        m_armure = (Armure) objet;
+                        m_inventaire.remove(i);
+                        break;
+                    default:
+                        break;
                 }
             }
+            
         }
     }
     

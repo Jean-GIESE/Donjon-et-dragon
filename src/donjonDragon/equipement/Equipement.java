@@ -4,9 +4,15 @@ import donjonDragon.plateau.Donjon;
 
 public abstract class Equipement
 {
+    public enum TypeEntite {
+        ARME,
+        ARMURE
+    }
+    
     protected String m_nom;
     protected boolean m_lourd;
     protected int[] m_pos;
+    protected TypeEntite m_type;
     
     public boolean getLourd()
     {
@@ -26,6 +32,9 @@ public abstract class Equipement
     }
     public int[] getPos(){
         return m_pos;
+    }
+    public TypeEntite getType() {
+        return m_type;
     }
     public void positionnerEquipement(Donjon donjon, int[]pos)
     {
