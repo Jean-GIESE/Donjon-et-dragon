@@ -297,6 +297,10 @@ public class Donjon
     {
         return m_carte;
     }
+    public int getTaille()
+    {
+        return m_taille;
+    }
     public ArrayList<Monstre> getMonstres()
     {
         return m_monstres;
