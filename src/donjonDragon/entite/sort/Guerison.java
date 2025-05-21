@@ -22,9 +22,11 @@ public class Guerison implements Sort{
         int resSoin = UnDeDix.lancer();
         if(cible.getPv()+resSoin>cible.getPvMax()){
             cible.setPv(cible.getPvMax());
+            System.out.println(cible.getNom()+" a été entièrement soigné ! Ses pv sont à son maximum ! ("+cible.getPvMax()+")");
         }
         else{
             cible.setPv(cible.getPv()+resSoin);
+            System.out.println(cible.getNom()+" a été soigné ! Ses pv sont à "+cible.getPv()+"/"+cible.getPvMax());
         }
     }
     public void listPerso(ArrayList<Entite> persos)
