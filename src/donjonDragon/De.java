@@ -1,11 +1,13 @@
 package donjonDragon;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class De
 {
     private int m_nombre;
     private int m_face;
+    private Scanner m_scanner;
 
     Random rand = new Random();
     
@@ -13,13 +15,14 @@ public class De
     {
         m_nombre = nombre;
         m_face = face;
+        m_scanner = new Scanner(System.in);
     }
 
     
     public int lancer()
     {
-        System.out.println("Lancer "+m_nombre+" dé(s) de "+m_face+" (appuyer sur Entré)");
-        System.console().readLine();
+        System.out.println("Lancer "+m_nombre+" dé(s) de "+m_face+" (appuyer sur entré)");
+        m_scanner.nextLine();
         String to_print="Vous avez fait ";
         int total=0;
         int res=0;
