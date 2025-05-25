@@ -25,6 +25,7 @@ public class BoogieWoogie implements Sort{
         for (int i=0;i<Entite.size();i++)
         {
             System.out.println((i+1)+" - "+Entite.get(i));
+
         }
     }
 }
