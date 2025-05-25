@@ -160,10 +160,10 @@ public class Personnage extends Entite{
         for (int i=0; i<m_inventaire.size(); i++)
         {
             if (i == (m_inventaire.size() - 1)) {
-                texte += m_inventaire.get(i) + "\n\t";
+                texte += m_inventaire.get(i).getNom() + "\n\t";
             }
             else {
-                texte += m_inventaire.get(i) + ", ";
+                texte += m_inventaire.get(i).getNom() + ", ";
             }
         }
         texte += "Force: " + m_force + "\n\t";

@@ -11,7 +11,7 @@ public class Armure extends Equipement
         m_classeArmure = classeArmure;
         m_lourd = est_lourd;
         m_pos=new int[2];
-        m_type=TypeEntite.ARMURE;
+        m_type=TypeEquipement.ARMURE;
     }
     
     public int getClasse()

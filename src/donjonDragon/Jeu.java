@@ -25,7 +25,7 @@ public class Jeu {
 
         // Création des 3 donjons
         for (int i = 0; i < 3; i++) {
-            m_donjons.add(new Donjon());
+            m_donjons.add(null);
         }
     }
 
@@ -36,12 +36,13 @@ public class Jeu {
             Donjon donjon = m_donjons.get(m_donjonActuel);
             System.out.println("\n--- Donjon " + (m_donjonActuel + 1) + " ---");
 
-            proposerMiseEnPlace(donjon);
-            ArrayList<Entite> initiativeOrder = calculerInitiative(donjon);
+            donjon = proposerMiseEnPlace();
+            for (Personnage p : m_joueurs) p.choisirEquipementDepart(); // à implémenter
+            ArrayList<Entite> initiativeOrdre = calculerInitiative(donjon);
 
             boolean donjonTermine = false;
             while (!donjonTermine) {
-                for (Entite entite : initiativeOrder) {
+                for (Entite entite : initiativeOrdre) {
                     if (auMoinsUnJoueurMort()) {
                         afficherDefaite();
                         return;
@@ -77,7 +78,7 @@ public class Jeu {
         }
     }
 
-    public void proposerMiseEnPlace (Donjon donjon){
+    public Donjon proposerMiseEnPlace (){
         System.out.print("Souhaitez-vous une mise en place automatique ? (oui/non) : ");
         String choix = m_scanner.nextLine().trim().toLowerCase();
         if (choix.equals("oui")) {
@@ -101,14 +102,33 @@ public class Jeu {
             monstresParDefaut.add(new Monstre("Squelette", 1, new De(1, 6), 1, 8, 2, 2, 1, 1, 7));
             monstresParDefaut.add(new Monstre("Orc", 0, new De(1, 8), 2, 12, 3, 3, 2, 2, 12));
             monstresParDefaut.add(new Monstre("Ogre", 0, new De(2, 6), 3, 20, 4, 2, 1, 3, 15));
-
+            
+            Donjon donjon = new Donjon(20);
             donjon.donjonDefaut(m_joueurs,equipementsParDefaut,monstresParDefaut );
+            return donjon;
         } else {
+            Donjon donjon = new Donjon();
             for (Personnage p : m_joueurs) donjon.placerEntite(p);
+            
+            boolean valide = false;
+            int choix2;
+            while (!valide) {
+                try {
+                    System.out.println("Combien de monstres souhaitez-vous introduire (pas plus de " + (donjon.getTaille() - 5) + ") : ");
+                    choix2 = m_scanner.nextLine().trim().toLowerCase();
+                    if ((0 <= choix2) && (choix2 <= (donjon.getTaille() - 5)) {
+                        valide = true;
+                    } else {
+                        System.out.println("Erreur: nombres de monstres faux");
+                } catch (NumberFormatException e) {
+                System.out.println("Erreur: Il faut entrer un nombre!");
+                }
+            }
             // creation et ajout des monstres dans le donjon à implémenter
             //for (Monstre m : donjon.getMonstres()) donjon.placerEntite(m);
+            
+            return donjon;
         }
-        for (Personnage p : m_joueurs) p.choisirEquipementDepart(); // à implémenter
     }
 
     public ArrayList<Entite> calculerInitiative (Donjon donjon){
