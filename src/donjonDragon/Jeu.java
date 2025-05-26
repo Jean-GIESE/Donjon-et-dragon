@@ -110,22 +110,10 @@ public class Jeu {
             Donjon donjon = new Donjon();
             for (Personnage p : m_joueurs) donjon.placerEntite(p);
             
-            boolean valide = false;
-            int choix2;
-            while (!valide) {
-                try {
-                    System.out.println("Combien de monstres souhaitez-vous introduire (pas plus de " + (donjon.getTaille() - 5) + ") : ");
-                    choix2 = m_scanner.nextLine().trim().toLowerCase();
-                    if ((0 <= choix2) && (choix2 <= (donjon.getTaille() - 5)) {
-                        valide = true;
-                    } else {
-                        System.out.println("Erreur: nombres de monstres faux");
-                } catch (NumberFormatException e) {
-                System.out.println("Erreur: Il faut entrer un nombre!");
-                }
-            }
+            donjon.creerMonstre();
             // creation et ajout des monstres dans le donjon à implémenter
             //for (Monstre m : donjon.getMonstres()) donjon.placerEntite(m);
+            //ajouter les obstacles
             
             return donjon;
         }
