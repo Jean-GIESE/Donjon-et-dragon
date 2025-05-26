@@ -48,6 +48,9 @@ public abstract class Entite
     }
     public abstract int getClasseArmure();
     public abstract String getNom();
+    public int[] getPos(){
+        return m_pos;
+    }
     public boolean estEnVie() {
         return m_enVie;
     }
