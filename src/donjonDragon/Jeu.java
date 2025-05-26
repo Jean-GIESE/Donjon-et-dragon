@@ -115,11 +115,12 @@ public class Jeu {
             while (!valide) {
                 try {
                     System.out.println("Combien de monstres souhaitez-vous introduire (pas plus de " + (donjon.getTaille() - 5) + ") : ");
-                    choix2 = m_scanner.nextLine().trim().toLowerCase();
-                    if ((0 <= choix2) && (choix2 <= (donjon.getTaille() - 5)) {
+                    choix2 = Integer.parseInt(m_scanner.nextLine().trim().toLowerCase());
+                    if ((0 <= choix2) && (choix2 <= (donjon.getTaille() - 5))) {
                         valide = true;
                     } else {
                         System.out.println("Erreur: nombres de monstres faux");
+                    }
                 } catch (NumberFormatException e) {
                 System.out.println("Erreur: Il faut entrer un nombre!");
                 }
