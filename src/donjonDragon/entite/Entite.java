@@ -76,7 +76,7 @@ public abstract class Entite
 
     public Boolean seDeplacer(Donjon donjon, int[]pos)
     {
-        if(pos[0]-m_vitesse>=0 && pos[1]-m_vitesse>=0)
+        if(pos[0]-m_vitesse/3>=0 && pos[1]-m_vitesse/3>=0)
         {
             if (donjon.getCarte()[pos[0]][pos[1]].equals(" . ") || donjon.getCarte()[pos[0]][pos[1]].equals(" * ")) {
                 setPos(pos);
