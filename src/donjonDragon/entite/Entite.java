@@ -74,19 +74,22 @@ public abstract class Entite
     }
 
 
-    public void seDeplacer(Donjon donjon, int[]pos)
+    public Boolean seDeplacer(Donjon donjon, int[]pos)
     {
         if(pos[0]-m_vitesse>=0 && pos[1]-m_vitesse>=0)
         {
             if (donjon.getCarte()[pos[0]][pos[1]].equals(" . ") || donjon.getCarte()[pos[0]][pos[1]].equals(" * ")) {
                 setPos(pos);
+                return true;
             } else {
                 System.out.println("Cette endroit est occupé !");
+                return false;
             }
         }
         else
         {
             System.out.println("Vous êtes trop lent pour aller si loin !");
+            return false;
         }
     }
 
