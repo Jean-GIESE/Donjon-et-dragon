@@ -165,7 +165,7 @@ public class Jeu {
                 // à implémenter
                 actions--;
             } else if (input.startsWith("dep ")) {
-                // à implémenter
+
                 actions--;
             } else if (input.equals("ram")) {
                 // à implémenter
