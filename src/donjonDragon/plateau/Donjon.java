@@ -2,6 +2,7 @@ package donjonDragon.plateau;
 
 import donjonDragon.entite.*;
 import donjonDragon.equipement.*;
+import donjonDragon.De;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -313,12 +314,12 @@ public class Donjon
     public void creerMonstre()
     {
         boolean valide = false;
-        int choix = -1;
+        int choix = 0;
         while (!valide) {
             try {
                 System.out.println("Combien de monstres souhaitez-vous introduire (pas plus de " + (m_taille - 5) + ") : ");
                 choix = Integer.parseInt(m_scanner.nextLine().trim());
-                if ((0 <= choix) && (choix <= (m_taille - 5))) {
+                if ((0 < choix) && (choix <= (m_taille - 5))) {
                     valide = true;
                 } else {
                     System.out.println("Erreur: nombres de monstres faux");
@@ -330,6 +331,7 @@ public class Donjon
         
         for (int i=0; i<choix; i++)
         {
+            System.out.println("Monstre n°" + i);
             System.out.println("Insérez le nom du monstre");
             String espece = m_scanner.nextLine().trim();
             int numero=0;
@@ -382,13 +384,45 @@ public class Donjon
                 }
             }
             
+            int force = 0;
+            int dexterite = 0;
+            if (portee == 1)
+            {
+                valide = false;
+                while (!valide) {
+                    try {
+                        System.out.println("insérez la force du monstre");
+                        force = Integer.parseInt(m_scanner.nextLine().trim());
+                        if (force > 0) { valide = true; }
+                        if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur à 0!"); }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erreur: Il faut entrer un nombre!");
+                    }
+                }
+            }
+            
+            else
+            {
+                valide = false;
+                while (!valide) {
+                    try {
+                        System.out.println("insérez la dextérité du monstre");
+                        dexterite = Integer.parseInt(m_scanner.nextLine().trim());
+                        if (dexterite > 0) { valide = true; }
+                        if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0 et qu'il ne soit pas à 0 s'il attaque à distance!"); }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Erreur: Il faut entrer un nombre!");
+                    }
+                }
+            }
+            
             valide = false;
-            int force = -1;
+            int vitesse = -1;
             while (!valide) {
                 try {
-                    System.out.println("insérez la force du monstre (0 s'il attaque à distance)");
-                    force = Integer.parseInt(m_scanner.nextLine().trim());
-                    if (force >= 0) { valide = true; }
+                    System.out.println("insérez la vitesse du monstre (inférieur à 3 si c'est un gros tas qui peut pas bouger :p)");
+                    vitesse = Integer.parseInt(m_scanner.nextLine().trim());
+                    if (vitesse >= 0) { valide = true; }
                     if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0!"); }
                 } catch (NumberFormatException e) {
                     System.out.println("Erreur: Il faut entrer un nombre!");
@@ -396,24 +430,39 @@ public class Donjon
             }
             
             valide = false;
-            int dexterite = -1;
+            int initiative = -1;
             while (!valide) {
                 try {
-                    System.out.println("insérez la dextérité du monstre (0 s'il attaque au corps à corps)");
-                    dexterite = Integer.parseInt(m_scanner.nextLine().trim());
-                    if (dexterite >= 0) { 
-                        if (!(force == 0) && !(dexterite == 0)) { valide = true; }
-                    }
-                    if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0 et qu'il ne soit pas à 0 s'il attaque à distance!"); }
+                    System.out.println("insérez l'initiative du monstre");
+                    initiative = Integer.parseInt(m_scanner.nextLine().trim());
+                    if (initiative >= 0) { valide = true; }
+                    if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0!"); }
                 } catch (NumberFormatException e) {
                     System.out.println("Erreur: Il faut entrer un nombre!");
                 }
             }
+            
+            valide = false;
+            int classeArmure = -1;
+            while (!valide) {
+                try {
+                    System.out.println("insérez la classe d'armure du monstre");
+                    classeArmure = Integer.parseInt(m_scanner.nextLine().trim());
+                    if (classeArmure >= 0) { valide = true; }
+                    if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0!"); }
+                } catch (NumberFormatException e) {
+                    System.out.println("Erreur: Il faut entrer un nombre!");
+                }
+            }
+            
+            Monstre monstreInit = new Monstre(espece, numero, new De(nbDes, nbFaceDes), portee, pvMax, force, dexterite, vitesse, initiative, classeArmure);
+            
+            this.addMonstres(monstreInit);
         }
     }
     
-    public void addMonstres()
+    public void addMonstres(Monstre monstre)
     {
-        // à implémenter
+        m_monstres.add(monstre);
     }
 }
