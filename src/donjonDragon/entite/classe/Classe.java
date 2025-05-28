@@ -2,9 +2,25 @@ package donjonDragon.entite.classe;
 
 import donjonDragon.equipement.*;
 
+import java.util.ArrayList;
+
 public abstract class Classe
 {
-    protected String m_nom;
-    protected int m_pv;
-    protected Equipement m_equipementDepart;
+    private String m_nom;
+    private int m_pv;
+    private ArrayList<Equipement> m_equipementDepart;
+    
+    public Classe(String nom, int pv, ArrayList<Equipement> equipementDepart)
+    {
+        m_nom = nom;
+        m_pv = pv;
+        m_equipementDepart = equipementDepart;
+    }
+    
+    public abstract ArrayList<Equipement> initialiserEquipement();
+    
+    public String toString()
+    {
+        return m_nom;
+    }
 }
