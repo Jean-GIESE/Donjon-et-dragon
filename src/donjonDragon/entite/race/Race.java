@@ -2,11 +2,20 @@ package donjonDragon.entite.race;
 
 public abstract class Race
 {
-    protected int m_pv;
-    protected int m_force;
-    protected int m_dexterite;
-    protected int m_vitesse;
-    protected int m_initiative;
+    private int m_pv;
+    private int m_force;
+    private int m_dexterite;
+    private int m_vitesse;
+    private int m_initiative;
+    
+    public Race(int pv, int force, int dexterite, int vitesse, int initiative)
+    {
+        m_pv = pv;
+        m_force = force;
+        m_dexterite = dexterite;
+        m_vitesse = vitesse;
+        m_initiative = initiative;
+    }
     
     public int getPv()
     {
