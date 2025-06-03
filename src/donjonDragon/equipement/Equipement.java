@@ -3,11 +3,19 @@ package donjonDragon.equipement;
 import donjonDragon.plateau.Donjon;
 
 public abstract class Equipement
-{
-    protected String m_nom;
-    protected boolean m_lourd;
-    protected int[] m_pos;
-    protected TypeEquipement m_type;
+{    
+    private String m_nom;
+    private boolean m_lourd;
+    private int[] m_pos;
+    private TypeEquipement m_type;
+    
+    public Equipement(String nom, boolean est_lourd, int[] pos, TypeEquipement type)
+    {
+        m_nom = nom;
+        m_lourd = est_lourd;
+        m_pos = pos;
+        m_type = type;
+    }
     
     public boolean getLourd()
     {

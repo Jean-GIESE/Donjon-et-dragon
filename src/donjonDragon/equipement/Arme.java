@@ -10,12 +10,9 @@ public class Arme extends Equipement
     
     public Arme(String nom, De degat, int portee, boolean est_lourd)
     {
-        m_nom = nom;
+        super(nom, est_lourd, new int[2], TypeEquipement.ARME);
         m_degat = degat;
         m_portee = portee;
-        m_lourd = est_lourd;
-        m_pos=new int[2];
-        m_type=TypeEquipement.ARME;
     }
     
     public De getDegat()
