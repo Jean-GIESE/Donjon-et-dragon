@@ -85,6 +85,18 @@ public class Position
         m_entite = null;
         this.setTypeEntite(TypeEntite.AUCUN);
     }
+
+    public void miseAJourIcone() {
+        if(m_obstacle){
+            m_icone="[ ]";
+        } else if (m_typeEntite != TypeEntite.AUCUN) {
+            m_icone=m_entite.getIcone();
+        } else if (m_typeEquipement != TypeEquipement.AUCUN) {
+            m_icone=" * ";
+        } else {
+            m_icone=" . ";
+        }
+    }
     
     public String toString()
     {
