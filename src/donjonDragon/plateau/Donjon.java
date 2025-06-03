@@ -28,7 +28,7 @@ public class Donjon
         m_carte = this.initialiserCarte();
         this.m_scanner = new Scanner(System.in);
     }
-        
+    
     public int creerCarte()
     {
         int nb = 0;
