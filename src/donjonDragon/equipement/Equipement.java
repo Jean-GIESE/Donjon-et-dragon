@@ -3,12 +3,7 @@ package donjonDragon.equipement;
 import donjonDragon.plateau.Donjon;
 
 public abstract class Equipement
-{
-    public enum TypeEquipement {
-        ARME,
-        ARMURE
-    }
-    
+{    
     private String m_nom;
     private boolean m_lourd;
     private int[] m_pos;
