@@ -12,6 +12,7 @@ public abstract class Entite
     protected int m_initiative;
     protected  boolean m_enVie;
     protected  int[] m_pos;
+    protected String m_icone;
     protected TypeEntite m_type;
 
     public int getPvMax()
@@ -68,6 +69,8 @@ public abstract class Entite
     public TypeEntite getType() {
         return m_type;
     }
+    public String getIcone(){return  m_icone;};
+    public String setIcone(){return m_icone;};
 
 
     public Boolean seDeplacer(Donjon donjon, int[]pos)
