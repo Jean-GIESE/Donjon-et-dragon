@@ -82,6 +82,24 @@ public abstract class Entite
             return false;
         }
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
 
+        Entite autre = (Entite) obj;
+
+        return m_pvMax == autre.m_pvMax &&
+                m_pv == autre.m_pv &&
+                m_force == autre.m_force &&
+                m_dexterite == autre.m_dexterite &&
+                m_vitesse == autre.m_vitesse &&
+                m_initiative == autre.m_initiative &&
+                m_enVie == autre.m_enVie &&
+                ((m_icone == null && autre.m_icone == null) || (m_icone != null && m_icone.equals(autre.m_icone))) &&
+                m_type == autre.m_type;
+    }
+
+    @Override
     public abstract String toString();
 }

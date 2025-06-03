@@ -5,6 +5,7 @@ import donjonDragon.equipement.*;
 import donjonDragon.De;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Donjon
@@ -272,7 +273,7 @@ public class Donjon
             for (int j=m_monstres.size(); j>0; j--)
             {
                 Monstre monstre = m_monstres.get(j);
-                if (monstre.getEspece() == espece) { numero = monstre.getNumero() + 1; }
+                if (Objects.equals(monstre.getEspece(), espece)) { numero = monstre.getNumero() + 1; }
             }
             
             System.out.println("Quelles sont les dégats que fait le monstre? (au format dé)");
@@ -410,15 +411,25 @@ public class Donjon
     {
         m_monstres.add(monstre);
     }
-    
-//     public Boolean deplacementEntite(Entite entite,int[] pos){
-//         int[] temppos=new int[2];
-//         temppos[0]=entite.getPos()[0];
-//         temppos[1]=entite.getPos()[1];
-//         if (entite.seDeplacer(this,pos)){
-//             remplacer tempos dans carte par * ou . en parcourant la liste des equipement et compare la pose
-//             return true;
-//         }
-//         return false;
-//     }
+    public int[] trouverPositionEntite(Entite entite) {
+        for (int i = 0; i < m_carte.length; i++) {
+            for (int j = 0; j < m_carte[i].length; j++) {
+                if (m_carte[i][j].getEntite().equals(entite)){
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return null;
+    }
+
+    public Boolean deplacementEntite(Entite entite, int[] pos) {
+        int[] anciennePos = trouverPositionEntite(entite);
+
+        if (anciennePos != null && entite.seDeplacer(this, pos)) {
+            m_carte[anciennePos[0]][anciennePos[1]].enleverEntite();
+            return true;
+        }
+        return false;
+    }
+
 }
