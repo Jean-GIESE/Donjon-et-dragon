@@ -7,7 +7,7 @@ public class Armure extends Equipement
     
     public Armure(String nom, int classeArmure, boolean est_lourd)
     {
-        super(nom, est_lourd, new int[2], TypeEquipement.ARMURE);
+        super(nom, est_lourd, TypeEquipement.ARMURE);
         m_classeArmure = classeArmure;
     }
     

@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class AffichageDonjon
 {
+    /*
     private int m_taille;
     private String[][] m_carte;
     private ArrayList<Monstre>m_monstres;

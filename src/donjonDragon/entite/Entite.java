@@ -11,7 +11,6 @@ public abstract class Entite
     protected int m_vitesse;
     protected int m_initiative;
     protected  boolean m_enVie;
-    protected  int[] m_pos;
     protected String m_icone;
     protected TypeEntite m_type;
 
@@ -45,9 +44,6 @@ public abstract class Entite
     }
     public abstract int getClasseArmure();
     public abstract String getNom();
-    public int[] getPos(){
-        return m_pos;
-    }
     public boolean estEnVie() {
         return m_enVie;
     }
@@ -58,12 +54,6 @@ public abstract class Entite
     public void setEnVie(boolean vie){
         m_enVie=vie;
     }
-
-    public void setPos(int[]pos){
-        m_pos[0]=pos[0];
-        m_pos[1]=pos[1];
-    }
-
     public abstract void attaquer(Entite cible);
 
     public TypeEntite getType() {
@@ -77,13 +67,14 @@ public abstract class Entite
     {
         if(pos[0]-m_vitesse/3>=0 && pos[1]-m_vitesse/3>=0)
         {
-            if (donjon.getCarte()[pos[0]][pos[1]].equals(" . ") || donjon.getCarte()[pos[0]][pos[1]].equals(" * ")) {
-                setPos(pos);
+            if (donjon.getCarte()[pos[0]][pos[1]].estVide() || donjon.getCarte()[pos[0]][pos[1]].aJusteEquipement()) {
+                donjon.getCarte()[pos[0]][pos[1]].placerEntite(this);
                 return true;
             } else {
                 System.out.println("Cette endroit est occupé !");
                 return false;
             }
+
         }
         else
         {

@@ -33,7 +33,6 @@ public class Personnage extends Entite{
         m_arme = null;
         m_armure = null;
         m_enVie = true;
-        m_pos=new int[2];
         m_icone= m_nom.substring(0, 3);
         m_type=TypeEntite.JOUEUR;
     }
@@ -71,9 +70,9 @@ public class Personnage extends Entite{
         else{
             m_inventaire.add(e);
             System.out.println(getNom() + " ramasse " + e.getNom() + ".");
-            int[] pos = e.getPos();
-            //donjon.getCarte()[pos[0]][pos[1]] = " . ";
-            e.setPosNull();
+            //
+            // A FINIR
+            //
         }
 
     }
