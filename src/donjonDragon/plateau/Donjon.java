@@ -400,7 +400,7 @@ public class Donjon
                     System.out.println("Erreur: Il y a un problème aie aie aie!");
                 }
             }
-            Monstre monstreInit = new Monstre(espece, numero, new De(nbDes, nbFaceDes), portee, pvMax, force, dexterite, vitesse, initiative, classeArmure,icone);
+            Monstre monstreInit = new Monstre(espece, numero, new De(nbDes, nbFaceDes), portee, pvMax, force, dexterite, vitesse, initiative, classeArmure, icone);
             
             this.addMonstres(monstreInit);
         }
