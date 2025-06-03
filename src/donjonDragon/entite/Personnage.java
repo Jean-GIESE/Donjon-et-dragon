@@ -72,7 +72,7 @@ public class Personnage extends Entite{
             m_inventaire.add(e);
             System.out.println(getNom() + " ramasse " + e.getNom() + ".");
             int[] pos = e.getPos();
-            donjon.getCarte()[pos[0]][pos[1]] = " . ";
+            //donjon.getCarte()[pos[0]][pos[1]] = " . ";
             e.setPosNull();
         }
 
