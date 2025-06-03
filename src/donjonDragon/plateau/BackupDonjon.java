@@ -7,28 +7,28 @@ import donjonDragon.De;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Donjon
+public class BackupDonjon
 {
     private int m_taille;
-    private Position[][] m_carte;
-    private ArrayList<Monstre>m_monstres;
+    private String[][] m_carte;
+    private ArrayList<Monstre> m_monstres;
     private Scanner m_scanner;
-    
-    public Donjon()
+
+    public BackupDonjon()
     {
         m_taille = this.creerCarte();
         m_carte = this.initialiserCarte();
         m_monstres= new ArrayList<Monstre>();
         this.m_scanner = new Scanner(System.in);
     }
-    
-    public Donjon(int taille)
+
+    public BackupDonjon(int taille)
     {
         m_taille = taille;
         m_carte = this.initialiserCarte();
         this.m_scanner = new Scanner(System.in);
     }
-        
+
     public int creerCarte()
     {
         int nb = 0;
@@ -39,7 +39,7 @@ public class Donjon
                 nb = Integer.parseInt(System.console().readLine("Veuillez insérer les dimensions de la carte (comprises entre 15 et 25 cases): "));
                 if ((15 <= nb) && (nb <= 25)) {
                     valide = true;
-                } 
+                }
                 else {
                     System.out.println("Erreur: mauvaises dimensions!");
                 }
@@ -49,15 +49,15 @@ public class Donjon
         }
         return nb;
     }
-    
-    public Position[][] initialiserCarte()
+
+    public String[][] initialiserCarte()
     {
-        Position[][] carte = new Position[m_taille][m_taille];
+        String[][] carte = new String[m_taille][m_taille];
         for (int i=0; i<m_taille; i++)
         {
             for (int j=0; j<m_taille; j++)
             {
-                carte[i][j] = new Position();
+                carte[i][j] = " . ";
             }
         }
         return carte;
@@ -77,7 +77,27 @@ public class Donjon
 
     public boolean coordonneValide(int coordX, int coordY)
     {
-        return ((0 <= coordX) && (coordX <= (m_taille-1)) && (0 <= coordY) && (coordY <= (m_taille-1)));
+        if ((0 <= coordX) && (coordX <= (m_taille-1)) && (0 <= coordY) && (coordY <= (m_taille-1)))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public int getValeurEmplacement(int[] pos)
+    {
+        if (m_carte[pos[0]][pos[1]].equals(" . "))
+        {
+            return 1;
+        }
+        else if (m_carte[pos[0]][pos[1]].equals(" * "))
+        {
+            return 2;
+        }
+        else
+        {
+            return -1;
+        }
     }
 
     public void placerObstacle()
@@ -85,23 +105,24 @@ public class Donjon
         boolean valide = false;
         while (!valide)
         {
-            try 
+            try
             {
                 valide = false;
                 int coordX=0, coordY=0;
                 String coordonne = System.console().readLine("Insérer les coordonnées de l'obstacle (au format <lettre><numéro>): ");
                 char lettre = coordonne.charAt(0);
-                
+
                 coordX = coordonneX(lettre);
                 coordY = Integer.parseInt(coordonne.substring(1)) - 1;
-                
+
                 if (coordonneValide(coordX, coordY)) {
-                    if (m_carte[coordX][coordY].estVide()) {
-                        m_carte[coordY][coordX].setObstacle(true);
+                    int[] pos = {coordY,coordX};
+                    if (getValeurEmplacement(pos) == 1) {
+                        m_carte[coordY][coordX] = "[ ]";
                         valide = true;
                     }
                 }
-                                
+
                 if (!valide) {
                     System.out.println("Erreur: coordonnées mauvaises");
                 }
@@ -110,33 +131,48 @@ public class Donjon
             }
         }
     }
-
 
     public void placerEntite(Entite entite)
     {
         boolean valide = false;
         while (!valide)
         {
-            try 
+            try
             {
                 valide = false;
                 int coordX=0, coordY=0;
                 String nomEntite = entite.getNom();
-                
+
                 String coordonne = System.console().readLine("Postionnez l'entité " + nomEntite + " (au format <lettre><numéro>): ");
                 char lettre = coordonne.charAt(0);
-                
+
                 coordX = coordonneX(lettre);
                 coordY = Integer.parseInt(coordonne.substring(1)) - 1;
-                
+
                 if (coordonneValide(coordX, coordY)) {
-                    if (m_carte[coordX][coordY].estVide())
+                    int[] pos = {coordY,coordX};
+                    if (getValeurEmplacement(pos) == 1)
                     {
-                        m_carte[coordY][coordX].placerEntite(entite);
+                        switch (entite.getType()) {
+                            case MONSTRE:
+                                m_carte[coordY][coordX] = "uwu";
+                                break;
+                            case JOUEUR:
+                                if (nomEntite.length() >= 3) {
+                                    m_carte[coordY][coordX] = nomEntite.substring(0, 3);
+                                } else {
+                                    m_carte[coordY][coordX] = nomEntite;
+                                }
+                                break;
+                            default:
+                                m_carte[coordY][coordX] = "???";
+                                break;
+                        }
+                        entite.setPos(pos);
                         valide = true;
                     }
                 }
-                                
+
                 if (!valide) {
                     System.out.println("Erreur: coordonnées mauvaises");
                 }
@@ -145,29 +181,31 @@ public class Donjon
             }
         }
     }
-    
+
     public void placerEquipement(Equipement objet)
     {
         boolean valide = false;
         while (!valide)
         {
-            try 
+            try
             {
                 valide = false;
                 int coordX=0, coordY=0;
                 String coordonne = System.console().readLine("Placer l'équipement " + objet.getNom() + " (au format <lettre><numéro>): ");
                 char lettre = coordonne.charAt(0);
-                
+
                 coordX = coordonneX(lettre);
                 coordY = Integer.parseInt(coordonne.substring(1)) - 1;
-                
+
                 if (coordonneValide(coordX, coordY)) {
-                    if (m_carte[coordX][coordY].estVide()) {
-                        m_carte[coordY][coordX].placerEquipement(objet);
+                    int[] pos = {coordY,coordX};
+                    if (getValeurEmplacement(pos) == 1) {
+                        m_carte[coordY][coordX] = " * ";
+                        objet.setPos(pos);
                         valide = true;
                     }
                 }
-                                
+
                 if (!valide) {
                     System.out.println("Erreur: coordonnées mauvaises");
                 }
@@ -176,40 +214,91 @@ public class Donjon
             }
         }
     }
-    
+
     public void donjonDefaut(ArrayList<Personnage> persos, ArrayList<Equipement> objets, ArrayList<Monstre> monstres)
     {
         if ((persos.size() >= m_taille-1) || (objets.size() >= m_taille-1) || (monstres.size() >= m_taille-1))
         {
             System.out.println("Trop de persos ou trop d'objets ou trop de monstres!");
         }
-        
-        else 
+
+        else
         {
-            m_carte[3][1].setObstacle(true);
-            m_carte[13][14].setObstacle(true);
-            m_carte[8][3].setObstacle(true);
-            m_carte[9][9].setObstacle(true);
-            
+            m_carte[3][1] = "[ ]";
+            m_carte[13][14] = "[ ]";
+            m_carte[8][3] = "[ ]";
+            m_carte[9][9] = "[ ]";
+
             int X = 3;
             for (Personnage perso : persos)
             {
-                m_carte[4][X++].placerEntite(perso);
+                String nomPerso = perso.getNom();
+                if (nomPerso.length() >= 3) {
+                    m_carte[4][X++] = nomPerso.substring(0, 3);
+                } else {
+                    m_carte[4][X++] = nomPerso;
+                }
+                int[] pos = {4, X};
+                perso.setPos(pos);
             }
             X = 1;
             for (Equipement objet : objets)
             {
-                m_carte[10][X++].placerEquipement(objet);
+                m_carte[10][X++] = " * ";
+                int[] pos = {4, X};
+                objet.setPos(pos);
             }
             X = 5;
             for (Monstre monstre : monstres)
             {
-                m_carte[14][X++].placerEntite(monstre);
+                m_carte[14][X++] = "uwu";
+                int[] pos = {4, X};
+                monstre.setPos(pos);
             }
         }
     }
 
-    public Position[][] getCarte()
+    public void afficherCarte()
+    {
+        String carte = "    ";
+
+        String[] alphabet = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+
+        for (int i=0; i<m_taille; i++)
+        {
+            carte += "  " + alphabet[i];
+        }
+        carte += "\n   *";
+        for (int i=0; i<m_taille; i++)
+        {
+            carte += "---";
+        }
+        carte += "--*\n";
+
+        for (int i=0; i<m_taille; i++)
+        {
+            if (i < 9) {
+                carte += (i+1) + "  | ";
+            } else {
+                carte += (i+1) + " | ";
+            }
+            for (int j=0; j<m_taille; j++)
+            {
+                carte += m_carte[i][j];
+            }
+            carte += " |\n";
+        }
+
+        carte += "   *";
+        for (int i=0; i<m_taille; i++)
+        {
+            carte += "---";
+        }
+        carte += "--*\n";
+
+        System.out.println(carte);
+    }
+    public String[][] getCarte()
     {
         return m_carte;
     }
@@ -221,7 +310,7 @@ public class Donjon
     {
         return m_monstres;
     }
-    
+
     public void creerMonstre()
     {
         boolean valide = false;
@@ -236,10 +325,10 @@ public class Donjon
                     System.out.println("Erreur: nombres de monstres faux");
                 }
             } catch (NumberFormatException e) {
-            System.out.println("Erreur: Il faut entrer un nombre!");
+                System.out.println("Erreur: Il faut entrer un nombre!");
             }
         }
-        
+
         for (int i=0; i<choix; i++)
         {
             System.out.println("Monstre n°" + i);
@@ -251,7 +340,7 @@ public class Donjon
                 Monstre monstre = m_monstres.get(j);
                 if (monstre.getEspece() == espece) { numero = monstre.getNumero() + 1; }
             }
-            
+
             System.out.println("Quelles sont les dégats que fait le monstre? (au format dé)");
             int nbDes=0;
             int nbFaceDes=0;
@@ -268,7 +357,7 @@ public class Donjon
                     System.out.println("Erreur: Il faut entrer un nombre!");
                 }
             }
-            
+
             valide = false;
             int portee = 0;
             while (!valide) {
@@ -281,7 +370,7 @@ public class Donjon
                     System.out.println("Erreur: Il faut entrer un nombre!");
                 }
             }
-            
+
             valide = false;
             int pvMax = 0;
             while (!valide) {
@@ -294,7 +383,7 @@ public class Donjon
                     System.out.println("Erreur: Il faut entrer un nombre!");
                 }
             }
-            
+
             int force = 0;
             int dexterite = 0;
             if (portee == 1)
@@ -311,7 +400,7 @@ public class Donjon
                     }
                 }
             }
-            
+
             else
             {
                 valide = false;
@@ -326,7 +415,7 @@ public class Donjon
                     }
                 }
             }
-            
+
             valide = false;
             int vitesse = -1;
             while (!valide) {
@@ -339,7 +428,7 @@ public class Donjon
                     System.out.println("Erreur: Il faut entrer un nombre!");
                 }
             }
-            
+
             valide = false;
             int initiative = -1;
             while (!valide) {
@@ -352,7 +441,7 @@ public class Donjon
                     System.out.println("Erreur: Il faut entrer un nombre!");
                 }
             }
-            
+
             valide = false;
             int classeArmure = -1;
             while (!valide) {
@@ -365,37 +454,28 @@ public class Donjon
                     System.out.println("Erreur: Il faut entrer un nombre!");
                 }
             }
-            valide = false;
-            String icone = "";
-            while (!valide) {
-                try {
-                    System.out.println("insérez l'icone du monstre (Chaine de 3 caractère obligatoirement)");
-                    icone = m_scanner.nextLine();
-                    if (icone.length()==3) { valide = true; }
-                    if (!valide) { System.out.println("Erreur: Il faut que l'icone soit de 3 caractères!"); }
-                } catch (Exception e) {
-                    System.out.println("Erreur: Il y a un problème aie aie aie!");
-                }
-            }
-            Monstre monstreInit = new Monstre(espece, numero, new De(nbDes, nbFaceDes), portee, pvMax, force, dexterite, vitesse, initiative, classeArmure, icone);
-            
+
+            Monstre monstreInit = new Monstre(espece, numero, new De(nbDes, nbFaceDes), portee, pvMax, force, dexterite, vitesse, initiative, classeArmure);
+
             this.addMonstres(monstreInit);
         }
     }
-    
+
     public void addMonstres(Monstre monstre)
     {
         m_monstres.add(monstre);
     }
-    
-//     public Boolean deplacementEntite(Entite entite,int[] pos){
-//         int[] temppos=new int[2];
-//         temppos[0]=entite.getPos()[0];
-//         temppos[1]=entite.getPos()[1];
-//         if (entite.seDeplacer(this,pos)){
-//             remplacer tempos dans carte par * ou . en parcourant la liste des equipement et compare la pose
-//             return true;
-//         }
-//         return false;
-//     }
+    /*
+    public Boolean deplacementEntite(Entite entite,int[] pos){
+        int[] temppos=new int[2];
+        temppos[0]=entite.getPos()[0];
+        temppos[1]=entite.getPos()[1];
+        if (entite.seDeplacer(this,pos)){
+            //remplacer tempos dans carte par * ou . en parcourant la liste des equipement et compare la pose
+            return true;
+        }
+        return false;
+    }
+
+     */
 }
