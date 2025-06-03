@@ -131,7 +131,8 @@ public class Donjon
             }
         }
     }
-    
+
+
     public void placerEntite(Entite entite)
     {
         boolean valide = false;
