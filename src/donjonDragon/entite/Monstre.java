@@ -9,9 +9,8 @@ public class Monstre extends Entite
     private De m_degat;
     private int m_portee;
     private int m_classeArmure;
-
     
-    public Monstre(String espece,int numero,De degat, int portee,int pvMax,int force, int dexterite, int vitesse, int initiative,int classeArmure)
+    public Monstre(String espece,int numero,De degat, int portee,int pvMax,int force, int dexterite, int vitesse, int initiative,int classeArmure,String icone)
     {
         m_espece=espece;
         m_numero=numero;
@@ -26,6 +25,7 @@ public class Monstre extends Entite
         m_classeArmure=classeArmure;
         m_enVie=true;
         m_pos=new int[2];
+        m_icone=icone;
         m_type = TypeEntite.MONSTRE;
     }
     
