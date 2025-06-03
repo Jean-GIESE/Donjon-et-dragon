@@ -10,33 +10,40 @@ import java.util.Scanner;
 public class Donjon
 {
     private int m_taille;
+    private int m_tailleX;
+    private int m_tailleY;
     private Position[][] m_carte;
     private ArrayList<Monstre>m_monstres;
     private Scanner m_scanner;
     
     public Donjon()
     {
-        m_taille = this.creerCarte();
+        this.m_scanner = new Scanner(System.in);
+        m_tailleX = this.creerCarte("X");
+        m_tailleY = this.creerCarte("Y");
+        m_taille = this.tailleMax();
         m_carte = this.initialiserCarte();
         m_monstres= new ArrayList<Monstre>();
-        this.m_scanner = new Scanner(System.in);
     }
     
-    public Donjon(int taille)
+    public Donjon(int tailleX, int tailleY)
     {
-        m_taille = taille;
-        m_carte = this.initialiserCarte();
         this.m_scanner = new Scanner(System.in);
+        m_tailleX = tailleX;
+        m_tailleY = tailleY;
+        m_taille = this.tailleMax();
+        m_carte = this.initialiserCarte();
     }
     
-    public int creerCarte()
+    public int creerCarte(String coordonne)
     {
         int nb = 0;
         boolean valide = false;
         while (!valide)
         {
             try {
-                nb = Integer.parseInt(System.console().readLine("Veuillez insérer les dimensions de la carte (comprises entre 15 et 25 cases): "));
+                System.out.print("Veuillez insérer les dimensions de la carte (Axe " + coordonne + ") (comprises entre 15 et 25 cases): ");
+                nb = Integer.parseInt(m_scanner.nextLine().trim());
                 if ((15 <= nb) && (nb <= 25)) {
                     valide = true;
                 } 
@@ -50,12 +57,18 @@ public class Donjon
         return nb;
     }
     
+    public int tailleMax()
+    {
+        if (m_tailleX >= m_tailleY) { return m_tailleX; }
+        else { return m_tailleY; }
+    }
+    
     public Position[][] initialiserCarte()
     {
-        Position[][] carte = new Position[m_taille][m_taille];
-        for (int i=0; i<m_taille; i++)
+        Position[][] carte = new Position[m_tailleY][m_tailleX];
+        for (int i=0; i<m_tailleY; i++)
         {
-            for (int j=0; j<m_taille; j++)
+            for (int j=0; j<m_tailleX; j++)
             {
                 carte[i][j] = new Position();
             }
@@ -77,7 +90,7 @@ public class Donjon
 
     public boolean coordonneValide(int coordX, int coordY)
     {
-        return ((0 <= coordX) && (coordX <= (m_taille-1)) && (0 <= coordY) && (coordY <= (m_taille-1)));
+        return ((0 <= coordX) && (coordX <= (m_tailleX-1)) && (0 <= coordY) && (coordY <= (m_tailleY-1)));
     }
 
     public void placerObstacle()
@@ -89,14 +102,15 @@ public class Donjon
             {
                 valide = false;
                 int coordX=0, coordY=0;
-                String coordonne = System.console().readLine("Insérer les coordonnées de l'obstacle (au format <lettre><numéro>): ");
+                System.out.print("Insérer les coordonnées de l'obstacle (au format <lettre><numéro>): ");
+                String coordonne = m_scanner.nextLine().trim().toUpperCase();
                 char lettre = coordonne.charAt(0);
                 
                 coordX = coordonneX(lettre);
                 coordY = Integer.parseInt(coordonne.substring(1)) - 1;
                 
                 if (coordonneValide(coordX, coordY)) {
-                    if (m_carte[coordX][coordY].estVide()) {
+                    if (m_carte[coordY][coordX].estVide()) {
                         m_carte[coordY][coordX].setObstacle(true);
                         valide = true;
                     }
@@ -123,14 +137,15 @@ public class Donjon
                 int coordX=0, coordY=0;
                 String nomEntite = entite.getNom();
                 
-                String coordonne = System.console().readLine("Postionnez l'entité " + nomEntite + " (au format <lettre><numéro>): ");
+                System.out.print("Postionnez l'entité " + nomEntite + " (au format <lettre><numéro>): ");
+                String coordonne = m_scanner.nextLine().trim().toUpperCase();
                 char lettre = coordonne.charAt(0);
                 
                 coordX = coordonneX(lettre);
                 coordY = Integer.parseInt(coordonne.substring(1)) - 1;
                 
                 if (coordonneValide(coordX, coordY)) {
-                    if (m_carte[coordX][coordY].estVide())
+                    if (m_carte[coordY][coordX].estVide())
                     {
                         m_carte[coordY][coordX].placerEntite(entite);
                         valide = true;
@@ -155,14 +170,15 @@ public class Donjon
             {
                 valide = false;
                 int coordX=0, coordY=0;
-                String coordonne = System.console().readLine("Placer l'équipement " + objet.getNom() + " (au format <lettre><numéro>): ");
+                System.out.print("Placer l'équipement " + objet.getNom() + " (au format <lettre><numéro>): ");
+                String coordonne = m_scanner.nextLine().trim().toUpperCase();
                 char lettre = coordonne.charAt(0);
                 
                 coordX = coordonneX(lettre);
                 coordY = Integer.parseInt(coordonne.substring(1)) - 1;
                 
                 if (coordonneValide(coordX, coordY)) {
-                    if (m_carte[coordX][coordY].estVide()) {
+                    if (m_carte[coordY][coordX].estVide()) {
                         m_carte[coordY][coordX].placerEquipement(objet);
                         valide = true;
                     }
@@ -213,9 +229,13 @@ public class Donjon
     {
         return m_carte;
     }
-    public int getTaille()
+    public int getTailleX()
     {
-        return m_taille;
+        return m_tailleX;
+    }
+    public int getTailleY()
+    {
+        return m_tailleY;
     }
     public ArrayList<Monstre> getMonstres()
     {
@@ -228,7 +248,7 @@ public class Donjon
         int choix = 0;
         while (!valide) {
             try {
-                System.out.println("Combien de monstres souhaitez-vous introduire (pas plus de " + (m_taille - 5) + ") : ");
+                System.out.print("Combien de monstres souhaitez-vous introduire (pas plus de " + (m_taille - 5) + ") : ");
                 choix = Integer.parseInt(m_scanner.nextLine().trim());
                 if ((0 < choix) && (choix <= (m_taille - 5))) {
                     valide = true;
@@ -243,7 +263,7 @@ public class Donjon
         for (int i=0; i<choix; i++)
         {
             System.out.println("Monstre n°" + i);
-            System.out.println("Insérez le nom du monstre");
+            System.out.print("Insérez le nom du monstre :");
             String espece = m_scanner.nextLine().trim();
             int numero=0;
             for (int j=m_monstres.size(); j>0; j--)
@@ -258,9 +278,9 @@ public class Donjon
             valide = false;
             while (!valide) {
                 try {
-                    System.out.println("insérez le nombre de dés");
+                    System.out.print("insérez le nombre de dés :");
                     nbDes = Integer.parseInt(m_scanner.nextLine().trim());
-                    System.out.println("insérez le nombre de face des dés");
+                    System.out.print("insérez le nombre de face des dés :");
                     nbFaceDes = Integer.parseInt(m_scanner.nextLine().trim());
                     if ((nbDes > 0) && (nbFaceDes > 0)) { valide = true; }
                     if (!valide) { System.out.println("Erreur: Il faut que les nombres soient supérieur à 0!"); }
@@ -273,7 +293,7 @@ public class Donjon
             int portee = 0;
             while (!valide) {
                 try {
-                    System.out.println("insérez la portée du monstre (valant 1 si l'attaque est au corps-à-corps)");
+                    System.out.print("insérez la portée du monstre (valant 1 si l'attaque est au corps-à-corps) :");
                     portee = Integer.parseInt(m_scanner.nextLine().trim());
                     if (portee > 0) { valide = true; }
                     if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur à 0!"); }
@@ -286,7 +306,7 @@ public class Donjon
             int pvMax = 0;
             while (!valide) {
                 try {
-                    System.out.println("insérez les pv du monstre");
+                    System.out.print("insérez les pv du monstre :");
                     pvMax = Integer.parseInt(m_scanner.nextLine().trim());
                     if (pvMax > 0) { valide = true; }
                     if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur à 0!"); }
@@ -302,7 +322,7 @@ public class Donjon
                 valide = false;
                 while (!valide) {
                     try {
-                        System.out.println("insérez la force du monstre");
+                        System.out.print("insérez la force du monstre :");
                         force = Integer.parseInt(m_scanner.nextLine().trim());
                         if (force > 0) { valide = true; }
                         if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur à 0!"); }
@@ -317,7 +337,7 @@ public class Donjon
                 valide = false;
                 while (!valide) {
                     try {
-                        System.out.println("insérez la dextérité du monstre");
+                        System.out.print("insérez la dextérité du monstre :");
                         dexterite = Integer.parseInt(m_scanner.nextLine().trim());
                         if (dexterite > 0) { valide = true; }
                         if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0 et qu'il ne soit pas à 0 s'il attaque à distance!"); }
@@ -331,7 +351,7 @@ public class Donjon
             int vitesse = -1;
             while (!valide) {
                 try {
-                    System.out.println("insérez la vitesse du monstre (inférieur à 3 si c'est un gros tas qui peut pas bouger :p)");
+                    System.out.print("insérez la vitesse du monstre (inférieur à 3 si c'est un gros tas qui peut pas bouger :p) :");
                     vitesse = Integer.parseInt(m_scanner.nextLine().trim());
                     if (vitesse >= 0) { valide = true; }
                     if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0!"); }
@@ -344,7 +364,7 @@ public class Donjon
             int initiative = -1;
             while (!valide) {
                 try {
-                    System.out.println("insérez l'initiative du monstre");
+                    System.out.print("insérez l'initiative du monstre :");
                     initiative = Integer.parseInt(m_scanner.nextLine().trim());
                     if (initiative >= 0) { valide = true; }
                     if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0!"); }
@@ -357,7 +377,7 @@ public class Donjon
             int classeArmure = -1;
             while (!valide) {
                 try {
-                    System.out.println("insérez la classe d'armure du monstre");
+                    System.out.print("insérez la classe d'armure du monstre :");
                     classeArmure = Integer.parseInt(m_scanner.nextLine().trim());
                     if (classeArmure >= 0) { valide = true; }
                     if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0!"); }
@@ -369,7 +389,7 @@ public class Donjon
             String icone = "";
             while (!valide) {
                 try {
-                    System.out.println("insérez l'icone du monstre (Chaine de 3 caractère obligatoirement)");
+                    System.out.print("insérez l'icone du monstre (Chaine de 3 caractère obligatoirement) :");
                     icone = m_scanner.nextLine();
                     if (icone.length()==3) { valide = true; }
                     if (!valide) { System.out.println("Erreur: Il faut que l'icone soit de 3 caractères!"); }
