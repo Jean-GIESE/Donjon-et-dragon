@@ -2,6 +2,7 @@ package donjonDragon.entite.sort;
 
 import donjonDragon.De;
 import donjonDragon.entite.Entite;
+import donjonDragon.plateau.Donjon;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class Guerison implements Sort{
     }
 
     @Override
-    public void lancer(ArrayList<Entite> entites)
+    public void lancer(ArrayList<Entite> entites, Donjon donjon)
     {
         listPerso(entites);
         Entite cible = entites.get(Integer.parseInt(m_scanner.nextLine())-1);

@@ -465,4 +465,14 @@ public class Donjon
     {
         m_monstres.add(monstre);
     }
+    public Boolean deplacementEntite(Entite entite,int[] pos){
+        int[] temppos=new int[2];
+        temppos[0]=entite.getPos()[0];
+        temppos[1]=entite.getPos()[1];
+        if (entite.seDeplacer(this,pos)){
+            //remplacer tempos dans carte par * ou . en parcourant la liste des equipement et compare la pose
+            return true;
+        }
+        return false;
+    }
 }
