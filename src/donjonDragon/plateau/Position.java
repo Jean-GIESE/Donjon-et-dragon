@@ -36,7 +36,12 @@ public class Position
     {
         return m_typeEntite;
     }
-    
+    public Entite getEntite(){
+        return m_entite;
+    }
+    public Equipement getEquipement(){
+        return m_equipement;
+    }
     public String getIcone()
     {
         return m_icone;
