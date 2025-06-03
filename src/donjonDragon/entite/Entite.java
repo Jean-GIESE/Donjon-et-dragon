@@ -4,10 +4,6 @@ import donjonDragon.plateau.Donjon;
 
 public abstract class Entite
 {
-    public enum TypeEntite {
-        JOUEUR,
-        MONSTRE
-    }
     protected  int m_pvMax;
     protected int m_pv;
     protected int m_force;

@@ -8,7 +8,7 @@ import donjonDragon.plateau.Donjon;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/*
 public class ArmeMagique implements Sort{
     private Scanner m_scanner;
 
@@ -27,7 +27,7 @@ public class ArmeMagique implements Sort{
             armeDispo.add(perso.getArme());
         }
         for (Equipement equipement:perso.getInventaire()) {
-            if(equipement.getType()== Equipement.TypeEquipement.ARME){
+            if(equipement.getType()== TypeEquipement.ARME){
                 armeDispo.add((Arme)equipement);
             }
         }
@@ -60,3 +60,4 @@ public class ArmeMagique implements Sort{
         }
     }
 }
+*/

@@ -4,11 +4,6 @@ import donjonDragon.plateau.Donjon;
 
 public abstract class Equipement
 {
-    public enum TypeEquipement {
-        ARME,
-        ARMURE
-    }
-    
     protected String m_nom;
     protected boolean m_lourd;
     protected int[] m_pos;
