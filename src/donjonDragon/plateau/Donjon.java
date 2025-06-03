@@ -118,7 +118,7 @@ public class Donjon
                 if (coordonneValide(coordX, coordY)) {
                     int[] pos = {coordY,coordX};
                     if (getValeurEmplacement(pos) == 1) {
-                        m_carte[coordY][coordX] = "[ ]";
+                        m_carte[coordY][coordX].setObstacle(true);
                         valide = true;
                     }
                 }
@@ -154,22 +154,7 @@ public class Donjon
                     int[] pos = {coordY,coordX};
                     if (getValeurEmplacement(pos) == 1)
                     {
-                        switch (entite.getType()) {
-                            case MONSTRE:
-                                m_carte[coordY][coordX] = "uwu";
-                                break;
-                            case JOUEUR:
-                                if (nomEntite.length() >= 3) {
-                                    m_carte[coordY][coordX] = nomEntite.substring(0, 3);
-                                } else {
-                                    m_carte[coordY][coordX] = nomEntite;
-                                }
-                                break;
-                            default:
-                                m_carte[coordY][coordX] = "???";
-                                break;
-                        }
-                        entite.setPos(pos);
+                        m_carte[coordY][coordX].placerEntite(entite);
                         valide = true;
                     }
                 }
@@ -201,8 +186,7 @@ public class Donjon
                 if (coordonneValide(coordX, coordY)) {
                     int[] pos = {coordY,coordX};
                     if (getValeurEmplacement(pos) == 1) {
-                        m_carte[coordY][coordX] = " * ";
-                        objet.setPos(pos);
+                        m_carte[coordY][coordX].placerEquipement(objet);
                         valide = true;
                     }
                 }
@@ -225,41 +209,30 @@ public class Donjon
         
         else 
         {
-            m_carte[3][1] = "[ ]";
-            m_carte[13][14] = "[ ]";
-            m_carte[8][3] = "[ ]";
-            m_carte[9][9] = "[ ]";
+            m_carte[3][1].setObstacle(true);
+            m_carte[13][14].setObstacle(true);
+            m_carte[8][3].setObstacle(true);
+            m_carte[9][9].setObstacle(true);
             
             int X = 3;
             for (Personnage perso : persos)
             {
-                String nomPerso = perso.getNom();
-                if (nomPerso.length() >= 3) {
-                    m_carte[4][X++] = nomPerso.substring(0, 3);
-                } else {
-                    m_carte[4][X++] = nomPerso;
-                }
-                int[] pos = {4, X};
-                perso.setPos(pos);
+                m_carte[4][X++].placerEntite(perso);
             }
             X = 1;
             for (Equipement objet : objets)
             {
-                m_carte[10][X++] = " * ";
-                int[] pos = {4, X};
-                objet.setPos(pos);
+                m_carte[10][X++].placerEquipement(objet);
             }
             X = 5;
             for (Monstre monstre : monstres)
             {
-                m_carte[14][X++] = "uwu";
-                int[] pos = {4, X};
-                monstre.setPos(pos);
+                m_carte[14][X++].placerEntite(monstre);
             }
         }
     }
 
-    public String[][] getCarte()
+    public Position[][] getCarte()
     {
         return m_carte;
     }
@@ -426,14 +399,15 @@ public class Donjon
     {
         m_monstres.add(monstre);
     }
-    public Boolean deplacementEntite(Entite entite,int[] pos){
-        int[] temppos=new int[2];
-        temppos[0]=entite.getPos()[0];
-        temppos[1]=entite.getPos()[1];
-        if (entite.seDeplacer(this,pos)){
-            //remplacer tempos dans carte par * ou . en parcourant la liste des equipement et compare la pose
-            return true;
-        }
-        return false;
-    }
+    
+//     public Boolean deplacementEntite(Entite entite,int[] pos){
+//         int[] temppos=new int[2];
+//         temppos[0]=entite.getPos()[0];
+//         temppos[1]=entite.getPos()[1];
+//         if (entite.seDeplacer(this,pos)){
+//             remplacer tempos dans carte par * ou . en parcourant la liste des equipement et compare la pose
+//             return true;
+//         }
+//         return false;
+//     }
 }
