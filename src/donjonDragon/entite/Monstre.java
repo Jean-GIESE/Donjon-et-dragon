@@ -24,7 +24,6 @@ public class Monstre extends Entite
         m_initiative=initiative;
         m_classeArmure=classeArmure;
         m_enVie=true;
-        m_pos=new int[2];
         m_icone=icone;
         m_type = TypeEntite.MONSTRE;
     }
