@@ -388,8 +388,19 @@ public class Donjon
                     System.out.println("Erreur: Il faut entrer un nombre!");
                 }
             }
-            
-            Monstre monstreInit = new Monstre(espece, numero, new De(nbDes, nbFaceDes), portee, pvMax, force, dexterite, vitesse, initiative, classeArmure);
+            valide = false;
+            String icone = "";
+            while (!valide) {
+                try {
+                    System.out.println("insérez l'icone du monstre (Chaine de 3 caractère obligatoirement)");
+                    icone = m_scanner.nextLine();
+                    if (icone.length()==3) { valide = true; }
+                    if (!valide) { System.out.println("Erreur: Il faut que l'icone soit de 3 caractères!"); }
+                } catch (Exception e) {
+                    System.out.println("Erreur: Il y a un problème aie aie aie!");
+                }
+            }
+            Monstre monstreInit = new Monstre(espece, numero, new De(nbDes, nbFaceDes), portee, pvMax, force, dexterite, vitesse, initiative, classeArmure,icone);
             
             this.addMonstres(monstreInit);
         }
