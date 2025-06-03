@@ -65,18 +65,18 @@ public class Main {
         equipementsParDefaut.add(new Arme("Fronde", new De(1, 4), 6, false));
         equipementsParDefaut.add(new Arme("Arc court",  new De(1, 6), 16, false));
         ArrayList<Monstre> monstresParDefaut = new ArrayList<>();
-        monstresParDefaut.add(new Monstre("Gobelin", 0, new De(1, 4), 1, 6, 1, 2, 2, 1, 8));
-        monstresParDefaut.add(new Monstre("Gobelin", 1, new De(1, 4), 1, 6, 1, 2, 2, 1, 8));
-        monstresParDefaut.add(new Monstre("Squelette", 0, new De(1, 6), 1, 8, 2, 2, 1, 1, 7));
-        monstresParDefaut.add(new Monstre("Squelette", 1, new De(1, 6), 1, 8, 2, 2, 1, 1, 7));
-        monstresParDefaut.add(new Monstre("Orc", 0, new De(1, 8), 2, 12, 3, 3, 2, 2, 12));
-        monstresParDefaut.add(new Monstre("Ogre", 0, new De(2, 6), 3, 20, 4, 2, 1, 3, 15));
+        monstresParDefaut.add(new Monstre("Gobelin", 0, new De(1, 4), 1, 6, 1, 2, 2, 1, 8, "XvX"));
+        monstresParDefaut.add(new Monstre("Gobelin", 1, new De(1, 4), 1, 6, 1, 2, 2, 1, 8, "XvX"));
+        monstresParDefaut.add(new Monstre("Squelette", 0, new De(1, 6), 1, 8, 2, 2, 1, 1, 7, "0°0"));
+        monstresParDefaut.add(new Monstre("Squelette", 1, new De(1, 6), 1, 8, 2, 2, 1, 1, 7, "0°0"));
+        monstresParDefaut.add(new Monstre("Orc", 0, new De(1, 8), 2, 12, 3, 3, 2, 2, 12, "0w0"));
+        monstresParDefaut.add(new Monstre("Ogre", 0, new De(2, 6), 3, 20, 4, 2, 1, 3, 15, "uwu"));
         Personnage perso = new Personnage("Jean", new Clerc(), new Halfelin(), 20, 18, 4, 1, 5, 2);
         ArrayList<Personnage> persos = new ArrayList<Personnage>();
         persos.add(perso);
         
         Donjon carte = new Donjon(20);
         carte.donjonDefaut(persos,equipementsParDefaut,monstresParDefaut );
-        carte.afficherCarte();
+        //carte.afficherCarte();
     }
 }
