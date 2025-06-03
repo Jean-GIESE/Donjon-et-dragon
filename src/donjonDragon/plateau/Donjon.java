@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Donjon
 {
     private int m_taille;
-    private String[][] m_carte;
+    private Position[][] m_carte;
     private ArrayList<Monstre>m_monstres;
     private Scanner m_scanner;
     
@@ -50,14 +50,14 @@ public class Donjon
         return nb;
     }
     
-    public String[][] initialiserCarte()
+    public Position[][] initialiserCarte()
     {
-        String[][] carte = new String[m_taille][m_taille];
+        Position[][] carte = new Position[m_taille][m_taille];
         for (int i=0; i<m_taille; i++)
         {
             for (int j=0; j<m_taille; j++)
             {
-                carte[i][j] = " . ";
+                carte[i][j] = new Position();
             }
         }
         return carte;
@@ -74,7 +74,7 @@ public class Donjon
         }
         return -1;
     }
-    
+
     public boolean coordonneValide(int coordX, int coordY)
     {
         if ((0 <= coordX) && (coordX <= (m_taille-1)) && (0 <= coordY) && (coordY <= (m_taille-1)))
@@ -83,7 +83,7 @@ public class Donjon
         }
         return false;
     }
-    
+
     public int getValeurEmplacement(int[] pos)
     {
         if (m_carte[pos[0]][pos[1]].equals(" . "))
@@ -99,7 +99,7 @@ public class Donjon
             return -1;
         }
     }
-    
+
     public void placerObstacle()
     {
         boolean valide = false;
@@ -257,47 +257,7 @@ public class Donjon
             }
         }
     }
-    
-    public void afficherCarte()
-    {
-        String carte = "    ";
-        
-        String[] alphabet = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
-        
-        for (int i=0; i<m_taille; i++)
-        {
-            carte += "  " + alphabet[i];
-        }
-        carte += "\n   *";
-        for (int i=0; i<m_taille; i++)
-        {
-            carte += "---";
-        }
-        carte += "--*\n";
-        
-        for (int i=0; i<m_taille; i++)
-        {
-            if (i < 9) {
-                carte += (i+1) + "  | ";
-            } else {
-                carte += (i+1) + " | ";
-            }
-            for (int j=0; j<m_taille; j++)
-            {
-                carte += m_carte[i][j];
-            }
-            carte += " |\n";
-        }
-        
-        carte += "   *";
-        for (int i=0; i<m_taille; i++)
-        {
-            carte += "---";
-        }
-        carte += "--*\n";
-        
-        System.out.println(carte);
-    }
+
     public String[][] getCarte()
     {
         return m_carte;
