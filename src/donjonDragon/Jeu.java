@@ -103,7 +103,7 @@ public class Jeu {
             monstresParDefaut.add(new Monstre("Orc", 0, new De(1, 8), 2, 12, 3, 3, 2, 2, 12, "0w0"));
             monstresParDefaut.add(new Monstre("Ogre", 0, new De(2, 6), 3, 20, 4, 2, 1, 3, 15, "uwu"));
             
-            Donjon donjon = new Donjon(20);
+            Donjon donjon = new Donjon(25, 20);
             donjon.donjonDefaut(m_joueurs,equipementsParDefaut,monstresParDefaut );
             return donjon;
         } else {
