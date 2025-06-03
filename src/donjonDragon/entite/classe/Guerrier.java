@@ -1,18 +1,16 @@
 package donjonDragon.entite.classe;
 
 import donjonDragon.equipement.*;
-
+import donjonDragon.De;
 import java.util.ArrayList;
 
 public class Guerrier extends Classe
 {
     public Guerrier()
     {
-        super("Guerrier", 20, this.initialiserEquipement());
+        super("Guerrier", 20, initialiserEquipementGuerrier());
     }
-    
-    @Override
-    public ArrayList<Equipement> initialiserEquipement()
+    public static ArrayList<Equipement> initialiserEquipementGuerrier()
     {
         ArrayList<Equipement> equipementsParDefaut = new ArrayList<>();
         equipementsParDefaut.add(new Armure("Cotte de mailles", 11, false));

@@ -16,9 +16,6 @@ public abstract class Classe
         m_pv = pv;
         m_equipementDepart = equipementDepart;
     }
-    
-    public abstract ArrayList<Equipement> initialiserEquipement();
-    
     public String toString()
     {
         return m_nom;
