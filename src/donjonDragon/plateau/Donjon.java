@@ -429,4 +429,15 @@ public class Donjon
         return false;
     }
 
+    public Boolean attaquerEntite(Entite acteur, Entite cible) {
+        int[] acteurPos = trouverPositionEntite(acteur);
+        int[] ciblePos = trouverPositionEntite(cible);
+
+        if (acteurPos != null && ciblePos != null ) { //if pas fini !
+            // verif si cible est a porté
+            return true;
+        }
+        //afficher que cible pas a porté
+        return false;
+    }
 }

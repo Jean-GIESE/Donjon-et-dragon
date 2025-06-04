@@ -103,7 +103,7 @@ public class Jeu {
             monstresParDefaut.add(new Monstre("Orc", 0, new De(1, 8), 2, 12, 3, 3, 2, 2, 12, "0w0"));
             monstresParDefaut.add(new Monstre("Ogre", 0, new De(2, 6), 3, 20, 4, 2, 1, 3, 15, "uwu"));
             
-            Donjon donjon = new Donjon(20);
+            Donjon donjon = new Donjon(20,25);
             donjon.donjonDefaut(m_joueurs,equipementsParDefaut,monstresParDefaut );
             return donjon;
         } else {
@@ -136,30 +136,45 @@ public class Jeu {
 
     public void gererTourPersonnage (Personnage joueur, Donjon donjon){
         int actions = 3;
+        String input="";
+        int[]pos=new int[2];
         while (actions > 0) {
-            System.out.println("\n" + joueur.getNom() + ", il vous reste " + actions + " action(s). Que souhaitez-vous faire ?");
-            System.out.println("  - commenter (com <texte>)");
-            System.out.println("  - attaquer (att <case>)");
-            System.out.println("  - se déplacer (dep <case>)");
-            System.out.println("  - ramasser (ram)");
-            System.out.println("  - s'équiper (equ <index équipement>)");
-            System.out.print("> ");
-            String input = m_scanner.nextLine();
-
+            AffichageJeu.afficherTourPersonnage(joueur,actions);
+            input=AffichageJeu.nextLineTourPersonnage();
             if (input.startsWith("com ")) {
-                System.out.println("RP : " + input.substring(4));
+                AffichageJeu.afficherRP(input.substring(4));
             } else if (input.startsWith("att ")) {
-                // à implémenter
-                actions--;
+                if(donjon.coordonneX(input.charAt(4))!= -1){
+                    pos[0]=donjon.coordonneX(input.charAt(4));
+                    pos[1]=Integer.parseInt(input.substring(5,6));
+                    if(donjon.coordonneValide(pos[0],pos[1])){
+                        //if(donjon.attaquerEntite())  // a implémenté, renvoie un bool un peu comme deplacementEtite
+                        //{
+                        //    actions--;
+                        //}
+                    }
+                }
             } else if (input.startsWith("dep ")) {
-
-                actions--;
+                if(donjon.coordonneX(input.charAt(4))!= -1){
+                    pos[0]=donjon.coordonneX(input.charAt(4));
+                    pos[1]=Integer.parseInt(input.substring(5,6));
+                    if(donjon.coordonneValide(pos[0],pos[1])){
+                        if(donjon.deplacementEntite(joueur,pos))
+                        {
+                            actions--;
+                        }
+                    }
+                }
             } else if (input.equals("ram")) {
                 // à implémenter
                 actions--;
             } else if (input.startsWith("equ ")) {
-                // à implémenter
-                actions--;
+                if(joueur.sEquiper(joueur.getInventaire().get(Integer.parseInt(input.substring(4))))){
+                    actions--;
+                }
+                else{
+                    AffichageJeu.afficherErreur();
+                }
             } else {
                 System.out.println("Commande invalide.");
             }
@@ -173,8 +188,6 @@ public class Jeu {
             System.out.println("  - commenter (com <texte>)");
             System.out.println("  - attaquer (att <case>)");
             System.out.println("  - se déplacer (dep <case>)");
-            System.out.println("  - ramasser (ram)");
-            System.out.println("  - s'équiper (equ <index équipement>)");
             System.out.print("> ");
             String input = m_scanner.nextLine();
 
