@@ -28,14 +28,13 @@ public class Main {
         Entite leMonstre = new Monstre("Dragon", 0, new De(1,6), 3, 20, 5, 0, 4, 2, 8, "0w0");
         Equipement test = new Armure("Armure", 0, true); 
         Donjon carte = new Donjon();
-        AffichageDonjon donjon = new AffichageDonjon(carte.getCarte(), carte.getTailleX(), carte.getTailleY());
-        donjon.afficherCarte();
+        carte.afficherCarte();
         carte.placerEntite(perso);
         carte.placerObstacle();
         carte.placerObstacle();
         carte.placerEquipement(test);
         carte.placerEntite(leMonstre);
-        donjon.afficherCarte();
+        carte.afficherCarte();
 
 //         ArrayList<Equipement> equipementsParDefaut = new ArrayList<>();
 //         equipementsParDefaut.add(new Armure("Armure d'écailles", 9, false));

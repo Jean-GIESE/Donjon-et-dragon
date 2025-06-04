@@ -24,7 +24,7 @@ public class Donjon
         m_taille = this.tailleMax();
         m_carte = this.initialiserCarte();
         m_monstres= new ArrayList<Monstre>();
-        m_carteAffiche = new AffichageDonjon(m_carte, m_tailleX, m_tailleY);
+        m_carteAffiche = new AffichageDonjon(m_carte);
     }
     
     public Donjon(int tailleX, int tailleY)
@@ -33,7 +33,7 @@ public class Donjon
         m_tailleY = tailleY;
         m_taille = this.tailleMax();
         m_carte = this.initialiserCarte();
-        m_carteAffiche = new AffichageDonjon(m_carte, m_tailleX, m_tailleY);
+        m_carteAffiche = new AffichageDonjon(m_carte);
     }
     
     public int creerCarte(String coordonne)
@@ -42,7 +42,7 @@ public class Donjon
         boolean valide = false;
         while (!valide)
         {
-            int nb = m_carteAffiche.dimensionCarte(coordonne);
+            nb = m_carteAffiche.dimensionCarte(coordonne);
             if ((15 <= nb) && (nb <= 25)) {
                 valide = true;
             } 
@@ -98,7 +98,7 @@ public class Donjon
             {
                 valide = false;
                 int coordX=0, coordY=0;
-                String coordonne = m_carteAffiche.coordonneObstacle()
+                String coordonne = m_carteAffiche.coordonneObstacle();
                 char lettre = coordonne.charAt(0);
                 
                 coordX = coordonneX(lettre);
@@ -254,33 +254,23 @@ public class Donjon
             while (!valide) {
                 degat = m_carteAffiche.degatsMonstre();
                 if ((degat[0] > 0) && (degat[1] > 0)) { valide = true; }
-                if (!valide) { m_carteAffiche.degatsInsuffisant(); }
+                if (!valide) { m_carteAffiche.nombreInsuffisant(); }
             }
             
             valide = false;
             int portee = 0;
             while (!valide) {
-                try {
-                    System.out.print("insérez la portée du monstre (valant 1 si l'attaque est au corps-à-corps) :");
-                    portee = Integer.parseInt(m_scanner.nextLine().trim());
-                    if (portee > 0) { valide = true; }
-                    if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur à 0!"); }
-                } catch (NumberFormatException e) {
-                    System.out.println("Erreur: Il faut entrer un nombre!");
-                }
+                portee = m_carteAffiche.porteeMonstre();
+                if (portee > 0) { valide = true; }
+                if (!valide) { m_carteAffiche.nombreInsuffisant(); }
             }
             
             valide = false;
             int pvMax = 0;
             while (!valide) {
-                try {
-                    System.out.print("insérez les pv du monstre :");
-                    pvMax = Integer.parseInt(m_scanner.nextLine().trim());
-                    if (pvMax > 0) { valide = true; }
-                    if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur à 0!"); }
-                } catch (NumberFormatException e) {
-                    System.out.println("Erreur: Il faut entrer un nombre!");
-                }
+                pvMax = m_carteAffiche.pvMonstre();
+                if (pvMax > 0) { valide = true; }
+                if (!valide) { m_carteAffiche.nombreInsuffisant(); }
             }
             
             int force = 0;
@@ -289,14 +279,9 @@ public class Donjon
             {
                 valide = false;
                 while (!valide) {
-                    try {
-                        System.out.print("insérez la force du monstre :");
-                        force = Integer.parseInt(m_scanner.nextLine().trim());
-                        if (force > 0) { valide = true; }
-                        if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur à 0!"); }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Erreur: Il faut entrer un nombre!");
-                    }
+                    force = m_carteAffiche.forceMonstre();
+                    if (force > 0) { valide = true; }
+                    if (!valide) { m_carteAffiche.nombreInsuffisant(); }
                 }
             }
             
@@ -304,67 +289,44 @@ public class Donjon
             {
                 valide = false;
                 while (!valide) {
-                    try {
-                        System.out.print("insérez la dextérité du monstre (0 si l'attaque est au corps à corps:");
-                        dexterite = Integer.parseInt(m_scanner.nextLine().trim());
-                        if (dexterite > 0) { valide = true; }
-                        if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0 et qu'il ne soit pas à 0 s'il attaque à distance!"); }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Erreur: Il faut entrer un nombre!");
-                    }
+                    dexterite = m_carteAffiche.dexteriteMonstre();
+                    if (dexterite > 0) { valide = true; }
+                    if (!valide) { m_carteAffiche.nombreInsuffisantAttaque(); }
                 }
             }
             
             valide = false;
             int vitesse = -1;
             while (!valide) {
-                try {
-                    System.out.print("insérez la vitesse du monstre (inférieur à 3 si c'est un gros tas qui peut pas bouger :p) :");
-                    vitesse = Integer.parseInt(m_scanner.nextLine().trim());
-                    if (vitesse >= 0) { valide = true; }
-                    if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0!"); }
-                } catch (NumberFormatException e) {
-                    System.out.println("Erreur: Il faut entrer un nombre!");
-                }
+                vitesse = m_carteAffiche.vitesseMonstre();
+                if (vitesse >= 0) { valide = true; }
+                if (!valide) { m_carteAffiche.nombreSuperieurEgalZero(); }
             }
             
             valide = false;
             int initiative = -1;
             while (!valide) {
-                try {
-                    System.out.print("insérez l'initiative du monstre :");
-                    initiative = Integer.parseInt(m_scanner.nextLine().trim());
-                    if (initiative >= 0) { valide = true; }
-                    if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0!"); }
-                } catch (NumberFormatException e) {
-                    System.out.println("Erreur: Il faut entrer un nombre!");
-                }
+                initiative = m_carteAffiche.initiativeMonstre();
+                if (initiative >= 0) { valide = true; }
+                if (!valide) { m_carteAffiche.nombreSuperieurEgalZero(); }
             }
             
             valide = false;
             int classeArmure = -1;
             while (!valide) {
-                try {
-                    System.out.print("insérez la classe d'armure du monstre :");
-                    classeArmure = Integer.parseInt(m_scanner.nextLine().trim());
-                    if (classeArmure >= 0) { valide = true; }
-                    if (!valide) { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0!"); }
-                } catch (NumberFormatException e) {
-                    System.out.println("Erreur: Il faut entrer un nombre!");
-                }
+                classeArmure = m_carteAffiche.classeArmureMonstre();
+                if (classeArmure >= 0) { valide = true; }
+                if (!valide) { m_carteAffiche.nombreSuperieurEgalZero(); }
             }
+            
             valide = false;
             String icone = "";
             while (!valide) {
-                try {
-                    System.out.print("insérez l'icone du monstre (Chaine de 3 caractère obligatoirement) :");
-                    icone = m_scanner.nextLine();
-                    if (icone.length()==3) { valide = true; }
-                    if (!valide) { System.out.println("Erreur: Il faut que l'icone soit de 3 caractères!"); }
-                } catch (Exception e) {
-                    System.out.println("Erreur: Il y a un problème aie aie aie!");
-                }
+                icone = m_carteAffiche.iconeMonstre();
+                if (icone.length() == 3) { valide = true; }
+                if (!valide) { m_carteAffiche.mauvaisIcone(); }
             }
+            
             Monstre monstreInit = new Monstre(espece, numero, new De(degat[0], degat[1]), portee, pvMax, force, dexterite, vitesse, initiative, classeArmure, icone);
             
             this.addMonstres(monstreInit);
@@ -375,6 +337,7 @@ public class Donjon
     {
         m_monstres.add(monstre);
     }
+    
     public int[] trouverPositionEntite(Entite entite) {
         for (int i = 0; i < m_carte.length; i++) {
             for (int j = 0; j < m_carte[i].length; j++) {
@@ -395,5 +358,6 @@ public class Donjon
         }
         return false;
     }
-
+    
+    public void afficherCarte() { m_carteAffiche.afficherCarte(m_tailleX, m_tailleY); }
 }
