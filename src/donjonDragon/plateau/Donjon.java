@@ -33,6 +33,7 @@ public class Donjon
         m_tailleY = tailleY;
         m_taille = this.tailleMax();
         m_carte = this.initialiserCarte();
+        m_monstres= new ArrayList<Monstre>();
         m_carteAffiche = new AffichageDonjon(m_carte);
     }
     
@@ -206,6 +207,7 @@ public class Donjon
         for (Monstre monstre : monstres)
         {
             m_carte[14][X++].placerEntite(monstre);
+            m_monstres.add(monstre);
         }
     }
 

@@ -35,6 +35,8 @@ public class Personnage extends Entite{
         m_enVie = true;
         m_icone= m_nom.substring(0, 3);
         m_type=TypeEntite.JOUEUR;
+
+
     }
     
     public boolean sEquiper(Equipement objet)

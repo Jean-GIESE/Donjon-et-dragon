@@ -51,9 +51,11 @@ public class Jeu {
                     if (entite.estEnVie()) {
                         switch (entite.getType()) {
                             case JOUEUR:
+                                donjon.afficherCarte();
                                 gererTourPersonnage((Personnage) entite, donjon);
                                 break;
                             case MONSTRE:
+                                donjon.afficherCarte();
                                 gererTourMonstre((Monstre) entite, donjon);
                                 break;
                             default:
@@ -121,6 +123,13 @@ public class Jeu {
 
     public ArrayList<Entite> calculerInitiative (Donjon donjon){
         ArrayList<Entite> entites = new ArrayList<>();
+        if (m_joueurs == null) {
+            System.out.println("ERREUR : m_joueurs est null !");
+        }
+        if (donjon.getMonstres() == null) {
+            System.out.println("ERREUR : donjon.getMonstres() est null !");
+        }
+
         entites.addAll(m_joueurs);
         entites.addAll(donjon.getMonstres());
 
