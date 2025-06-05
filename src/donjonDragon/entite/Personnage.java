@@ -37,7 +37,7 @@ public class Personnage extends Entite{
         m_type=TypeEntite.JOUEUR;
     }
     
-    public void sEquiper(Equipement objet)
+    public boolean sEquiper(Equipement objet)
     {
         for (int i=0; i<m_inventaire.size(); i++)
         {
@@ -48,18 +48,20 @@ public class Personnage extends Entite{
                         m_inventaire.add(m_arme);
                         m_arme = (Arme) objet;
                         m_inventaire.remove(i);
-                        break;
+                        return true;
                     case ARMURE:
                         m_inventaire.add(m_armure);
                         m_armure = (Armure) objet;
                         m_inventaire.remove(i);
-                        break;
+                        return true;
                     default:
-                        break;
+                        return false;
                 }
+
             }
             
         }
+        return false;
     }
     
     public void ramasser(Donjon donjon, Equipement e)
@@ -120,7 +122,6 @@ public class Personnage extends Entite{
         int attaque =0;
         if(m_arme.getPortee()==1)
         {
-
             attaque = UnDeVingt.lancer()+m_force;
         }
         else {
@@ -160,10 +161,10 @@ public class Personnage extends Entite{
         for (int i=0; i<m_inventaire.size(); i++)
         {
             if (i == (m_inventaire.size() - 1)) {
-                texte += m_inventaire.get(i).getNom() + "\n\t";
+                texte +=  "(" + i + ") " + m_inventaire.get(i).getNom() + "\n\t";
             }
             else {
-                texte += m_inventaire.get(i).getNom() + ", ";
+                texte += "(" + i + ") " + m_inventaire.get(i).getNom() + ", ";
             }
         }
         texte += "Force: " + m_force + "\n\t";
