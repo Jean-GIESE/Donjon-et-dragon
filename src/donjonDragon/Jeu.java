@@ -1,12 +1,10 @@
 package donjonDragon;
 
-import donjonDragon.entite.Entite;
-import donjonDragon.equipement.Arme;
-import donjonDragon.equipement.Armure;
-import donjonDragon.equipement.Equipement;
-import donjonDragon.plateau.Donjon;
-import donjonDragon.entite.Personnage;
-import donjonDragon.entite.Monstre;
+import donjonDragon.entite.*;
+import donjonDragon.equipement.*;
+import donjonDragon.plateau.*;
+import donjonDragon.entite.race.*;
+import donjonDragon.entite.classe.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,8 +15,8 @@ public class Jeu {
     private ArrayList<Personnage> m_joueurs;
     private Scanner m_scanner;
 
-    public Jeu(ArrayList<Personnage> joueurs) {
-        this.m_joueurs = joueurs;
+    public Jeu() {
+        this.m_joueurs = this.initialiserJoueurs();
         this.m_donjons = new ArrayList<>();
         this.m_donjonActuel = 0;
         this.m_scanner = new Scanner(System.in);
@@ -27,6 +25,107 @@ public class Jeu {
         for (int i = 0; i < 3; i++) {
             m_donjons.add(null);
         }
+    }
+    
+    public ArrayList<Personnage> initialiserJoueurs()
+    {
+        ArrayList<Personnage> joueurs = new ArrayList<Personnage>();
+        
+        // Récupérer le nombre de joueurs
+        boolean valide = false;
+        int nbJoueurs = 0;
+        while (!valide)
+        {
+            nbJoueurs = AffichageJeu.nombreJoueurs(4);
+            if ((nbJoueurs > 0) && (nbJoueurs <= 4)) { valide = true; }
+            else { AffichageJeu.afficherErreur(); }
+        }
+        
+        // Créer les joueurs
+        for (int i=0; i<nbJoueurs; i++)
+        {
+            String nom = AffichageJeu.nomJoueur(i+1);
+            Classe classe = initClassePersonnage();
+            Race race = initRacePersonnage();
+            
+            int pvMax = this.initAttributPersonnage("pvMax", false);
+            int force = this.initAttributPersonnage("force", true);
+            int dexterite = this.initAttributPersonnage("dextérité", true);
+            int vitesse = this.initAttributPersonnage("vitesse", true);
+            int initiative = this.initAttributPersonnage("initiative", true);
+            
+            Personnage joueur = new Personnage(nom, classe, race, pvMax, force, dexterite, vitesse, initiative);
+            joueurs.add(joueur);
+        }
+        
+        return joueurs;
+    }
+    
+    public Classe initClassePersonnage()
+    {
+        boolean valide = false;
+        Classe classe = null;
+        while (!valide) {
+            String nomClasse = AffichageJeu.classeJoueur();
+            if (nomClasse.equals("clerc")) {
+                classe = new Clerc();
+                valide = true;
+            }
+            else if (nomClasse.equals("guerrier")) {
+                classe = new Guerrier();
+                valide = true;
+            }
+            else if (nomClasse.equals("magicien")) {
+                classe = new Magicien();
+                valide = true;
+            }
+            else if (nomClasse.equals("roublard")) {
+                classe = new Roublard();
+                valide = true;
+            }
+            else { AffichageJeu.afficherErreur(); }
+        }
+        return classe;
+    }
+    
+    public Race initRacePersonnage()
+    {
+        boolean valide = false;
+        Race race = null;
+        while (!valide) {
+            String nomRace = AffichageJeu.raceJoueur();
+            if (nomRace.equals("elfe")) {
+                race = new Elfe();
+                valide = true;
+            }
+            else if (nomRace.equals("halfelin")) {
+                race = new Halfelin();
+                valide = true;
+            }
+            else if (nomRace.equals("humain")) {
+                race = new Humain();
+                valide = true;
+            }
+            else if (nomRace.equals("nain")) {
+                race = new Nain();
+                valide = true;
+            }
+            else { AffichageJeu.afficherErreur(); }
+        }
+        return race;
+    }
+    
+    public int initAttributPersonnage(String nomAttribut, boolean superieurEgal)
+    {
+        boolean valide = false;
+        int attribut = 0;
+        while (!valide) {
+            attribut = AffichageJeu.attributJoueur(nomAttribut);
+            if (superieurEgal) { if (attribut >= 0) { valide = true; } }
+            else { if (attribut > 0) { valide = true; } }
+            if (!valide) { AffichageJeu.afficherErreur(); }
+        }
+        return attribut;
     }
 
     public void lancerPartie() {
@@ -110,10 +209,20 @@ public class Jeu {
             Donjon donjon = new Donjon();
             for (Personnage p : m_joueurs) donjon.placerEntite(p);
             
-            donjon.creerMonstre();
             // creation et ajout des monstres dans le donjon à implémenter
-            //for (Monstre m : donjon.getMonstres()) donjon.placerEntite(m);
+            donjon.creerMonstre();
+            for (Monstre m : donjon.getMonstres()) donjon.placerEntite(m);
+            
             //ajouter les obstacles
+            boolean valide = false;
+            int nbObstacles = 0;
+            while (!valide)
+            {
+                nbObstacles = AffichageJeu.nombreObstacles(donjon.getTaille());
+                if ((nbObstacles >= 0) && (nbObstacles <= donjon.getTaille())) { valide = true; }
+                else { AffichageJeu.afficherErreur(); }
+            }
+            for (int i=0; i<nbObstacles; i++) { donjon.placerObstacle(); }
             
             return donjon;
         }
