@@ -18,13 +18,13 @@ public class Personnage extends Entite{
 
 
     
-    public Personnage(String nom, Classe classe, Race race, int pvMax, int pv, int force, int dexterite, int vitesse, int initiative)
+    public Personnage(String nom, Classe classe, Race race, int pvMax, int force, int dexterite, int vitesse, int initiative)
     {
         m_nom = nom;
         m_classe = classe;
         m_race = race;
         m_pvMax = pvMax;
-        m_pv = pv;
+        m_pv = pvMax;
         m_force = force;
         m_dexterite = dexterite;
         m_vitesse = vitesse;

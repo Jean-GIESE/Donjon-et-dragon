@@ -213,14 +213,10 @@ public class Donjon
     {
         return m_carte;
     }
-    public int getTailleX()
-    {
-        return m_tailleX;
-    }
-    public int getTailleY()
-    {
-        return m_tailleY;
-    }
+    public int getTailleX() { return m_tailleX; }
+    public int getTailleY() { return m_tailleY; }
+    public int getTaille() { return m_taille; }
+    
     public ArrayList<Monstre> getMonstres()
     {
         return m_monstres;

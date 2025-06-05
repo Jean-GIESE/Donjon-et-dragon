@@ -135,7 +135,7 @@ public class AffichageDonjon
     public int dexteriteMonstre()
     {
         try {
-            System.out.print("insérez la dextérité du monstre (0 si l'attaque est au corps à corps:");
+            System.out.print("insérez la dextérité du monstre (supérieur à 0 car il attaque au corps à corps):");
             int dexterite = Integer.parseInt(m_scanner.nextLine().trim());
             return dexterite;
         } catch (NumberFormatException e) {
