@@ -9,24 +9,23 @@ import java.util.Scanner;
 
 public class AffichageDonjon
 {
-    private Scanner m_scanner;
+    private static Scanner m_scanner = new Scanner(System.in);
     private Position[][] m_carte;
-
+    
     public AffichageDonjon(Position[][] carte)
     {
-        this.m_scanner = new Scanner(System.in);
         m_carte = carte;
     }
     
-    public void mauvaiseDimension() { System.out.println("Erreur: mauvaises dimensions!"); }
+    public static void mauvaiseDimension() { System.out.println("Erreur: mauvaises dimensions!"); }
     
     public void mauvaisFormat() { System.out.println("Veuillez insérer les coordonnées dans le bon format!"); }
     
-    public int dimensionCarte(String coordonne)
+    public static int dimensionCarte(String coordonne)
     {
         try {
             System.out.print("Veuillez insérer les dimensions de la carte (Axe " + coordonne + ") (comprises entre 15 et 25 cases): ");
-            nb = Integer.parseInt(m_scanner.nextLine().trim());
+            int nb = Integer.parseInt(m_scanner.nextLine().trim());
             return nb;
         } catch (NumberFormatException e) {
             System.out.println("Erreur: Il faut entrer un nombre!");
