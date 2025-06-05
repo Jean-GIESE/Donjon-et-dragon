@@ -61,6 +61,7 @@ public abstract class Entite
     }
     public String getIcone(){return  m_icone;};
     public String setIcone(){return m_icone;};
+    public abstract int getPortee();
 
 
     public Boolean seDeplacer(Donjon donjon, int[]pos)

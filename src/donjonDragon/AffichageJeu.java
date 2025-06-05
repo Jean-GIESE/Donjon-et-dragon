@@ -5,7 +5,8 @@ import donjonDragon.entite.Personnage;
 import java.util.Scanner;
 
 public class AffichageJeu {
-    private static Scanner m_scanner;
+    private static Scanner m_scanner = new Scanner(System.in);
+
     public static void afficherTourPersonnage(Personnage joueur, int actions){
         System.out.println("\n" + joueur.getNom() + ", il vous reste " + actions + " action(s). Que souhaitez-vous faire ?");
         System.out.println("  - commenter (com <texte>)");

@@ -1,4 +1,4 @@
-package donjonDragon.plateau;
+/*package donjonDragon.plateau;
 
 import donjonDragon.entite.*;
 import donjonDragon.equipement.*;
@@ -477,5 +477,8 @@ public class BackupDonjon
         return false;
     }
 
-     */
+
 }
+
+
+ */

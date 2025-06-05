@@ -117,6 +117,10 @@ public class Personnage extends Entite{
         return m_armure.getClasse();
     }
     @Override
+    public int getPortee(){
+        return m_arme.getPortee();
+    }
+    @Override
     public void attaquer(Entite cible){
         De UnDeVingt = new De(1,20);
         int attaque =0;

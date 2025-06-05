@@ -1,4 +1,5 @@
 import donjonDragon.De;
+import donjonDragon.Jeu;
 import donjonDragon.equipement.*;
 import donjonDragon.entite.*;
 import donjonDragon.entite.race.*;
@@ -25,6 +26,7 @@ public class Main {
 //         System.out.println(chaine);
 
         Entite perso = new Personnage("Jean", new Clerc(), new Halfelin(), 20, 18, 4, 1, 5, 2);
+/*
         Entite leMonstre = new Monstre("Dragon", 0, new De(1,6), 3, 20, 5, 0, 4, 2, 8, "0w0");
         Equipement test = new Armure("Armure", 0, true); 
         Donjon carte = new Donjon();
@@ -35,7 +37,11 @@ public class Main {
         carte.placerObstacle();
         carte.placerEquipement(test);
         carte.placerEntite(leMonstre);
-        donjon.afficherCarte();
+        donjon.afficherCarte();*/
+        ArrayList<Personnage> listperso=new ArrayList<>();
+        listperso.add((Personnage) perso);
+        Jeu dnd = new Jeu(listperso);
+        dnd.lancerPartie();
 
 //         ArrayList<Equipement> equipementsParDefaut = new ArrayList<>();
 //         equipementsParDefaut.add(new Armure("Armure d'écailles", 9, false));

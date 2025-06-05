@@ -433,11 +433,12 @@ public class Donjon
         int[] acteurPos = trouverPositionEntite(acteur);
         int[] ciblePos = trouverPositionEntite(cible);
 
-        if (acteurPos != null && ciblePos != null ) { //if pas fini !
-            // verif si cible est a porté
+        if (acteurPos != null && ciblePos != null && (acteur.getPortee()<=Math.abs(ciblePos[0]-acteurPos[0])) && (acteur.getPortee()<=Math.abs(ciblePos[1]-acteurPos[1]))) {
+            acteur.attaquer(cible);
             return true;
         }
         //afficher que cible pas a porté
+        System.out.println("trop loin");
         return false;
     }
 }
