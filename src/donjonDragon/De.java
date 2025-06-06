@@ -28,7 +28,7 @@ public class De
         int res=0;
         for(int i=0;i<m_nombre;i++)
         {
-            res=rand.nextInt(m_face-1)+1;
+            res=rand.nextInt(m_face)+1;
             total+= res;
             to_print+=res;
             res=0;

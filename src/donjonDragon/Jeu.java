@@ -48,11 +48,16 @@ public class Jeu {
             Classe classe = initClassePersonnage();
             Race race = initRacePersonnage();
             
-            int pvMax = this.initAttributPersonnage("pvMax", false);
-            int force = this.initAttributPersonnage("force", true);
-            int dexterite = this.initAttributPersonnage("dextérité", true);
-            int vitesse = this.initAttributPersonnage("vitesse", true);
-            int initiative = this.initAttributPersonnage("initiative", true);
+            int pvMax = classe.getPv();
+            AffichageJeu.presentationCaracteristiques();
+            int force = this.initCaracteristiquePersonnage("force");
+            force += race.getForce();
+            int dexterite = this.initCaracteristiquePersonnage("dextérité");
+            dexterite += race.getDexterite();
+            int vitesse = this.initCaracteristiquePersonnage("vitesse");
+            vitesse += race.getVitesse();
+            int initiative = this.initCaracteristiquePersonnage("initiative");
+            initiative += race.getInitiative();
             
             Personnage joueur = new Personnage(nom, classe, race, pvMax, force, dexterite, vitesse, initiative);
             joueurs.add(joueur);
@@ -115,17 +120,13 @@ public class Jeu {
         return race;
     }
     
-    public int initAttributPersonnage(String nomAttribut, boolean superieurEgal)
+    public int initCaracteristiquePersonnage(String nomCaracteristique)
     {
-        boolean valide = false;
-        int attribut = 0;
-        while (!valide) {
-            attribut = AffichageJeu.attributJoueur(nomAttribut);
-            if (superieurEgal) { if (attribut >= 0) { valide = true; } }
-            else { if (attribut > 0) { valide = true; } }
-            if (!valide) { AffichageJeu.afficherErreur(); }
-        }
-        return attribut;
+        AffichageJeu.caracteristiqueJoueur(nomCaracteristique);
+        De de = new De(4,4);
+        int caracteristique = 3;
+        caracteristique += de.lancer();                        
+        return caracteristique;
     }
 
     public void lancerPartie() {
