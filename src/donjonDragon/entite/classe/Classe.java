@@ -17,10 +17,9 @@ public abstract class Classe
         m_equipementDepart = equipementDepart;
     }
     
-    public int getPv()
-    {
-        return m_pv;
-    }
+    public int getPv() { return m_pv; }
+    
+    public ArrayList<Equipement> getEquipementDepart() { return m_equipementDepart; }
     
     public String toString()
     {

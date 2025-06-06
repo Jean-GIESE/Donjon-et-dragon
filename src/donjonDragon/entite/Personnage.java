@@ -29,7 +29,7 @@ public class Personnage extends Entite{
         m_dexterite = dexterite;
         m_vitesse = vitesse;
         m_initiative = initiative;
-        m_inventaire = new ArrayList<Equipement>();
+        m_inventaire = m_classe.getEquipementDepart();
         m_arme = null;
         m_armure = null;
         m_enVie = true;
@@ -78,7 +78,8 @@ public class Personnage extends Entite{
         }
 
     }
-    public void choisirEquipementDepart(){
+    public void choisirEquipementDepart()
+    {
         // à implémenter
     }
     @Override

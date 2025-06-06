@@ -66,10 +66,10 @@ public class AffichageDonjon
     
     public void mauvaisNbMonstres() { System.out.println("Erreur: nombres de monstres faux"); }
     
-    public String nomMonstres(int numMonstre)
+    public String especeMonstres(int numMonstre)
     {
         System.out.println("Monstre n°" + numMonstre);
-        System.out.print("Insérez le nom du monstre :");
+        System.out.print("Insérez l'espèce du monstre :");
         return m_scanner.nextLine().trim();
     }
     
