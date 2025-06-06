@@ -21,10 +21,10 @@ public class AffichageDonjon
     
     public void mauvaisFormat() { System.out.println("Veuillez insérer les coordonnées dans le bon format!"); }
     
-    public static int dimensionCarte(String coordonne)
+    public static int dimensionCarte(String axe)
     {
         try {
-            System.out.print("Veuillez insérer les dimensions de la carte (Axe " + coordonne + ") (comprises entre 15 et 25 cases): ");
+            System.out.print("Veuillez insérer les dimensions de la carte (" + axe + ") (comprises entre 15 et 25 cases): ");
             int nb = Integer.parseInt(m_scanner.nextLine().trim());
             return nb;
         } catch (NumberFormatException e) {

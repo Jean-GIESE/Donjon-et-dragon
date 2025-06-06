@@ -19,8 +19,8 @@ public class Donjon
     
     public Donjon()
     {
-        m_tailleX = this.creerCarte("X");
-        m_tailleY = this.creerCarte("Y");
+        m_tailleX = this.creerCarte("longueur");
+        m_tailleY = this.creerCarte("largeur");
         m_taille = this.tailleMax();
         m_carte = this.initialiserCarte();
         m_monstres= new ArrayList<Monstre>();
@@ -36,13 +36,13 @@ public class Donjon
         m_carteAffiche = new AffichageDonjon(m_carte);
     }
     
-    public int creerCarte(String coordonne)
+    public int creerCarte(String axe)
     {
         int nb = 0;
         boolean valide = false;
         while (!valide)
         {
-            nb = m_carteAffiche.dimensionCarte(coordonne);
+            nb = m_carteAffiche.dimensionCarte(axe);
             if ((15 <= nb) && (nb <= 25)) {
                 valide = true;
             } 

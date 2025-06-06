@@ -28,30 +28,24 @@ public class AffichageJeu {
     
     public static String classeJoueur()
     {
-        System.out.println("==========\n\t- Clerc\n\t- Guerrier\n\t- Magicien\n\t- Roublart\n==========");
+        System.out.println("==============================\n\t- Clerc: les Clercs possèdent à leur création:\n\t\t16 points de vie\n\t\tun équipement de base contenant une masse d'armes, une armure d'écailles et une arbalète légère\n\t- Guerrier: les Guerriers possèdent à leur création:\n\t\t20 points de vie,\n\t\tun équipement contenant une cotte de mailles, une épée longue, une arbalète légère\n\t- Magicien: les Magiciens possèdent à leur création:\n\t\t12 points de vie\n\t\tun équipement contenant un bâton et une fronde\n\t- Roublard: les Roublards possèdent à leur création:\n\t\t16 points de vie\n\t\tun équipement contenant une rapière et un arc court\n==============================");
         System.out.print("Quelle est la classe du joueur? : ");
         return m_scanner.nextLine().trim().toLowerCase();
     }
     
     public static String raceJoueur()
     {
-        System.out.println("==========\n\t- Elfe\n\t- Halfelin\n\t- Humain\n\t- Nain\n==========");
+        System.out.println("==============================\n\t- Elfe: les Elfes possèdent une dextérité de base augmentée de 6 points\n\t- Halfelin: les Halfelins possèdent une dextérité de base augmentée de 4 points et une vitesse de base augmentée de 2 points\n\t- Humain: les Humains ont toutes leurs caractéristiques de base augmentée de 2 points\n\t- Nain: les Nains ont leur force de base augmentée de 6 points\n==============================");
         System.out.print("Quelle est la race du joueur? : ");
         return m_scanner.nextLine().trim().toLowerCase();
     }
     
-    public static int attributJoueur(String nomAttribut)
+    public static void presentationCaracteristiques()
     {
-        try {
-            System.out.println("==========\n\t- pv: la caractéristique de points de vie indique le nombre de dégâts que peut subir un joueur avant de mourir\n\t- force: la caractéristique force offre un bonus lors de l'utilisation d'une arme de corps à corps\n\t- dextérité: la caractéristique dextérité offre un bonus lors de l'utilisation de armes à distance\n\t- vitesse: la caractéristique vitesse indique la distance que peut parcourir un personnage lors d'une action (si elle est inférieur à trois alors le joueur ne peut pas bouger)\n\t- initiative: la caractéristique initiative offre un bonus pour déterminer l'ordre dans lequel jouera un personnage lors d'un combat dans un donjon\n==========");
-            System.out.print("Insérer l'attribut " + nomAttribut + " du joueur: ");
-            int nb = Integer.parseInt(m_scanner.nextLine().trim());
-            return nb;
-        } catch (NumberFormatException e) {
-            System.out.println("Erreur: Il faut entrer un nombre!");
-            return -1;
-        }
+        System.out.println("==============================\n\t- pv: la caractéristique de points de vie indique le nombre de dégâts que peut subir un joueur avant de mourir\n\t- force: la caractéristique force offre un bonus lors de l'utilisation d'une arme de corps à corps\n\t- dextérité: la caractéristique dextérité offre un bonus lors de l'utilisation de armes à distance\n\t- vitesse: la caractéristique vitesse indique la distance que peut parcourir un personnage lors d'une action\n\t- initiative: la caractéristique initiative offre un bonus pour déterminer l'ordre dans lequel jouera un personnage lors d'un combat dans un donjon\n==============================");
     }
+    
+    public static void caracteristiqueJoueur(String nomCaracteristique) { System.out.println("Vous vous aprréter à lancer 4 dés à 4 faces pour pouvoir initialiser la caractéristique " + nomCaracteristique); }
     
     public static void afficherTourPersonnage(Personnage joueur, int actions){
         System.out.println("\n" + joueur.getNom() + ", il vous reste " + actions + " action(s). Que souhaitez-vous faire ?");
