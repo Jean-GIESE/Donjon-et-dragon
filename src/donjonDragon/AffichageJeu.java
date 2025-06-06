@@ -47,6 +47,8 @@ public class AffichageJeu {
     
     public static void caracteristiqueJoueur(String nomCaracteristique) { System.out.println("Vous vous aprréter à lancer 4 dés à 4 faces pour pouvoir initialiser la caractéristique " + nomCaracteristique); }
     
+    public static void afficherInitiativeCombattant(String nomCombattant) { System.out.println("Vous vous apprétez à lancer un dés à 20 faces pour pouvoir trier l'initiative de " + nomCombattant + " comparée aux autres"); }
+    
     public static void afficherTourPersonnage(Personnage joueur, int actions){
         System.out.println("\n" + joueur.getNom() + ", il vous reste " + actions + " action(s). Que souhaitez-vous faire ?");
         System.out.println("  - commenter (com <texte>)");
@@ -103,15 +105,22 @@ public class AffichageJeu {
         System.out.println("Il y a une erreur dans la commande !");
     }
     
-    public static int nombreObstacles(int nbMax)
+    public static int nombreObjet(int nbMax, String nomObjet)
     {
         try {
-            System.out.print("Combien d'obstacles voulez-vous mettre dans le donjon? (pas plus de " + nbMax + "): ");
+            System.out.print("Combien d'" + nomObjet + " voulez-vous mettre dans le donjon? (pas plus de " + nbMax + "): ");
             int nb = Integer.parseInt(m_scanner.nextLine().trim());
             return nb;
         } catch (NumberFormatException e) {
             System.out.println("Erreur: Il faut entrer un nombre!");
             return -1;
         }
+    }
+    
+    public static String choisirEquipement(int numEquipement)
+    {
+        System.out.println("=========Liste d'objets=========\n\t- les armures légères\n\t\tarmure d'écailles, classe d'armure: 9\n\t\tdemi-plate, classe d'armure: 10\n\t- les armures lourdes\n\t\tcotte de mailles, classe d'armure: 11\n\t\tharnois: classe d'armure: 12\n\t- les armes courantes au corps-à-corps\n\t\tbâton, dégât: 1d6, portée: 1 case\n\t\tmasse d'armes, dégât: 1d6, portée: 1 case\n\t- les armes de guerre au corps-à-corps\n\t\tépée longue, dégât: 1d8, portée: 1 case\n\t\trapière, dégât: 1d8, portée: 1 case\n\t\tl'épée à deux mains, dégât: 2d6, portée: 1 case\n\t- les armes à distance\n\t\tarbalète légère, dégât: 1d8, portée 16 cases\n\t\tfronde, dégât 1d4, portée 6 cases\n\t\tarc court, dégât 1d6, portée 16 cases\n================================");
+        System.out.print("Choisir l'équipement n°" + numEquipement + ": ");
+        return m_scanner.nextLine().trim().toLowerCase();
     }
 }

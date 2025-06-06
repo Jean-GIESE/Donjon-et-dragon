@@ -65,5 +65,6 @@ public class Main {
 //         donjon.afficherCarte();
 
         Jeu game = new Jeu();
+        game.lancerPartie();
     }
 }
