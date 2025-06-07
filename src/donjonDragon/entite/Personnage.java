@@ -18,18 +18,18 @@ public class Personnage extends Entite{
 
 
     
-    public Personnage(String nom, Classe classe, Race race, int pvMax, int pv, int force, int dexterite, int vitesse, int initiative)
+    public Personnage(String nom, Classe classe, Race race, int pvMax, int force, int dexterite, int vitesse, int initiative)
     {
         m_nom = nom;
         m_classe = classe;
         m_race = race;
         m_pvMax = pvMax;
-        m_pv = pv;
+        m_pv = pvMax;
         m_force = force;
         m_dexterite = dexterite;
         m_vitesse = vitesse;
         m_initiative = initiative;
-        m_inventaire = new ArrayList<Equipement>();
+        m_inventaire = m_classe.getEquipementDepart();
         m_arme = null;
         m_armure = null;
         m_enVie = true;
@@ -80,7 +80,8 @@ public class Personnage extends Entite{
         }
 
     }
-    public void choisirEquipementDepart(){
+    public void choisirEquipementDepart()
+    {
         // à implémenter
     }
     @Override

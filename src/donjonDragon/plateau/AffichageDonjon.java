@@ -21,10 +21,10 @@ public class AffichageDonjon
     
     public void mauvaisFormat() { System.out.println("Veuillez insérer les coordonnées dans le bon format!"); }
     
-    public static int dimensionCarte(String coordonne)
+    public static int dimensionCarte(String axe)
     {
         try {
-            System.out.print("Veuillez insérer les dimensions de la carte (Axe " + coordonne + ") (comprises entre 15 et 25 cases): ");
+            System.out.print("Veuillez insérer les dimensions de la carte (" + axe + ") (comprises entre 15 et 25 cases): ");
             int nb = Integer.parseInt(m_scanner.nextLine().trim());
             return nb;
         } catch (NumberFormatException e) {
@@ -66,10 +66,10 @@ public class AffichageDonjon
     
     public void mauvaisNbMonstres() { System.out.println("Erreur: nombres de monstres faux"); }
     
-    public String nomMonstres(int numMonstre)
+    public String especeMonstres(int numMonstre)
     {
         System.out.println("Monstre n°" + numMonstre);
-        System.out.print("Insérez le nom du monstre :");
+        System.out.print("Insérez l'espèce du monstre :");
         return m_scanner.nextLine().trim();
     }
     
@@ -135,7 +135,7 @@ public class AffichageDonjon
     public int dexteriteMonstre()
     {
         try {
-            System.out.print("insérez la dextérité du monstre (0 si l'attaque est au corps à corps:");
+            System.out.print("insérez la dextérité du monstre (supérieur à 0 car il attaque au corps à corps):");
             int dexterite = Integer.parseInt(m_scanner.nextLine().trim());
             return dexterite;
         } catch (NumberFormatException e) {

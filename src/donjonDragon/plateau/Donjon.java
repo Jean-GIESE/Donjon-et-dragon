@@ -19,8 +19,8 @@ public class Donjon
     
     public Donjon()
     {
-        m_tailleX = this.creerCarte("X");
-        m_tailleY = this.creerCarte("Y");
+        m_tailleX = this.creerCarte("longueur");
+        m_tailleY = this.creerCarte("largeur");
         m_taille = this.tailleMax();
         m_carte = this.initialiserCarte();
         m_monstres= new ArrayList<Monstre>();
@@ -37,13 +37,13 @@ public class Donjon
         m_carteAffiche = new AffichageDonjon(m_carte);
     }
     
-    public int creerCarte(String coordonne)
+    public int creerCarte(String axe)
     {
         int nb = 0;
         boolean valide = false;
         while (!valide)
         {
-            nb = m_carteAffiche.dimensionCarte(coordonne);
+            nb = m_carteAffiche.dimensionCarte(axe);
             if ((15 <= nb) && (nb <= 25)) {
                 valide = true;
             } 
@@ -196,33 +196,40 @@ public class Donjon
         int X = 3;
         for (Personnage perso : persos)
         {
-            m_carte[4][X++].placerEntite(perso);
+            m_carte[10][X].placerEntite(perso);
+            X += 3;
         }
-        X = 1;
-        for (Equipement objet : objets)
-        {
-            m_carte[10][X++].placerEquipement(objet);
-        }
-        X = 5;
-        for (Monstre monstre : monstres)
-        {
-            m_carte[14][X++].placerEntite(monstre);
-            m_monstres.add(monstre);
-        }
+        
+        m_carte[1][3].placerEquipement(objets.get(0));
+        m_carte[3][18].placerEquipement(objets.get(1));
+        m_carte[5][1].placerEquipement(objets.get(2));
+        m_carte[7][16].placerEquipement(objets.get(3));
+        m_carte[9][11].placerEquipement(objets.get(4));
+        m_carte[11][3].placerEquipement(objets.get(5));
+        m_carte[13][5].placerEquipement(objets.get(6));
+        m_carte[15][13].placerEquipement(objets.get(7));
+        m_carte[17][10].placerEquipement(objets.get(8));
+        m_carte[19][0].placerEquipement(objets.get(9));
+        m_carte[1][15].placerEquipement(objets.get(10));
+        m_carte[3][10].placerEquipement(objets.get(11));
+        
+        for (Monstre monstre : monstres) { this.addMonstres(monstre); }
+        m_carte[0][0].placerEntite(monstres.get(0));
+        m_carte[4][3].placerEntite(monstres.get(1));
+        m_carte[8][18].placerEntite(monstres.get(2));
+        m_carte[12][5].placerEntite(monstres.get(3));
+        m_carte[16][11].placerEntite(monstres.get(4));
+        m_carte[18][7].placerEntite(monstres.get(5));
     }
 
     public Position[][] getCarte()
     {
         return m_carte;
     }
-    public int getTailleX()
-    {
-        return m_tailleX;
-    }
-    public int getTailleY()
-    {
-        return m_tailleY;
-    }
+    public int getTailleX() { return m_tailleX; }
+    public int getTailleY() { return m_tailleY; }
+    public int getTaille() { return m_taille; }
+    
     public ArrayList<Monstre> getMonstres()
     {
         return m_monstres;
@@ -243,12 +250,12 @@ public class Donjon
         
         for (int i=0; i<choix; i++)
         {
-            String espece = m_carteAffiche.nomMonstres(i);
+            String espece = m_carteAffiche.especeMonstres(i+1);
             int numero=0;
             for (int j=m_monstres.size(); j>0; j--)
             {
-                Monstre monstre = m_monstres.get(j);
-                if (Objects.equals(monstre.getEspece(), espece)) { numero = monstre.getNumero() + 1; }
+                Monstre monstre = m_monstres.get(j-1);
+                if (Objects.equals(monstre.getEspece().toLowerCase(), espece.toLowerCase())) { numero = monstre.getNumero() + 1; }
             }
             
             int[] degat = {0,0};
@@ -367,12 +374,11 @@ public class Donjon
         int[] acteurPos = trouverPositionEntite(acteur);
         int[] ciblePos = trouverPositionEntite(cible);
 
-        if (acteurPos != null && ciblePos != null && (acteur.getPortee()<=Math.abs(ciblePos[0]-acteurPos[0])) && (acteur.getPortee()<=Math.abs(ciblePos[1]-acteurPos[1]))) {
-            acteur.attaquer(cible);
+        if (acteurPos != null && ciblePos != null ) { //if pas fini !
+            // verif si cible est a porté
             return true;
         }
         //afficher que cible pas a porté
-        System.out.println("trop loin");
         return false;
     }
 }
