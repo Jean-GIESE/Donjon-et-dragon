@@ -346,17 +346,19 @@ public class Donjon
     {
         m_monstres.add(monstre);
     }
-    
+
     public int[] trouverPositionEntite(Entite entite) {
         for (int i = 0; i < m_carte.length; i++) {
             for (int j = 0; j < m_carte[i].length; j++) {
-                if (m_carte[i][j].getEntite().equals(entite)){
+                Entite e = m_carte[i][j].getEntite();
+                if (e != null && e.equals(entite)) {
                     return new int[]{i, j};
                 }
             }
         }
         return null;
     }
+
 
     public Boolean deplacementEntite(Entite entite, int[] pos) {
         int[] anciennePos = trouverPositionEntite(entite);
@@ -374,11 +376,12 @@ public class Donjon
         int[] acteurPos = trouverPositionEntite(acteur);
         int[] ciblePos = trouverPositionEntite(cible);
 
-        if (acteurPos != null && ciblePos != null ) { //if pas fini !
-            // verif si cible est a porté
+        if (acteurPos != null && ciblePos != null && (acteur.getPortee()<=Math.abs(ciblePos[0]-acteurPos[0])) && (acteur.getPortee()<=Math.abs(ciblePos[1]-acteurPos[1]))) {
+            acteur.attaquer(cible);
             return true;
         }
         //afficher que cible pas a porté
+        System.out.println("trop loin");
         return false;
     }
 }

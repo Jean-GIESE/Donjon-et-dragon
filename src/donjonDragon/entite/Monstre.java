@@ -41,6 +41,10 @@ public class Monstre extends Entite
     public String getNom(){
         return m_espece+m_numero;
     }
+    @Override
+    public int getPortee(){
+        return m_portee;
+    }
     public void attaquer(Entite cible)
     {
         De UnDeVingt = new De(1,20);
