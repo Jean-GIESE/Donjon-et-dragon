@@ -382,6 +382,9 @@ public class Donjon
 
         if (distance <= acteur.getPortee()) {
             acteur.attaquer(cible);
+            if (!m_carte[ciblePos[0]][ciblePos[1]].getEntite().estEnVie()){
+                m_carte[ciblePos[0]][ciblePos[1]].enleverEntite();
+            }
             return true;
         }
         System.out.println("trop loin");

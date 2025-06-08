@@ -76,6 +76,7 @@ public class Monstre extends Entite
             }
             else {
                 System.out.println(cible.getNom()+" meurt sur le coup !");
+                cible.setPv(pvFinal);
                 cible.setEnVie(false);
             }
         }
