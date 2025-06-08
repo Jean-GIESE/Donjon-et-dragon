@@ -33,9 +33,10 @@ public class Guerison implements Sort{
     public void listPerso(ArrayList<Entite> persos)
     {
         System.out.println("Choisissez une cible parmis :");
-        for (int i=0;i<persos.size();i++)
+        int i = 0;
+        for (Entite perso : persos)
         {
-            System.out.println((i+1)+" - "+persos.get(i));
+            System.out.println((i++)+" - "+perso.getNom());
         }
     }
 }
