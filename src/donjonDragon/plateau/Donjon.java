@@ -15,7 +15,6 @@ public class Donjon
     private int m_tailleY;
     private Position[][] m_carte;
     private ArrayList<Monstre>m_monstres;
-    private AffichageDonjon m_carteAffiche;
     
     public Donjon()
     {
@@ -24,7 +23,6 @@ public class Donjon
         m_taille = this.tailleMax();
         m_carte = this.initialiserCarte();
         m_monstres= new ArrayList<Monstre>();
-        m_carteAffiche = new AffichageDonjon(m_carte);
     }
     
     public Donjon(int tailleX, int tailleY)
@@ -34,7 +32,6 @@ public class Donjon
         m_taille = this.tailleMax();
         m_carte = this.initialiserCarte();
         m_monstres= new ArrayList<Monstre>();
-        m_carteAffiche = new AffichageDonjon(m_carte);
     }
     
     public int creerCarte(String axe)
@@ -43,12 +40,12 @@ public class Donjon
         boolean valide = false;
         while (!valide)
         {
-            nb = m_carteAffiche.dimensionCarte(axe);
+            nb = AffichageDonjon.dimensionCarte(axe);
             if ((15 <= nb) && (nb <= 25)) {
                 valide = true;
             } 
             else {
-                m_carteAffiche.mauvaiseDimension();
+                AffichageDonjon.mauvaiseDimension();
             }
         }
         return nb;
@@ -99,7 +96,7 @@ public class Donjon
             {
                 valide = false;
                 int coordX=0, coordY=0;
-                String coordonne = m_carteAffiche.coordonneObstacle();
+                String coordonne = AffichageDonjon.coordonneObstacle();
                 char lettre = coordonne.charAt(0);
                 
                 coordX = coordonneX(lettre);
@@ -113,10 +110,10 @@ public class Donjon
                 }
                                 
                 if (!valide) {
-                    m_carteAffiche.mauvaiseDimension();
+                    AffichageDonjon.mauvaiseDimension();
                 }
             } catch (Exception erreur) {
-                m_carteAffiche.mauvaisFormat();
+                AffichageDonjon.mauvaisFormat();
             }
         }
     }
@@ -132,7 +129,7 @@ public class Donjon
                 valide = false;
                 int coordX=0, coordY=0;
                 
-                String coordonne = m_carteAffiche.coordonneCombattant(entite.getNom());
+                String coordonne = AffichageDonjon.coordonneCombattant(entite.getNom());
                 char lettre = coordonne.charAt(0);
                 
                 coordX = coordonneX(lettre);
@@ -147,10 +144,10 @@ public class Donjon
                 }
                                 
                 if (!valide) {
-                    m_carteAffiche.mauvaiseDimension();
+                    AffichageDonjon.mauvaiseDimension();
                 }
             } catch (Exception erreur) {
-                m_carteAffiche.mauvaisFormat();
+                AffichageDonjon.mauvaisFormat();
             }
         }
     }
@@ -164,7 +161,7 @@ public class Donjon
             {
                 valide = false;
                 int coordX=0, coordY=0;
-                String coordonne = m_carteAffiche.coordonneEquipement(objet.getNom());
+                String coordonne = AffichageDonjon.coordonneEquipement(objet.getNom());
                 char lettre = coordonne.charAt(0);
                 
                 coordX = coordonneX(lettre);
@@ -178,10 +175,10 @@ public class Donjon
                 }
                                 
                 if (!valide) {
-                    m_carteAffiche.mauvaiseDimension();
+                    AffichageDonjon.mauvaiseDimension();
                 }
             } catch (Exception erreur) {
-                m_carteAffiche.mauvaisFormat();
+                AffichageDonjon.mauvaisFormat();
             }
         }
     }
@@ -240,17 +237,17 @@ public class Donjon
         boolean valide = false;
         int choix = 0;
         while (!valide) {
-            choix = m_carteAffiche.nombreMonstres(m_taille);
+            choix = AffichageDonjon.nombreMonstres(m_taille);
             if ((0 < choix) && (choix <= (m_taille - 5))) {
                 valide = true;
             } else {
-                m_carteAffiche.mauvaisNbMonstres();
+                AffichageDonjon.mauvaisNbMonstres();
             }
         }
         
         for (int i=0; i<choix; i++)
         {
-            String espece = m_carteAffiche.especeMonstres(i+1);
+            String espece = AffichageDonjon.especeMonstres(i+1);
             int numero=0;
             for (int j=m_monstres.size(); j>0; j--)
             {
@@ -261,25 +258,25 @@ public class Donjon
             int[] degat = {0,0};
             valide = false;
             while (!valide) {
-                degat = m_carteAffiche.degatsMonstre();
+                degat = AffichageDonjon.degatsMonstre();
                 if ((degat[0] > 0) && (degat[1] > 0)) { valide = true; }
-                if (!valide) { m_carteAffiche.nombreInsuffisant(); }
+                if (!valide) { AffichageDonjon.nombreInsuffisant(); }
             }
             
             valide = false;
             int portee = 0;
             while (!valide) {
-                portee = m_carteAffiche.porteeMonstre();
+                portee = AffichageDonjon.porteeMonstre();
                 if (portee > 0) { valide = true; }
-                if (!valide) { m_carteAffiche.nombreInsuffisant(); }
+                if (!valide) { AffichageDonjon.nombreInsuffisant(); }
             }
             
             valide = false;
             int pvMax = 0;
             while (!valide) {
-                pvMax = m_carteAffiche.pvMonstre();
+                pvMax = AffichageDonjon.pvMonstre();
                 if (pvMax > 0) { valide = true; }
-                if (!valide) { m_carteAffiche.nombreInsuffisant(); }
+                if (!valide) { AffichageDonjon.nombreInsuffisant(); }
             }
             
             int force = 0;
@@ -288,9 +285,9 @@ public class Donjon
             {
                 valide = false;
                 while (!valide) {
-                    force = m_carteAffiche.forceMonstre();
+                    force = AffichageDonjon.forceMonstre();
                     if (force > 0) { valide = true; }
-                    if (!valide) { m_carteAffiche.nombreInsuffisant(); }
+                    if (!valide) { AffichageDonjon.nombreInsuffisant(); }
                 }
             }
             
@@ -298,42 +295,42 @@ public class Donjon
             {
                 valide = false;
                 while (!valide) {
-                    dexterite = m_carteAffiche.dexteriteMonstre();
+                    dexterite = AffichageDonjon.dexteriteMonstre();
                     if (dexterite > 0) { valide = true; }
-                    if (!valide) { m_carteAffiche.nombreInsuffisantAttaque(); }
+                    if (!valide) { AffichageDonjon.nombreInsuffisantAttaque(); }
                 }
             }
             
             valide = false;
             int vitesse = -1;
             while (!valide) {
-                vitesse = m_carteAffiche.vitesseMonstre();
+                vitesse = AffichageDonjon.vitesseMonstre();
                 if (vitesse >= 0) { valide = true; }
-                if (!valide) { m_carteAffiche.nombreSuperieurEgalZero(); }
+                if (!valide) { AffichageDonjon.nombreSuperieurEgalZero(); }
             }
             
             valide = false;
             int initiative = -1;
             while (!valide) {
-                initiative = m_carteAffiche.initiativeMonstre();
+                initiative = AffichageDonjon.initiativeMonstre();
                 if (initiative >= 0) { valide = true; }
-                if (!valide) { m_carteAffiche.nombreSuperieurEgalZero(); }
+                if (!valide) { AffichageDonjon.nombreSuperieurEgalZero(); }
             }
             
             valide = false;
             int classeArmure = -1;
             while (!valide) {
-                classeArmure = m_carteAffiche.classeArmureMonstre();
+                classeArmure = AffichageDonjon.classeArmureMonstre();
                 if (classeArmure >= 0) { valide = true; }
-                if (!valide) { m_carteAffiche.nombreSuperieurEgalZero(); }
+                if (!valide) { AffichageDonjon.nombreSuperieurEgalZero(); }
             }
             
             valide = false;
             String icone = "";
             while (!valide) {
-                icone = m_carteAffiche.iconeMonstre();
+                icone = AffichageDonjon.iconeMonstre();
                 if (icone.length() == 3) { valide = true; }
-                if (!valide) { m_carteAffiche.mauvaisIcone(); }
+                if (!valide) { AffichageDonjon.mauvaisIcone(); }
             }
             
             Monstre monstreInit = new Monstre(espece, numero, new De(degat[0], degat[1]), portee, pvMax, force, dexterite, vitesse, initiative, classeArmure, icone);
@@ -370,7 +367,7 @@ public class Donjon
         return false;
     }
     
-    public void afficherCarte() { m_carteAffiche.afficherCarte(m_carte, m_tailleX, m_tailleY); }
+    public void afficherCarte() { AffichageDonjon.afficherCarte(m_carte, m_tailleX, m_tailleY); }
 
     public Boolean attaquerEntite(Entite acteur, Entite cible) {
         int[] acteurPos = trouverPositionEntite(acteur);
