@@ -5,6 +5,7 @@ import donjonDragon.entite.classe.*;
 import donjonDragon.entite.race.*;
 import donjonDragon.equipement.*;
 import donjonDragon.plateau.Donjon;
+import donjonDragon.plateau.Position;
 
 import java.util.ArrayList;
 
@@ -67,19 +68,18 @@ public class Personnage extends Entite{
         }
         return false;
     }
-    public void ramasser(Donjon donjon, Equipement e)
+    public Boolean ramasser(Position pos)
     {
-        if (e == null) {
+        if (pos.getTypeEquipement() == TypeEquipement.AUCUN) {
             System.out.println("Il n'y a rien à ramasser ici.");
+            return false;
         }
         else{
-            m_inventaire.add(e);
-            System.out.println(getNom() + " ramasse " + e.getNom() + ".");
-            //
-            // A FINIR
-            //
+            m_inventaire.add(pos.getEquipement());
+            System.out.println(getNom() + " ramasse " + pos.getEquipement().getNom() + ".");
+            pos.enleverEquipement();
+            return true;
         }
-
     }
     private ArrayList<Equipement> copierEquipements(ArrayList<Equipement> original) {
         ArrayList<Equipement> copie = new ArrayList<>();
@@ -166,6 +166,7 @@ public class Personnage extends Entite{
             }
             else {
                 System.out.println(cible.getNom()+" meurt sur le coup !");
+                cible.setPv(pvFinal);
                 cible.setEnVie(false);
             }
         }

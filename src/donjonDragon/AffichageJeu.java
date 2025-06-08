@@ -179,4 +179,7 @@ public class AffichageJeu {
     }
 
 
+    public static void afficherVictoireDonjon(int donjonactuel) {
+        System.out.println("Donjon "+ (donjonactuel + 1) + " terminé !");
+    }
 }
