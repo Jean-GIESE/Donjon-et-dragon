@@ -278,8 +278,6 @@ class Donjon
 -m_taille:Integer
 -m_tailleX:Integer
 -m_tailleY:Integer
--m_carte:Position[*][*]
--m_monstres:ArrayList<Monstre>
 -m_carteAffiche:AffichageDonjon
 +«Create» Donjon(): Donjon
 +«Create» Donjon(tailleX:Integer,tailleY:Integer): Donjon
@@ -291,7 +289,7 @@ class Donjon
 +placerObstacle()
 +placerEntite(entite:Entite)
 +placerEquipement(objet:Equipement)
-+donjonDefaut(persos:ArrayList<Personnage>,objets:ArrayList<Equipement>,monstres:ArrayList<Monstre>)
++donjonDefaut(persos:Personnage[*],objets:Equipement[*],monstres:Monstre[*])
 +getCarte():Position[*][*]
 +getTailleX():Integer
 +getTailleY():Integer
@@ -300,9 +298,11 @@ class Donjon
 +creerMonstre()
 +addMonstres(monstre:Monstre)
 +trouverPositionEntite(entite:Entite):Integer[*]
-+deplacementEntite(entite:Entite,pos,Integer[*]):Boolean
++deplacementEntite(entite:Entite,pos:Integer[*]):Boolean
 +afficherCarte()
 +attaquerEntite(acteur:Entite,cible:Entite):Boolean
++attaquerEntiteMJ(position:Position,degat:De):Boolean
++deplacementEntiteMJ(positionEntite:Position):Boolean
 }
 /'Définitions des relations'/
 '--- Relations d'appel ---
