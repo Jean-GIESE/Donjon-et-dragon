@@ -373,7 +373,7 @@ public class Jeu {
             } else if (input.startsWith("dep ")) {
                 if(donjon.coordonneX(input.charAt(4))!= -1){
                     pos[1]=donjon.coordonneX(input.charAt(4));
-                    pos[0]=Integer.parseInt(input.substring(5));
+                    pos[0]=Integer.parseInt(input.substring(5))-1;
                     if(donjon.coordonneValide(pos[0],pos[1])){
                         if(donjon.deplacementEntite(joueur,pos))
                         {
@@ -381,7 +381,7 @@ public class Jeu {
                         }
                     }
                 }
-            } else if (input.equals("ram")) {
+            } else if (input.startsWith("ram")) {
                 int[] posJoueur = donjon.trouverPositionEntite(joueur);
                 if (posJoueur != null) {
                     Position caseJoueur = donjon.getCarte()[posJoueur[0]][posJoueur[1]];
