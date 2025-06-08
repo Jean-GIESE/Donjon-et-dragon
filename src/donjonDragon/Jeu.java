@@ -404,24 +404,37 @@ public class Jeu {
 
     public void gererTourMonstre (Monstre monstre, Donjon donjon){
         int actions = 3;
+        String input="";
+        int[]pos=new int[2];
         while (actions > 0) {
-            System.out.println("\n" + monstre.getNom() + ", il vous reste " + actions + " action(s). Que souhaitez-vous faire ?");
-            System.out.println("  - commenter (com <texte>)");
-            System.out.println("  - attaquer (att <case>)");
-            System.out.println("  - se déplacer (dep <case>)");
-            System.out.print("> ");
-            String input = m_scanner.nextLine();
-
             donjon.afficherCarte();
             System.out.println(monstre.toString());
+            AffichageJeu.afficherTourMonstre(monstre,actions);
+            input=AffichageJeu.nextLineTourMonstre();
             if (input.startsWith("com ")) {
                 System.out.println("RP : " + input.substring(4));
             } else if (input.startsWith("att ")) {
-                // à implémenter
-                actions--;
+                if(donjon.coordonneX(input.charAt(4))!= -1){
+                    pos[1]=donjon.coordonneX(input.charAt(4));
+                    pos[0]=Integer.parseInt(input.substring(5))-1;
+                    if(donjon.coordonneValide(pos[0],pos[1])){
+                        if(donjon.attaquerEntite(monstre,donjon.getCarte()[pos[0]][pos[1]].getEntite()))
+                        {
+                            actions--;
+                        }
+                    }
+                }
             } else if (input.startsWith("dep ")) {
-                // à implémenter
-                actions--;
+                if(donjon.coordonneX(input.charAt(4))!= -1){
+                    pos[1]=donjon.coordonneX(input.charAt(4));
+                    pos[0]=Integer.parseInt(input.substring(5))-1;
+                    if(donjon.coordonneValide(pos[0],pos[1])){
+                        if(donjon.deplacementEntite(monstre,pos))
+                        {
+                            actions--;
+                        }
+                    }
+                }
             } else {
                 System.out.println("Commande invalide.");
             }
