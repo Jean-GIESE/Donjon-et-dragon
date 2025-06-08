@@ -181,6 +181,7 @@ public class Jeu {
                     m_donjonActuel++;
                 }
             }
+
             AffichageJeu.afficherVictoire();
         }
     }
@@ -371,8 +372,8 @@ public class Jeu {
                 }
             } else if (input.startsWith("dep ")) {
                 if(donjon.coordonneX(input.charAt(4))!= -1){
-                    pos[0]=donjon.coordonneX(input.charAt(4));
-                    pos[1]=Integer.parseInt(input.substring(5,6));
+                    pos[1]=donjon.coordonneX(input.charAt(4));
+                    pos[0]=Integer.parseInt(input.substring(5));
                     if(donjon.coordonneValide(pos[0],pos[1])){
                         if(donjon.deplacementEntite(joueur,pos))
                         {

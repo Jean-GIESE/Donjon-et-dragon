@@ -359,8 +359,13 @@ public class Donjon
 
     public Boolean deplacementEntite(Entite entite, int[] pos) {
         int[] anciennePos = trouverPositionEntite(entite);
+        int deplacementX = pos[1] - anciennePos[1];
+        if (deplacementX < 0) { deplacementX = anciennePos[1] - pos[1]; }
+        int deplacementY = pos[0] - anciennePos[0];
+        if (deplacementY < 0) { deplacementY = anciennePos[0] - pos[0]; }
+        
 
-        if (anciennePos != null && entite.seDeplacer(this, pos)) {
+        if (anciennePos != null && entite.seDeplacer(this, pos, deplacementX, deplacementY)) {
             m_carte[anciennePos[0]][anciennePos[1]].enleverEntite();
             return true;
         }

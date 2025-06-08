@@ -65,12 +65,12 @@ public abstract class Entite
     public abstract String getNomEtId();
 
 
-    public Boolean seDeplacer(Donjon donjon, int[]pos)
+    public Boolean seDeplacer(Donjon donjon, int[]pos, int deplacementX, int deplacementY)
     {
-        if(pos[0]-m_vitesse/3>=0 && pos[1]-m_vitesse/3>=0)
+        if((((m_vitesse/3) - deplacementX) >= 0) && (((m_vitesse/3)-deplacementY) >= 0))
         {
-            if (donjon.getCarte()[pos[0]][pos[1]].estVide() || donjon.getCarte()[pos[0]][pos[1]].aJusteEquipement()) {
-                donjon.getCarte()[pos[0]][pos[1]].placerEntite(this);
+            if (donjon.getCarte()[pos[0]-1][pos[1]].estVide() || donjon.getCarte()[pos[0]-1][pos[1]].aJusteEquipement()) {
+                donjon.getCarte()[pos[0]-1][pos[1]].placerEntite(this);
                 return true;
             } else {
                 System.out.println("Cette endroit est occupé !");
