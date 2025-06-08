@@ -15,6 +15,8 @@ abstract Entite<<abstract>>
 #m_initiative : Integer
 #m_enVie : Boolean
 #m_pos : Integer[*]
+#m_icone : String
+#m_type : TypeEntite
 
 +getPvMax():Integer
 +getPv():Integer
@@ -27,7 +29,11 @@ abstract Entite<<abstract>>
 +setPv(pv:Integer)
 +setEnVie(vie:Boolean)
 +attaquer(cible:Entite) {abstract}
++getType(): TypeEntite
++getIcone(): String
++setIcone(): String
 +seDeplacer(donjon:Donjon,pos:Integer[*])
++equals(obj:Object): Boolean
 +toString():String {abstract}
 
 }
@@ -40,9 +46,10 @@ class Personnage
 -m_arme : Arme
 -m_armure : Armure
 
-+«Create» Personnage(nom:String,classe:Classe,race:Race,pvMax:Integer,pv:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer): Personnage
++«Create» Personnage(nom:String,classe:Classe,race:Race,pvMax:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer): Personnage
 +sEquiper(objet:Equipement): Void
 +ramasser(): Void
++choisirEquipementDepart()
 +getNom():String
 +getRace():Race
 +getClasse():Classe
@@ -61,7 +68,7 @@ class Monstre
 -m_degat : De
 -m_portee : Integer
 -m_classeArmure : Integer
-+«Create» Monstre(espece:String,numero:Integer,degat:De,portee:Integer,pvMax:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer,classeArmure:Integer): Monstre
++«Create» Monstre(espece:String,numero:Integer,degat:De,portee:Integer,pvMax:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer,classeArmure:Integer,icone:String): Monstre
 +getEspece():String
 +getNumero():Integer
 +getClasseArmure():Integer
@@ -70,32 +77,44 @@ class Monstre
 +toString():String
 
 }
+enum TypeEntite
+{
+JOUEUR
+MONSTRE
+AUCUN
+}
 package "classe"
 {
 abstract Classe<<abstract>>
 {
-#m_nom:String
-#m_pv:Integer
-#m_equipementDepart:Equipement
+-m_nom:String
+-m_pv:Integer
+-m_equipementDepart:Equipement
 
++«Create»Classe(nom:String,pv:Integer,equipementDepart:ArrayList<Equipement>): Classe
 +getPv():Integer
++getEquipementDepart():ArrayList<Equipement>
 +toString():String
 }
 class Clerc
 {
 +«Create» Clerc(): Clerc
++initialiserEquipementClerc(): ArrayList<Equipement>
 }
 class Guerrier
 {
 +«Create» Guerrier(): Guerrier
++initialiserEquipementGuerrier(): ArrayList<Equipement>
 }
 class Magicien
 {
 +«Create» Magicien(): Magicien
++initialiserEquipementMagicien(): ArrayList<Equipement>
 }
 class Roublard
 {
 +«Create» Roublard(): Roublard
++initialiserEquipementRoublard(): ArrayList<Equipement>
 }
 }
 
@@ -104,11 +123,12 @@ package "race"
 /'Définitions des classes'/
 abstract Race<<abstract>>
 {
-#m_pv : Integer
-#m_force : Integer
-#m_dexterite : Integer
-#m_vitesse : Integer
-#m_initiative : Integer
+-m_pv : Integer
+-m_force : Integer
+-m_dexterite : Integer
+-m_vitesse : Integer
+-m_initiative : Integer
++«Create» Race(pv:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer): Race
 +getPv():Integer
 +getForce():Integer
 +getDexterite():Integer
@@ -131,6 +151,37 @@ class Halfelin
 class Nain
 {
 +«Create» Nain(): Nain
+}
+}
+
+package "sort"
+{
+/'Définitions des sorts'/
+interface Sort
+{
++lancer(entites:ArrayList<Entite>,donjon:Donjon)
+}
+class ArmeMagique
+{
+-m_scanner: Scanner
++«Create» ArmeMagique(): ArmeMagique
++lancer(entites:ArrayList<Entite>,donjon:Donjon)
++listPerso(persos:ArrayList<Entite>)
++listArme(perso:Personnage,armeDispo:ArrayList<Arme>)
+}
+class BoogieWoogie
+{
+-m_scanner: Scanner
++«Create» BoogieWoogie(): BoogieWoogie
++lancer(entites:ArrayList<Entite>,donjon:Donjon)
++listEntite(Entite:ArrayList<Entite>)
+}
+class Guerison
+{
+-m_scanner: Scanner
++«Create» Guerison(): Guerison
++lancer(entites:ArrayList<Entite>,donjon:Donjon)
++listPerso(persos:ArrayList<Entite>)
 }
 }
 
@@ -178,14 +229,14 @@ package "equipement"
 /'Définitions des classes'/
 abstract Equipement<<abstract>>
 {
-#m_nom:String
-#m_lourd:Boolean
-#m_pos:Integer[*]
+-m_nom:String
+-m_lourd:Boolean
+-m_type: TypeEquipement
 
++«Create» Equipement(nom:String,est_lourd:Boolean,type:TypeEquipement): Equipement
 +getNom():String
 +getLourd():Boolean
-+setPos(pos:Integer[*])
-+positionnerEquipement(donjon:Donjon,pos:Integer[*])
++getType(): TypeEquipement
 +toString():String
 }
 '--- Relations d'appel ---
@@ -202,7 +253,7 @@ class Arme
 {
 -m_degat:De
 -m_portee:Integer
-+«Create» Armure(nom:String,portee:Integer,est_lourd:Boolean): Armure
++«Create» Armure(nom:String,degat:De,portee:Integer,est_lourd:Boolean): Armure
 +getDegat():De
 +getPortee():Integer
 }
@@ -212,6 +263,11 @@ Arme .> De : "«call»"
 /'Définitions des relations'/
 Armure -up-|> Equipement
 Arme -up-|> Equipement
+enum TypeEquipement {
+ARME
+ARMURE
+AUCUN
+}
 }
 package "plateau"
 {
@@ -219,23 +275,33 @@ package "plateau"
 class Donjon
 {
 -m_taille:Integer
--m_carte:String[*][*]
--m_monstres:Donjon[*]
+-m_tailleX:Integer
+-m_tailleY:Integer
+-m_carte:Position[*][*]
+-m_monstres:ArrayList<Monstre>
+-m_carteAffiche:AffichageDonjon
 +«Create» Donjon(): Donjon
-+«Create» Donjon(taille:Integer): Donjon
-+creerCarte():Integer
-+initialiserCarte():String[*][*]
++«Create» Donjon(tailleX:Integer,tailleY:Integer): Donjon
++creerCarte(axe:String):Integer
++tailleMax():Integer
++initialiserCarte():Position[*][*]
 +cordonneX(lettreX:char):Integer
 +cordonneValide(coordX:Integer,coordY:Integer):Booleans
-+getValeurEmplacement(pos:Integer[*]):Integer
 +placerObstacle()
 +placerEntite(entite:Entite)
 +placerEquipement(objet:Equipement)
 +donjonDefaut(persos:ArrayList<Personnage>,objets:ArrayList<Equipement>,monstres:ArrayList<Monstre>)
-+afficherCarte()
-+getCarte():String[*][*]
++getCarte():Position[*][*]
++getTailleX():Integer
++getTailleY():Integer
++getTaille():Integer
 +getMonstres():ArrayList<Monstre>
-+addMonstres()
++creerMonstre()
++addMonstres(monstre:Monstre)
++trouverPositionEntite(entite:Entite):Integer[*]
++deplacementEntite(entite:Entite,pos,Integer[*]):Boolean
++afficherCarte()
++attaquerEntite(acteur:Entite,cible:Entite):Boolean
 }
 /'Définitions des relations'/
 '--- Relations d'appel ---
@@ -246,11 +312,72 @@ Donjon .> Personnage : "«call»"
 
 '--- Agrégations ---
 Donjon "1" o--> "0..*\n-m_monstres" Monstre : contient
+
+class AffichageDonjon
+{
+-m_scanner:Scanner
+-m_carte:Position[*][*]
+
++«Create» AffichageDonjon(carte:Position[][]): AffichageDonjon
++mauvaiseDimension()
++mauvaisFormat()
++dimensionCarte(axe:String):Integer
++coordonneObstacle():String
++coordonneCombattant(nomEntite:String):String
++coordonneEquipement(objet:String): String
++nombreMonstres(taille:Integer):Integer
++mauvaisNbMonstres()
++especeMonstres(numMonstre:Integer): String
++degatsMonstre():Integer[*]
++nombreInsuffisant()
++nombreSuperieurEgalZero()
++nombreInsuffisantAttaque()
++porteeMonstre():Integer
++pvMonstre():Integer
++forceMonstre():Integer
++dexteriteMonstre():Integer
++vitesseMonstre():Integer
++initiativeMonstre():Integer
++classeArmureMonstre():Integer
++iconeMonstre():String
++mauvaisIcone()
++afficherCarte(donjon:Position[*][*],tailleX:Integer,tailleY:Integer)
+}
+class Position
+{
+-m_obstacle:Boolean
+-m_typeEquipement:TypeEquipement
+-m_typeEntite:TypeEntite
+-m_equipement:Equipement
+-m_entite:Entite
+-m_icone:String
+
++«Create» Position():Position
++getObstacle():Boolean
++getTypeEquipement():TypeEquipement
++getTypeEntite():TypeEntite
++getEntite():Entite
++getEquipement():Equipement
++getIcone():String
++setIcone(icone:String)
++setTypeEntite(entite:TypeEntite)
++setTypeEquipement(equipement:TypeEquipement)
++setObstacle(obstacle:Boolean)
++placerEquipement(equipement:Equipement)
++placerEntite(entite:Entite)
++enleverEquipement()
++enleverEntite()
++miseAJourIcone()
++estVide()
++aJusteEquipement()
++toString():String
+}
 }
 class De
 {
 -m_nombre:Integer
 -m_face:Integer
+-m_scanner:Scanner
 +«Create» De(nombre:Integer,face:Integer): De
 +lancer():Integer
 +toString():String
@@ -260,9 +387,9 @@ class Jeu
 -m_donjons : Donjon[*]
 -m_donjonActuel : int
 -m_joueurs : Personnage[*]
--m_scanner :
+-m_scanner : Scanner
 
-+«Create» Jeu(joueurs : Personnage[*]) : Jeu
++«Create» Jeu() : Jeu
 +lancerPartie() : void
 +proposerMiseEnPlace(donjon : Donjon) : void
 +calculerInitiative(donjon : Donjon) : Entite[*]

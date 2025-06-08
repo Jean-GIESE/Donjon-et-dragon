@@ -368,7 +368,7 @@ public class Donjon
         return false;
     }
     
-    public void afficherCarte() { m_carteAffiche.afficherCarte(m_tailleX, m_tailleY); }
+    public void afficherCarte() { m_carteAffiche.afficherCarte(m_carte, m_tailleX, m_tailleY); }
 
     public Boolean attaquerEntite(Entite acteur, Entite cible) {
         int[] acteurPos = trouverPositionEntite(acteur);
