@@ -65,21 +65,18 @@ public abstract class Entite
     public abstract String getNomEtId();
 
 
-    public Boolean seDeplacer(Donjon donjon, int[]pos, int deplacementX, int deplacementY)
+    public Boolean seDeplacer(Donjon donjon, int[] pos, int deplacementX, int deplacementY)
     {
-        if((((m_vitesse/3) - deplacementX) >= 0) && (((m_vitesse/3)-deplacementY) >= 0))
-        {
-            if (donjon.getCarte()[pos[0]-1][pos[1]].estVide() || donjon.getCarte()[pos[0]-1][pos[1]].aJusteEquipement()) {
-                donjon.getCarte()[pos[0]-1][pos[1]].placerEntite(this);
+        int vitesseMax = m_vitesse / 3;
+        if (deplacementX <= vitesseMax && deplacementY <= vitesseMax) {
+            if (donjon.getCarte()[pos[0]][pos[1]].estVide() || donjon.getCarte()[pos[0]][pos[1]].aJusteEquipement()) {
+                donjon.getCarte()[pos[0]][pos[1]].placerEntite(this);
                 return true;
             } else {
                 System.out.println("Cette endroit est occupé !");
                 return false;
             }
-
-        }
-        else
-        {
+        } else {
             System.out.println("Vous êtes trop lent pour aller si loin !");
             return false;
         }

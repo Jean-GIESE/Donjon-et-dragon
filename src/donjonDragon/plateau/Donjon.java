@@ -359,11 +359,8 @@ public class Donjon
 
     public Boolean deplacementEntite(Entite entite, int[] pos) {
         int[] anciennePos = trouverPositionEntite(entite);
-        int deplacementX = pos[1] - anciennePos[1];
-        if (deplacementX < 0) { deplacementX = anciennePos[1] - pos[1]; }
-        int deplacementY = pos[0] - anciennePos[0];
-        if (deplacementY < 0) { deplacementY = anciennePos[0] - pos[0]; }
-        
+        int deplacementX = Math.abs(pos[1] - anciennePos[1]);
+        int deplacementY = Math.abs(pos[0] - anciennePos[0]);
 
         if (anciennePos != null && entite.seDeplacer(this, pos, deplacementX, deplacementY)) {
             m_carte[anciennePos[0]][anciennePos[1]].enleverEntite();
@@ -395,4 +392,29 @@ public class Donjon
         System.out.println("trop loin");
         return false;
     }
+
+    public boolean attaquerEntiteMJ(Position position, De degat) {
+        if (position == null || position.estVide()) {
+            System.out.println("Il n'y a aucune entité à cette position.");
+            return false;
+        }
+
+        Entite cible = position.getEntite();
+        System.out.println("Lancer de dé(s) pour les dégats :");
+        int degatInflige = degat.lancer();
+        int pvFinal = cible.getPv()-degatInflige;
+        if(pvFinal>0)
+        {
+            cible.setPv(pvFinal);
+            System.out.println("Il lui reste "+pvFinal+" PV.");
+        }
+        else {
+            System.out.println(cible.getNom()+" meurt sur le coup !");
+            cible.setPv(pvFinal);
+            cible.setEnVie(false);
+        }
+        return true;
+    }
+
+
 }
