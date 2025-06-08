@@ -18,7 +18,7 @@ public class Guerison implements Sort{
     public void lancer(ArrayList<Personnage> entites, Donjon donjon)
     {
         listPerso(entites);
-        Entite cible = entites.get(Integer.parseInt(m_scanner.nextLine())-1);
+        Entite cible = entites.get(Integer.parseInt(m_scanner.nextLine()));
         De UnDeDix = new De(1,10);
         int resSoin = UnDeDix.lancer();
         if(cible.getPv()+resSoin>cible.getPvMax()){
