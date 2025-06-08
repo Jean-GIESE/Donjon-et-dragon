@@ -1,6 +1,7 @@
 package donjonDragon;
 
 import donjonDragon.entite.Entite;
+import donjonDragon.entite.Monstre;
 import donjonDragon.entite.Personnage;
 import donjonDragon.entite.TypeEntite;
 
@@ -72,7 +73,7 @@ public class AffichageJeu {
             else if (line.startsWith("att ")) {
                 try {
                     test = line.substring(4,5);
-                    nb = Integer.parseInt(line.substring(5,6));
+                    nb = Integer.parseInt(line.substring(5));
                     valide=true;
                 }
                 catch (Exception e){
@@ -81,14 +82,13 @@ public class AffichageJeu {
             } else if (line.startsWith("dep ")) {
                 try {
                     test = line.substring(4,5);
-                    nb = Integer.parseInt(line.substring(5,6));
+                    nb = Integer.parseInt(line.substring(5));
                     valide=true;
                 }
                 catch (Exception e){
                     System.out.println("Il faut une position après dep.");
                 }
-            } else if (line.startsWith("ram ")) {
-                // à implémenter
+            } else if (line.startsWith("ram")) {
                 valide = true;
             } else if (line.startsWith("equ ")) {
                 try {
@@ -182,4 +182,82 @@ public class AffichageJeu {
     public static void afficherVictoireDonjon(int donjonactuel) {
         System.out.println("Donjon "+ (donjonactuel + 1) + " terminé !");
     }
+
+    public static void afficherTourMonstre(Monstre monstre, int actions){
+        System.out.println("\n" + monstre.getNom() + " (Monstre), il lui reste " + actions + " action(s).");
+        System.out.println("  - commenter (com <texte>)");
+        System.out.println("  - attaquer (att <case>)");
+        System.out.println("  - se déplacer (dep <case>)");
+        System.out.print("> ");
+    }
+    public static String nextLineTourMonstre() {
+        Boolean valide = false;
+        String line = "";
+        int nb = 0;
+        String test = "";
+        while (!valide) {
+            line = m_scanner.nextLine();
+            if (line.startsWith("com ")) {
+                valide = true;
+            } else if (line.startsWith("att ")) {
+                try {
+                    test = line.substring(4, 5);
+                    nb = Integer.parseInt(line.substring(5));
+                    valide = true;
+                } catch (Exception e) {
+                    System.out.println("Il faut une position après att.");
+                }
+            } else if (line.startsWith("dep ")) {
+                try {
+                    test = line.substring(4, 5);
+                    nb = Integer.parseInt(line.substring(5));
+                    valide = true;
+                } catch (Exception e) {
+                    System.out.println("Il faut une position après dep.");
+                }
+            }
+        }
+        return line;
+    }
+    public static void afficherGererTourMJ() {
+        System.out.println("Maître du Jeu, souhaitez-vous intervenir ?");
+        System.out.println("  - deplacer <colonne><ligne>");
+        System.out.println("  - degats <colonne><ligne>");
+        System.out.println("  - obstacle");
+        System.out.println("  - passer (ne rien faire)");
+        System.out.print("> ");
+    }
+    public static String nextLineGererTourMJ() {
+        return m_scanner.nextLine().trim();
+    }
+
+    public static De demanderLancerDe() {
+        System.out.print("Entrez le nombre de faces du dé à lancer  : ");
+        int nbFaces = 0;
+        int nbDe = 0;
+        while (nbDe <= 0) {
+            try {
+                nbDe = Integer.parseInt(m_scanner.nextLine());
+                if (nbDe <= 0) {
+                    System.out.print("Le nombre de dés doit être strictement positif. Réessayez : ");
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("Veuillez entrer un nombre valide : ");
+            }
+        }
+        while (nbFaces <= 0) {
+            try {
+                nbFaces = Integer.parseInt(m_scanner.nextLine());
+                if (nbFaces <= 0) {
+                    System.out.print("Le nombre de faces doit être strictement positif. Réessayez : ");
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("Veuillez entrer un nombre valide : ");
+            }
+        }
+        De lede= new De(nbDe,nbFaces);
+        return lede;
+    }
+
+
 }

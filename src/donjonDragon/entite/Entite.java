@@ -4,15 +4,26 @@ import donjonDragon.plateau.Donjon;
 
 public abstract class Entite
 {
-    protected  int m_pvMax;
-    protected int m_pv;
-    protected int m_force;
-    protected int m_dexterite;
-    protected int m_vitesse;
-    protected int m_initiative;
-    protected  boolean m_enVie;
-    protected String m_icone;
-    protected TypeEntite m_type;
+    private int m_pvMax;
+    private int m_pv;
+    private int m_force;
+    private int m_dexterite;
+    private int m_vitesse;
+    private int m_initiative;
+    private   boolean m_enVie;
+    private String m_icone;
+    private TypeEntite m_type;
+    public Entite(int pvMax, int pv, int force, int dexterite, int vitesse, int initiative, boolean enVie, String icone, TypeEntite type) {
+        this.m_pvMax = pvMax;
+        this.m_pv = pv;
+        this.m_force = force;
+        this.m_dexterite = dexterite;
+        this.m_vitesse = vitesse;
+        this.m_initiative = initiative;
+        this.m_enVie = enVie;
+        this.m_icone = icone;
+        this.m_type = type;
+    }
 
     public int getPvMax()
     {
@@ -65,10 +76,10 @@ public abstract class Entite
     public abstract String getNomEtId();
 
 
-    public Boolean seDeplacer(Donjon donjon, int[]pos)
+    public Boolean seDeplacer(Donjon donjon, int[] pos, int deplacementX, int deplacementY)
     {
-        if(pos[0]-m_vitesse/3>=0 && pos[1]-m_vitesse/3>=0)
-        {
+        int vitesseMax = m_vitesse / 3;
+        if (deplacementX <= vitesseMax && deplacementY <= vitesseMax) {
             if (donjon.getCarte()[pos[0]][pos[1]].estVide() || donjon.getCarte()[pos[0]][pos[1]].aJusteEquipement()) {
                 donjon.getCarte()[pos[0]][pos[1]].placerEntite(this);
                 return true;
@@ -76,10 +87,7 @@ public abstract class Entite
                 System.out.println("Cette endroit est occupé !");
                 return false;
             }
-
-        }
-        else
-        {
+        } else {
             System.out.println("Vous êtes trop lent pour aller si loin !");
             return false;
         }

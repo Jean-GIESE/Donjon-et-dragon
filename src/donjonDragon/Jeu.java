@@ -181,6 +181,7 @@ public class Jeu {
                     m_donjonActuel++;
                 }
             }
+
             AffichageJeu.afficherVictoire();
         }
     }
@@ -371,8 +372,8 @@ public class Jeu {
                 }
             } else if (input.startsWith("dep ")) {
                 if(donjon.coordonneX(input.charAt(4))!= -1){
-                    pos[0]=donjon.coordonneX(input.charAt(4));
-                    pos[1]=Integer.parseInt(input.substring(5,6));
+                    pos[1]=donjon.coordonneX(input.charAt(4));
+                    pos[0]=Integer.parseInt(input.substring(5))-1;
                     if(donjon.coordonneValide(pos[0],pos[1])){
                         if(donjon.deplacementEntite(joueur,pos))
                         {
@@ -380,7 +381,7 @@ public class Jeu {
                         }
                     }
                 }
-            } else if (input.equals("ram")) {
+            } else if (input.startsWith("ram")) {
                 int[] posJoueur = donjon.trouverPositionEntite(joueur);
                 if (posJoueur != null) {
                     Position caseJoueur = donjon.getCarte()[posJoueur[0]][posJoueur[1]];
@@ -398,34 +399,103 @@ public class Jeu {
             } else {
                 System.out.println("Commande invalide.");
             }
+            gererTourMJ(donjon);
         }
     }
 
     public void gererTourMonstre (Monstre monstre, Donjon donjon){
         int actions = 3;
+        String input="";
+        int[]pos=new int[2];
         while (actions > 0) {
-            System.out.println("\n" + monstre.getNom() + ", il vous reste " + actions + " action(s). Que souhaitez-vous faire ?");
-            System.out.println("  - commenter (com <texte>)");
-            System.out.println("  - attaquer (att <case>)");
-            System.out.println("  - se déplacer (dep <case>)");
-            System.out.print("> ");
-            String input = m_scanner.nextLine();
-
             donjon.afficherCarte();
             System.out.println(monstre.toString());
+            AffichageJeu.afficherTourMonstre(monstre,actions);
+            input=AffichageJeu.nextLineTourMonstre();
             if (input.startsWith("com ")) {
                 System.out.println("RP : " + input.substring(4));
             } else if (input.startsWith("att ")) {
-                // à implémenter
-                actions--;
+                if(donjon.coordonneX(input.charAt(4))!= -1){
+                    pos[1]=donjon.coordonneX(input.charAt(4));
+                    pos[0]=Integer.parseInt(input.substring(5))-1;
+                    if(donjon.coordonneValide(pos[0],pos[1])){
+                        if(donjon.attaquerEntite(monstre,donjon.getCarte()[pos[0]][pos[1]].getEntite()))
+                        {
+                            actions--;
+                        }
+                    }
+                }
             } else if (input.startsWith("dep ")) {
-                // à implémenter
-                actions--;
+                if(donjon.coordonneX(input.charAt(4))!= -1){
+                    pos[1]=donjon.coordonneX(input.charAt(4));
+                    pos[0]=Integer.parseInt(input.substring(5))-1;
+                    if(donjon.coordonneValide(pos[0],pos[1])){
+                        if(donjon.deplacementEntite(monstre,pos))
+                        {
+                            actions--;
+                        }
+                    }
+                }
             } else {
                 System.out.println("Commande invalide.");
             }
+            gererTourMJ(donjon);
         }
     }
+    public void gererTourMJ(Donjon donjon) {
+        int[]pos=new int[2];
+        AffichageJeu.afficherGererTourMJ();
+        String input = AffichageJeu.nextLineGererTourMJ();
+
+        if (input.startsWith("deplacer ")) {
+            if (donjon.coordonneX(input.charAt(9)) != -1) {
+                pos[1] = donjon.coordonneX(input.charAt(9));
+                pos[0] = Integer.parseInt(input.substring(10)) - 1;
+
+                if (donjon.coordonneValide(pos[0], pos[1])) {
+                    Position caseSource = donjon.getCarte()[pos[0]][pos[1]];
+                    if (!donjon.deplacementEntiteMJ(caseSource)) {
+                        System.out.println("Échec du déplacement.");
+                    }
+                } else {
+                    System.out.println("Coordonnées invalides.");
+                }
+            } else {
+                System.out.println("Coordonnée X invalide.");
+            }
+        } else if (input.startsWith("degats ")) {
+            if(donjon.coordonneX(input.charAt(7))!= -1){
+                pos[1]=donjon.coordonneX(input.charAt(7));
+                pos[0]=Integer.parseInt(input.substring(8))-1;
+                if(donjon.coordonneValide(pos[0],pos[1])){
+                    De degat= AffichageJeu.demanderLancerDe();
+                    if(donjon.attaquerEntiteMJ(donjon.getCarte()[pos[0]][pos[1]],degat))
+                    {
+
+                    }
+                    else{
+                        System.out.println("Ya personne ici");
+                    }
+                }
+            }
+        } else if (input.startsWith("obstacle")) {
+            boolean valide = false;
+            int nbObstacles = 0;
+            while (!valide)
+            {
+                nbObstacles = AffichageJeu.nombreObjet(donjon.getTaille(), "obstacles");
+                if ((nbObstacles >= 0) && (nbObstacles <= donjon.getTaille())) { valide = true; }
+                else { AffichageJeu.afficherErreur(); }
+            }
+            for (int i=0; i<nbObstacles; i++) { donjon.placerObstacle(); }
+            donjon.afficherCarte();
+        } else if (input.startsWith("passer")) {
+            System.out.println("Le MJ ne fait rien.");
+        } else {
+            System.out.println("Commande du MJ invalide.");
+        }
+    }
+
 
     public boolean donjonEstTermine (Donjon donjon){
         for (Monstre m : donjon.getMonstres()) {

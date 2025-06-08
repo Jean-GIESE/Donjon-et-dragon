@@ -1,22 +1,28 @@
 @startuml
 'https://plantuml.com/class-diagram
-package "donjonDragon"
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+top to bottom direction
+skinparam linetype ortho
+hide empty members
+package donjonDragon
 {
-package "entite"
+package entite
 {
 /'Définitions des classes'/
 abstract Entite<<abstract>>
 {
-#m_pvMax : Integer
-#m_pv : Integer
-#m_force : Integer
-#m_dexterite : Integer
-#m_vitesse : Integer
-#m_initiative : Integer
-#m_enVie : Boolean
-#m_pos : Integer[*]
-#m_icone : String
-#m_type : TypeEntite
+-m_pvMax : Integer
+-m_pv : Integer
+-m_force : Integer
+-m_dexterite : Integer
+-m_vitesse : Integer
+-m_initiative : Integer
+-m_enVie : Boolean
+-m_pos : Integer[*]
+-m_icone : String
+-m_type : TypeEntite
 
 +getPvMax():Integer
 +getPv():Integer
@@ -47,8 +53,8 @@ class Personnage
 -m_armure : Armure
 
 +«Create» Personnage(nom:String,classe:Classe,race:Race,pvMax:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer): Personnage
-+sEquiper(objet:Equipement): Void
-+ramasser(): Void
++sEquiper(objet:Equipement):
++ramasser():
 +choisirEquipementDepart()
 +getNom():String
 +getRace():Race
@@ -83,42 +89,47 @@ JOUEUR
 MONSTRE
 AUCUN
 }
-package "classe"
+package classe
 {
 abstract Classe<<abstract>>
 {
 -m_nom:String
 -m_pv:Integer
--m_equipementDepart:Equipement
 
-+«Create»Classe(nom:String,pv:Integer,equipementDepart:ArrayList<Equipement>): Classe
++«Create»Classe(nom:String,pv:Integer,equipementDepart:Equipement[*],typeClasse:TypeClasse): Classe
 +getPv():Integer
-+getEquipementDepart():ArrayList<Equipement>
++getEquipementDepart():Equipement[*]
++getTypeClasse():TypeClasse
 +toString():String
 }
 class Clerc
 {
 +«Create» Clerc(): Clerc
-+initialiserEquipementClerc(): ArrayList<Equipement>
++initialiserEquipementClerc(): Equipement[*]
 }
 class Guerrier
 {
 +«Create» Guerrier(): Guerrier
-+initialiserEquipementGuerrier(): ArrayList<Equipement>
++initialiserEquipementGuerrier(): Equipement[*]
 }
 class Magicien
 {
 +«Create» Magicien(): Magicien
-+initialiserEquipementMagicien(): ArrayList<Equipement>
++initialiserEquipementMagicien(): Equipement[*]
 }
 class Roublard
 {
 +«Create» Roublard(): Roublard
-+initialiserEquipementRoublard(): ArrayList<Equipement>
++initialiserEquipementRoublard(): Equipement[*]
+}
+enum TypeEquipement {
+ARME
+ARMURE
+AUCUN
 }
 }
 
-package "race"
+package race
 {
 /'Définitions des classes'/
 abstract Race<<abstract>>
@@ -154,7 +165,7 @@ class Nain
 }
 }
 
-package "sort"
+package sort
 {
 /'Définitions des sorts'/
 interface Sort
@@ -224,7 +235,7 @@ Personnage -> Armure : «call»
 Personnage -> Donjon : «call»
 
 }
-package "equipement"
+package equipement
 {
 /'Définitions des classes'/
 abstract Equipement<<abstract>>
@@ -269,7 +280,7 @@ ARMURE
 AUCUN
 }
 }
-package "plateau"
+package plateau
 {
 /'Définitions des classes'/
 class Donjon
@@ -390,16 +401,17 @@ class Jeu
 -m_scanner : Scanner
 
 +«Create» Jeu() : Jeu
-+lancerPartie() : void
-+proposerMiseEnPlace(donjon : Donjon) : void
++lancerPartie() :
++proposerMiseEnPlace(donjon : Donjon) :
 +calculerInitiative(donjon : Donjon) : Entite[*]
-+gererTourPersonnage(joueur : Personnage, donjon : Donjon) : void
-+gererTourMonstre(monstre : Monstre, donjon : Donjon) : void
++gererTourPersonnage(joueur : Personnage, donjon : Donjon) :
++gererTourMonstre(monstre : Monstre, donjon : Donjon) :
 +donjonEstTermine(donjon : Donjon) : boolean
-+restaurerVieJoueurs() : void
++restaurerVieJoueurs() :
 +auMoinsUnJoueurMort() : boolean
-+afficherDefaite() : void
-+afficherVictoire() : void
++afficherDefaite() :
++afficherVictoire() :
+}
 }
 /'Définitions des relations'/
 ' --- Relations d'appel ---
@@ -423,6 +435,6 @@ Jeu .> Scanner : "«instantiate»"
 ' --- Agrégations ---
 Jeu "1" *--> "3\n-m_donjons" Donjon : contient
 Jeu "1" o--> "1..*\n-m_joueurs" Personnage : se joue avec
-}
+
 
 @enduml

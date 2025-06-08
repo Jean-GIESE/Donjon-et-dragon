@@ -9,7 +9,7 @@ public class Magicien extends Classe
 {
     public Magicien()
     {
-        super("Magicien", 12, initialiserEquipementMagicien());
+        super("Magicien", 12, initialiserEquipementMagicien(),TypeClasse.MAGICIEN);
     }
 
     public static ArrayList<Equipement> initialiserEquipementMagicien()

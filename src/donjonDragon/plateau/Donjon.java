@@ -359,8 +359,10 @@ public class Donjon
 
     public Boolean deplacementEntite(Entite entite, int[] pos) {
         int[] anciennePos = trouverPositionEntite(entite);
+        int deplacementX = Math.abs(pos[1] - anciennePos[1]);
+        int deplacementY = Math.abs(pos[0] - anciennePos[0]);
 
-        if (anciennePos != null && entite.seDeplacer(this, pos)) {
+        if (anciennePos != null && entite.seDeplacer(this, pos, deplacementX, deplacementY)) {
             m_carte[anciennePos[0]][anciennePos[1]].enleverEntite();
             return true;
         }
@@ -390,4 +392,97 @@ public class Donjon
         System.out.println("trop loin");
         return false;
     }
+
+    public boolean attaquerEntiteMJ(Position position, De degat) {
+        if (position == null) {
+            System.out.println("Erreur : la position est nulle.");
+            return false;
+        }
+
+        if (degat == null) {
+            System.out.println("Erreur : l'objet dé est nul.");
+            return false;
+        }
+
+        if (position.estVide()) {
+            System.out.println("Il n'y a aucune entité à cette position.");
+            return false;
+        }
+
+        Entite cible = position.getEntite();
+        if (cible == null) {
+            System.out.println("Erreur : aucune entité trouvée malgré une position non vide.");
+            return false;
+        }
+
+        System.out.println("Lancer de dé(s) pour les dégâts :");
+        int degatsInfliges = degat.lancer();
+        int pvRestants = cible.getPv() - degatsInfliges;
+
+        System.out.println("Le MJ inflige " + degatsInfliges + " dégâts à " + cible.getNom() + ".");
+
+        if (pvRestants > 0) {
+            cible.setPv(pvRestants);
+            System.out.println("Il reste " + pvRestants + " PV à " + cible.getNom() + ".");
+        } else {
+            cible.setPv(0);
+            cible.setEnVie(false);
+            position.enleverEntite();
+            System.out.println(cible.getNom() + " meurt sur le coup !");
+        }
+
+        return true;
+    }
+
+    public boolean deplacementEntiteMJ(Position positionEntite) {
+        if (positionEntite == null || positionEntite.estVide()) {
+            System.out.println("Aucune entité à cette position.");
+            return false;
+        }
+
+        Entite entite = positionEntite.getEntite();
+        int[] anciennePos = trouverPositionEntite(entite);
+
+        if (anciennePos == null) {
+            System.out.println("Erreur : position actuelle introuvable.");
+            return false;
+        }
+
+        System.out.print("Nouvelle position pour déplacer " + entite.getNom() + " ? > ");
+        String input = AffichageDonjon.nextLinedeplacementEntiteMJ();
+
+        if (input.length() < 2) {
+            System.out.println("Entrée invalide.");
+            return false;
+        }
+
+        int newCol = coordonneX(input.charAt(0));
+        int newRow;
+        try {
+            newRow = Integer.parseInt(input.substring(1)) - 1;
+        } catch (Exception e) {
+            System.out.println("Coordonnées invalides.");
+            return false;
+        }
+
+        if (!coordonneValide(newRow, newCol)) {
+            System.out.println("Position hors limites.");
+            return false;
+        }
+
+        Position destination = m_carte[newRow][newCol];
+
+        if (!destination.estVide() && !destination.aJusteEquipement()) {
+            System.out.println("Cette endroit est occupé !");
+            return false;
+        }
+
+        destination.placerEntite(entite);
+        m_carte[anciennePos[0]][anciennePos[1]].enleverEntite();
+        System.out.println("Le MJ a déplacé " + entite.getNom() + " à la case " + input.toUpperCase() + ".");
+        return true;
+    }
+
+
+
 }
