@@ -72,7 +72,7 @@ public class AffichageJeu {
             else if (line.startsWith("att ")) {
                 try {
                     test = line.substring(4,5);
-                    nb = Integer.parseInt(line.substring(5,6));
+                    nb = Integer.parseInt(line.substring(5));
                     valide=true;
                 }
                 catch (Exception e){
@@ -81,7 +81,7 @@ public class AffichageJeu {
             } else if (line.startsWith("dep ")) {
                 try {
                     test = line.substring(4,5);
-                    nb = Integer.parseInt(line.substring(5,6));
+                    nb = Integer.parseInt(line.substring(5));
                     valide=true;
                 }
                 catch (Exception e){
