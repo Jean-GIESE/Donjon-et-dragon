@@ -407,7 +407,7 @@ public class Jeu {
                         guerison.lancer(m_joueurs,donjon);
                         actions--; 
                     }
-                    else if (sort.equals("woogie woogie")) {
+                    else if (sort.equals("boogie woogie")) {
                         Sort boogieWoogie = new BoogieWoogie();
                         boogieWoogie.lancer(m_joueurs,donjon);
                         actions--; 

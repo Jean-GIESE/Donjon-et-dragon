@@ -27,8 +27,8 @@ public class BoogieWoogie implements Sort{
             Entite combattant2 = carte[cible2[0]][cible2[1]].getEntite();
             if (!(carte[cible1[0]][cible1[1]].estVide() || carte[cible1[0]][cible1[1]].aJusteEquipement()) && !(carte[cible2[0]][cible2[1]].estVide() || carte[cible2[0]][cible2[1]].aJusteEquipement()))
             {
-                carte[cible1[0]][cible1[1]].placerEntite(combattant1);
-                carte[cible2[0]][cible2[1]].placerEntite(combattant2);
+                carte[cible1[0]][cible1[1]].placerEntite(combattant2);
+                carte[cible2[0]][cible2[1]].placerEntite(combattant1);
                 valide = true;
             }
         }
