@@ -21,21 +21,13 @@ public class Personnage extends Entite{
 
     public Personnage(String nom, Classe classe, Race race, int pvMax, int force, int dexterite, int vitesse, int initiative)
     {
+        super(pvMax, pvMax, force, dexterite, vitesse, initiative, true, nom.substring(0,3), TypeEntite.JOUEUR);
         m_nom = nom;
         m_classe = classe;
         m_race = race;
-        m_pvMax = pvMax;
-        m_pv = pvMax;
-        m_force = force;
-        m_dexterite = dexterite;
-        m_vitesse = vitesse;
-        m_initiative = initiative;
         m_inventaire = copierEquipements(m_classe.getEquipementDepart());
         m_arme = null;
         m_armure = null;
-        m_enVie = true;
-        m_icone= m_nom.substring(0, 3);
-        m_type=TypeEntite.JOUEUR;
     }
 
     public boolean sEquiper(Equipement objet)
@@ -146,10 +138,10 @@ public class Personnage extends Entite{
         int attaque =0;
         if(m_arme.getPortee()==1)
         {
-            attaque = UnDeVingt.lancer()+m_force;
+            attaque = UnDeVingt.lancer()+getForce();
         }
         else {
-            attaque = UnDeVingt.lancer()+m_dexterite;
+            attaque = UnDeVingt.lancer()+getDexterite();
         }
         if(attaque>cible.getClasseArmure())
         {
@@ -179,7 +171,7 @@ public class Personnage extends Entite{
     public String toString()
     {
         String texte = m_nom + "\n\t";
-        texte += "Vie: " + m_pv + "/" + m_pvMax + "\n\t";
+        texte += "Vie: " + getPv() + "/" + getPvMax() + "\n\t";
         texte += "Armure: " + (m_armure != null ? m_armure.toString() : "Aucune") + "\n\t";
         texte += "Arme: " + (m_arme != null ? m_arme.toString() : "Aucune") + "\n\t";
         texte += "Inventaire: [" + m_inventaire.size() + "] ";
@@ -192,9 +184,9 @@ public class Personnage extends Entite{
                 texte += "(" + i + ") " + m_inventaire.get(i).getNom() + ", ";
             }
         }
-        texte += "Force: " + m_force + "\n\t";
-        texte += "Dextérité: " + m_dexterite + "\n\t";
-        texte += "Vitesse: " + m_vitesse + "\n\t";
+        texte += "Force: " + getForce() + "\n\t";
+        texte += "Dextérité: " + getDexterite() + "\n\t";
+        texte += "Vitesse: " + getVitesse() + "\n\t";
         return texte;
     }
 }
