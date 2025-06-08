@@ -10,7 +10,6 @@ package donjonDragon
 {
 package entite
 {
-/'Définitions des classes'/
 abstract Entite<<abstract>>
 {
 -m_pvMax : Integer
@@ -22,8 +21,8 @@ abstract Entite<<abstract>>
 -m_enVie : Boolean
 -m_pos : Integer[*]
 -m_icone : String
--m_type : TypeEntite
 
++ {abstract} «Create» Entite
 +getPvMax():Integer
 +getPv():Integer
 +getForce():Integer
@@ -195,45 +194,6 @@ class Guerison
 +listPerso(persos:ArrayList<Entite>)
 }
 }
-
-/'Définitions des relations'/
-Personnage -up-|> Entite
-Monstre -up-|> Entite
-
-Clerc -up-|> Classe
-Guerrier -up-|> Classe
-Magicien -up-|> Classe
-Roublard -up-|> Classe
-
-Elfe -up-|> Race
-Humain -up-|> Race
-Halfelin -up-|> Race
-Nain -up-|> Race
-
-Classe -> Equipement : «call»
-Classe -> Arme : «call»
-Classe -> Armure : «call»
-
-Entite -> Donjon : «call»
-Monstre -> De : «call»
-
-Personnage -> De : «call»
-Personnage -> Classe : «call»
-Personnage -> Clerc : «call»
-Personnage -> Classe : «call»
-Personnage -> Guerrier : «call»
-Personnage -> Magicien : «call»
-Personnage -> Roublard : «call»
-Personnage -> Elfe : «call»
-Personnage -> Halfelin : «call»
-Personnage -> Humain : «call»
-Personnage -> Nain : «call»
-Personnage -> Race : «call»
-Personnage -> Equipement : «call»
-Personnage -> Arme : «call»
-Personnage -> Armure : «call»
-Personnage -> Donjon : «call»
-
 }
 package equipement
 {
@@ -413,6 +373,46 @@ class Jeu
 +afficherVictoire() :
 }
 }
+
+
+Personnage -up-|> Entite
+Monstre -up-|> Entite
+
+Clerc -up-|> Classe
+Guerrier -up-|> Classe
+Magicien -up-|> Classe
+Roublard -up-|> Classe
+
+Elfe -up-|> Race
+Humain -up-|> Race
+Halfelin -up-|> Race
+Nain -up-|> Race
+
+Classe -> Equipement : «call»
+Classe -> Arme : «call»
+Classe -> Armure : «call»
+
+Entite -> Donjon : «call»
+Monstre -> De : «call»
+
+Personnage -> De : «call»
+Personnage -> Classe : «call»
+Personnage -> Clerc : «call»
+Personnage -> Classe : «call»
+Personnage -> Guerrier : «call»
+Personnage -> Magicien : «call»
+Personnage -> Roublard : «call»
+Personnage -> Elfe : «call»
+Personnage -> Halfelin : «call»
+Personnage -> Humain : «call»
+Personnage -> Nain : «call»
+Personnage -> Race : «call»
+Personnage -> Equipement : «call»
+Personnage -> Arme : «call»
+Personnage -> Armure : «call»
+Personnage -> Donjon : «call»
+
+
 /'Définitions des relations'/
 ' --- Relations d'appel ---
 Jeu .> Donjon : "«call»"
