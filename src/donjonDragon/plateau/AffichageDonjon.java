@@ -228,4 +228,8 @@ public class AffichageDonjon
 
         System.out.println(carte);
     }
+
+    public static String nextLinedeplacementEntiteMJ() {
+        return m_scanner.nextLine().trim();
+    }
 }

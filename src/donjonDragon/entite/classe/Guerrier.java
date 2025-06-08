@@ -8,7 +8,7 @@ public class Guerrier extends Classe
 {
     public Guerrier()
     {
-        super("Guerrier", 20, initialiserEquipementGuerrier());
+        super("Guerrier", 20, initialiserEquipementGuerrier(),TypeClasse.AUTRE);
     }
     public static ArrayList<Equipement> initialiserEquipementGuerrier()
     {

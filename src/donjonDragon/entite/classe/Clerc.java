@@ -8,7 +8,7 @@ public class Clerc extends Classe
 {
     public Clerc()
     {
-        super("Clerc", 16, initialiserEquipementClerc());
+        super("Clerc", 16, initialiserEquipementClerc(),TypeClasse.CLERC);
     }
     public static ArrayList<Equipement> initialiserEquipementClerc()
     {

@@ -12,20 +12,13 @@ public class Monstre extends Entite
     
     public Monstre(String espece,int numero,De degat, int portee,int pvMax,int force, int dexterite, int vitesse, int initiative,int classeArmure,String icone)
     {
-        m_espece=espece;
-        m_numero=numero;
-        m_degat=degat;
-        m_portee=portee;
-        m_pvMax=pvMax;
-        m_pv=pvMax;
-        m_force=force;
-        m_dexterite=dexterite;
-        m_vitesse=vitesse;
-        m_initiative=initiative;
-        m_classeArmure=classeArmure;
-        m_enVie=true;
-        m_icone=icone;
-        m_type = TypeEntite.MONSTRE;
+        super(pvMax, pvMax, force, dexterite, vitesse, initiative, true, icone, TypeEntite.MONSTRE);
+
+        m_espece = espece;
+        m_numero = numero;
+        m_degat = degat;
+        m_portee = portee;
+        m_classeArmure = classeArmure;
     }
     
     public String getEspece()
@@ -56,10 +49,10 @@ public class Monstre extends Entite
         if(m_portee==1)
         {
 
-            attaque = UnDeVingt.lancer()+m_force;
+            attaque = UnDeVingt.lancer()+getForce();
         }
         else {
-            attaque = UnDeVingt.lancer()+m_dexterite;
+            attaque = UnDeVingt.lancer()+getDexterite();
         }
         if(attaque>cible.getClasseArmure())
         {
@@ -88,12 +81,12 @@ public class Monstre extends Entite
     public String toString()
     {
         String to_print=m_espece+m_numero;
-        to_print+="\n\tVie : "+m_pv+"/"+m_pvMax;
+        to_print+="\n\tVie : "+getPv()+"/"+getPvMax();
         to_print+="\n\tClasse d\'armure : "+m_classeArmure;
         to_print+="\n\tAttaque : (degat: "+m_degat.toString()+", portee: "+m_portee+")";
-        to_print+="\n\tForce : "+m_force;
-        to_print+="\n\tDexterite : "+m_dexterite;
-        to_print+="\n\tVitesse : "+m_vitesse;
+        to_print+="\n\tForce : "+getForce();
+        to_print+="\n\tDexterite : "+getDexterite();
+        to_print+="\n\tVitesse : "+getVitesse();
         return to_print;
     }
 }
