@@ -221,9 +221,9 @@ public class AffichageJeu {
     }
     public static void afficherGererTourMJ() {
         System.out.println("Maître du Jeu, souhaitez-vous intervenir ?");
-        System.out.println("  - deplacer <colonne><ligne> <colonne><ligne>");
+        System.out.println("  - deplacer <colonne><ligne>");
         System.out.println("  - degats <colonne><ligne>");
-        System.out.println("  - obstacle <colonne><ligne>");
+        System.out.println("  - obstacle");
         System.out.println("  - passer (ne rien faire)");
         System.out.print("> ");
     }

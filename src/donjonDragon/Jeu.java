@@ -448,11 +448,25 @@ public class Jeu {
         String input = AffichageJeu.nextLineGererTourMJ();
 
         if (input.startsWith("deplacer ")) {
-            //deplacer entite
+            if (donjon.coordonneX(input.charAt(9)) != -1) {
+                pos[1] = donjon.coordonneX(input.charAt(9));
+                pos[0] = Integer.parseInt(input.substring(10)) - 1;
+
+                if (donjon.coordonneValide(pos[0], pos[1])) {
+                    Position caseSource = donjon.getCarte()[pos[0]][pos[1]];
+                    if (!donjon.deplacementEntiteMJ(caseSource)) {
+                        System.out.println("Échec du déplacement.");
+                    }
+                } else {
+                    System.out.println("Coordonnées invalides.");
+                }
+            } else {
+                System.out.println("Coordonnée X invalide.");
+            }
         } else if (input.startsWith("degats ")) {
-            if(donjon.coordonneX(input.charAt(4))!= -1){
-                pos[1]=donjon.coordonneX(input.charAt(4));
-                pos[0]=Integer.parseInt(input.substring(5))-1;
+            if(donjon.coordonneX(input.charAt(7))!= -1){
+                pos[1]=donjon.coordonneX(input.charAt(7));
+                pos[0]=Integer.parseInt(input.substring(8))-1;
                 if(donjon.coordonneValide(pos[0],pos[1])){
                     De degat= AffichageJeu.demanderLancerDe();
                     if(donjon.attaquerEntiteMJ(donjon.getCarte()[pos[0]][pos[1]],degat))
@@ -464,19 +478,17 @@ public class Jeu {
                     }
                 }
             }
-        } else if (input.startsWith("obstacle ")) {
-            if(donjon.coordonneX(input.charAt(4))!= -1){
-                pos[1]=donjon.coordonneX(input.charAt(4));
-                pos[0]=Integer.parseInt(input.substring(5))-1;
-                if(donjon.coordonneValide(pos[0],pos[1])){
-                    if(donjon.getCarte()[pos[0]][pos[1]].estVide()) {
-                        donjon.getCarte()[pos[0]][pos[1]].setObstacle(true);
-                    }
-                    else {
-                        System.out.println("Pas de place !");
-                    }
-                }
+        } else if (input.startsWith("obstacle")) {
+            boolean valide = false;
+            int nbObstacles = 0;
+            while (!valide)
+            {
+                nbObstacles = AffichageJeu.nombreObjet(donjon.getTaille(), "obstacles");
+                if ((nbObstacles >= 0) && (nbObstacles <= donjon.getTaille())) { valide = true; }
+                else { AffichageJeu.afficherErreur(); }
             }
+            for (int i=0; i<nbObstacles; i++) { donjon.placerObstacle(); }
+            donjon.afficherCarte();
         } else if (input.startsWith("passer")) {
             System.out.println("Le MJ ne fait rien.");
         } else {
