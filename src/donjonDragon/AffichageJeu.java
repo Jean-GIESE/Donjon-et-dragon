@@ -1,7 +1,10 @@
 package donjonDragon;
 
+import donjonDragon.entite.Entite;
 import donjonDragon.entite.Personnage;
+import donjonDragon.entite.TypeEntite;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AffichageJeu {
@@ -123,4 +126,43 @@ public class AffichageJeu {
         System.out.print("Choisir l'équipement n°" + numEquipement + ": ");
         return m_scanner.nextLine().trim().toLowerCase();
     }
+
+    public static void afficherOrdre(int numeroTour, ArrayList<Entite> listeEntites, Entite entiteActive) {
+        System.out.println("Tour " + numeroTour + ":");
+
+        for (Entite e : listeEntites) {
+            String prefixe = "   ";
+            if (e.equals(entiteActive)) {
+                prefixe = "-> ";
+            }
+
+            String Icone = e.getIcone();
+
+            // Préfixe "X" si mort, sinon espace
+            String mortPrefix = "   ";
+            if (!e.estEnVie()) {
+                mortPrefix = "X  ";
+            }
+            String nom = e.getNom();
+
+            // Race et classe seulement si c'est un JOUEUR
+            String raceClasse = "";
+            if (e.getType() == TypeEntite.JOUEUR) {
+                Personnage p = (Personnage) e;
+                raceClasse = p.getRace() + " " + p.getClasse();
+            }
+
+            // Vie courante/max
+            String vie = e.getPv() + "/" + e.getPvMax();
+
+            // Construction de la ligne avec ou sans race/classe
+            if (!raceClasse.isEmpty()) {
+                System.out.println(prefixe + mortPrefix + Icone + " "  + nom + " (" + raceClasse + ", " + vie + ")");
+            } else {
+                System.out.println(prefixe + mortPrefix + Icone + " "  + nom + " (" + vie + ")");
+            }
+        }
+    }
+
+
 }

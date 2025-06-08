@@ -7,6 +7,8 @@ import donjonDragon.entite.race.*;
 import donjonDragon.entite.classe.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Jeu {
@@ -133,7 +135,10 @@ public class Jeu {
         System.out.println("Début de la partie !");
 
         while (m_donjonActuel < m_donjons.size()) {
+            Personnage joueur;
+            Monstre monstre;
             Donjon donjon = m_donjons.get(m_donjonActuel);
+            int nbtour=1;
             System.out.println("\n--- Donjon " + (m_donjonActuel + 1) + " ---");
 
             donjon = proposerMiseEnPlace();
@@ -147,17 +152,21 @@ public class Jeu {
                         afficherDefaite();
                         return;
                     }
-                    
-                    donjon.afficherCarte();
 
                     if (entite.estEnVie()) {
                         switch (entite.getType()) {
                             case JOUEUR:
+                                AffichageJeu.afficherOrdre(nbtour, initiativeOrdre, entite);
                                 donjon.afficherCarte();
+                                joueur=(Personnage)entite;
+                                joueur.toString();
                                 gererTourPersonnage((Personnage) entite, donjon);
                                 break;
                             case MONSTRE:
+                                AffichageJeu.afficherOrdre(nbtour, initiativeOrdre, entite);
                                 donjon.afficherCarte();
+                                monstre=(Monstre)entite;
+                                monstre.toString();
                                 gererTourMonstre((Monstre) entite, donjon);
                                 break;
                             default:
@@ -169,6 +178,7 @@ public class Jeu {
                         break;
                         }
                     }
+                    nbtour++;
                 }
 
                 if (!auMoinsUnJoueurMort()) {
@@ -315,7 +325,7 @@ public class Jeu {
         return objet;
     }
 
-    public ArrayList<Entite> calculerInitiative (Donjon donjon){
+    public ArrayList<Entite> calculerInitiative(Donjon donjon) {
         ArrayList<Entite> entites = new ArrayList<>();
         if (m_joueurs == null) {
             System.out.println("ERREUR : m_joueurs est null !");
@@ -327,14 +337,19 @@ public class Jeu {
         entites.addAll(m_joueurs);
         entites.addAll(donjon.getMonstres());
 
-        entites.sort((a, b) -> {
-            De UnDeVingt = new De(1, 20);
-            AffichageJeu.afficherInitiativeCombattant(a.getNom());
-            int initiativeA = UnDeVingt.lancer()+a.getInitiative();
-            AffichageJeu.afficherInitiativeCombattant(b.getNom());
-            int initiativeB = UnDeVingt.lancer()+b.getInitiative();
-            return Integer.compare(initiativeB, initiativeA);
-        });
+        De unDeVingt = new De(1, 20);
+        Map<Entite, Integer> initiatives = new HashMap<>();
+
+        // On lance une seule fois le dé pour chaque entité + initiative statique
+        for (Entite e : entites) {
+            AffichageJeu.afficherInitiativeCombattant(e.getNom());
+            int jet = unDeVingt.lancer();
+            int totalInitiative = jet + e.getInitiative();
+            initiatives.put(e, totalInitiative);
+        }
+
+        // On trie selon les valeurs stockées dans la map
+        entites.sort((a, b) -> initiatives.get(b).compareTo(initiatives.get(a)));
 
         return entites;
     }

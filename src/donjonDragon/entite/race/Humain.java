@@ -4,6 +4,6 @@ public class Humain extends Race
 {
     public Humain()
     {
-        super(2,2,2,2,2);
+        super("Humain",2,2,2,2,2);
     }
 }

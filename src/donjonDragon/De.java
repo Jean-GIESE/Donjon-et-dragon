@@ -1,47 +1,32 @@
 package donjonDragon;
 
 import java.util.Random;
-import java.util.Scanner;
 
-public class De
-{
+public class De {
     private int m_nombre;
     private int m_face;
-    private Scanner m_scanner;
+    private Random rand = new Random();
 
-    Random rand = new Random();
-    
-    public De(int nombre, int face)
-    {
+    public De(int nombre, int face) {
         m_nombre = nombre;
         m_face = face;
-        m_scanner = new Scanner(System.in);
     }
 
-    
-    public int lancer()
-    {
-        System.out.println("Lancer "+m_nombre+" dé(s) de "+m_face+" (appuyer sur entré)");
-        m_scanner.nextLine();
-        String to_print="Vous avez fait ";
-        int total=0;
-        int res=0;
-        for(int i=0;i<m_nombre;i++)
-        {
-            res=rand.nextInt(m_face)+1;
-            total+= res;
-            to_print+=res;
-            res=0;
-            if(i!=m_nombre-1)
-            {
-                to_print+=", ";
-            }
+    public int lancer() {
+        int[] resultats = new int[m_nombre];
+        int total = 0;
+        for (int i = 0; i < m_nombre; i++) {
+            resultats[i] = rand.nextInt(m_face) + 1;
+            total += resultats[i];
         }
-        System.out.println(to_print+"!\nPour un total de : "+total);
+
+        // Appel à la méthode d'affichage
+        AffichageDe.affichageLancerDe(m_nombre, m_face, resultats, total);
+
         return total;
     }
-    
-    public String toString(){
-        return m_nombre+"d"+m_face;
+
+    public String toString() {
+        return m_nombre + "d" + m_face;
     }
 }
