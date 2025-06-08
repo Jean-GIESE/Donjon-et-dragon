@@ -219,4 +219,45 @@ public class AffichageJeu {
         }
         return line;
     }
+    public static void afficherGererTourMJ() {
+        System.out.println("Maître du Jeu, souhaitez-vous intervenir ?");
+        System.out.println("  - deplacer <colonne><ligne> <colonne><ligne>");
+        System.out.println("  - degats <colonne><ligne>");
+        System.out.println("  - obstacle <colonne><ligne>");
+        System.out.println("  - passer (ne rien faire)");
+        System.out.print("> ");
+    }
+    public static String nextLineGererTourMJ() {
+        return m_scanner.nextLine().trim();
+    }
+
+    public static De demanderLancerDe() {
+        System.out.print("Entrez le nombre de faces du dé à lancer  : ");
+        int nbFaces = 0;
+        int nbDe = 0;
+        while (nbDe <= 0) {
+            try {
+                nbDe = Integer.parseInt(m_scanner.nextLine());
+                if (nbDe <= 0) {
+                    System.out.print("Le nombre de dés doit être strictement positif. Réessayez : ");
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("Veuillez entrer un nombre valide : ");
+            }
+        }
+        while (nbFaces <= 0) {
+            try {
+                nbFaces = Integer.parseInt(m_scanner.nextLine());
+                if (nbFaces <= 0) {
+                    System.out.print("Le nombre de faces doit être strictement positif. Réessayez : ");
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("Veuillez entrer un nombre valide : ");
+            }
+        }
+        De lede= new De(nbDe,nbFaces);
+        return lede;
+    }
+
+
 }

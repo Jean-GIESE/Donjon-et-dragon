@@ -392,4 +392,29 @@ public class Donjon
         System.out.println("trop loin");
         return false;
     }
+
+    public boolean attaquerEntiteMJ(Position position, De degat) {
+        if (position == null || position.estVide()) {
+            System.out.println("Il n'y a aucune entité à cette position.");
+            return false;
+        }
+
+        Entite cible = position.getEntite();
+        System.out.println("Lancer de dé(s) pour les dégats :");
+        int degatInflige = degat.lancer();
+        int pvFinal = cible.getPv()-degatInflige;
+        if(pvFinal>0)
+        {
+            cible.setPv(pvFinal);
+            System.out.println("Il lui reste "+pvFinal+" PV.");
+        }
+        else {
+            System.out.println(cible.getNom()+" meurt sur le coup !");
+            cible.setPv(pvFinal);
+            cible.setEnVie(false);
+        }
+        return true;
+    }
+
+
 }

@@ -399,6 +399,7 @@ public class Jeu {
             } else {
                 System.out.println("Commande invalide.");
             }
+            gererTourMJ(donjon);
         }
     }
 
@@ -438,8 +439,51 @@ public class Jeu {
             } else {
                 System.out.println("Commande invalide.");
             }
+            gererTourMJ(donjon);
         }
     }
+    public void gererTourMJ(Donjon donjon) {
+        int[]pos=new int[2];
+        AffichageJeu.afficherGererTourMJ();
+        String input = AffichageJeu.nextLineGererTourMJ();
+
+        if (input.startsWith("deplacer ")) {
+            //deplacer entite
+        } else if (input.startsWith("degats ")) {
+            if(donjon.coordonneX(input.charAt(4))!= -1){
+                pos[1]=donjon.coordonneX(input.charAt(4));
+                pos[0]=Integer.parseInt(input.substring(5))-1;
+                if(donjon.coordonneValide(pos[0],pos[1])){
+                    De degat= AffichageJeu.demanderLancerDe();
+                    if(donjon.attaquerEntiteMJ(donjon.getCarte()[pos[0]][pos[1]],degat))
+                    {
+
+                    }
+                    else{
+                        System.out.println("Ya personne ici");
+                    }
+                }
+            }
+        } else if (input.startsWith("obstacle ")) {
+            if(donjon.coordonneX(input.charAt(4))!= -1){
+                pos[1]=donjon.coordonneX(input.charAt(4));
+                pos[0]=Integer.parseInt(input.substring(5))-1;
+                if(donjon.coordonneValide(pos[0],pos[1])){
+                    if(donjon.getCarte()[pos[0]][pos[1]].estVide()) {
+                        donjon.getCarte()[pos[0]][pos[1]].setObstacle(true);
+                    }
+                    else {
+                        System.out.println("Pas de place !");
+                    }
+                }
+            }
+        } else if (input.startsWith("passer")) {
+            System.out.println("Le MJ ne fait rien.");
+        } else {
+            System.out.println("Commande du MJ invalide.");
+        }
+    }
+
 
     public boolean donjonEstTermine (Donjon donjon){
         for (Monstre m : donjon.getMonstres()) {
