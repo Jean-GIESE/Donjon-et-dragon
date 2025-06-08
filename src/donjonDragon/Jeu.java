@@ -177,11 +177,10 @@ public class Jeu {
 
                 if (!auMoinsUnJoueurMort()) {
                     restaurerVieJoueurs();
-                    System.out.println("Donjon terminé !");
+                    AffichageJeu.afficherVictoireDonjon(m_donjonActuel);
                     m_donjonActuel++;
                 }
             }
-
             AffichageJeu.afficherVictoire();
         }
     }
@@ -361,10 +360,10 @@ public class Jeu {
                 AffichageJeu.afficherRP(input.substring(4));
             } else if (input.startsWith("att ")) {
                 if(donjon.coordonneX(input.charAt(4))!= -1){
-                    pos[0]=donjon.coordonneX(input.charAt(4));
-                    pos[1]=Integer.parseInt(input.substring(5));
+                    pos[1]=donjon.coordonneX(input.charAt(4));
+                    pos[0]=Integer.parseInt(input.substring(5))-1;
                     if(donjon.coordonneValide(pos[0],pos[1])){
-                        if(donjon.attaquerEntite(joueur,donjon.getCarte()[pos[0]][pos[1]].getEntite()))  // Faut changer et pas faire gettersurgetter !!!
+                        if(donjon.attaquerEntite(joueur,donjon.getCarte()[pos[0]][pos[1]].getEntite()))
                         {
                             actions--;
                         }
@@ -382,8 +381,13 @@ public class Jeu {
                     }
                 }
             } else if (input.equals("ram")) {
-                // à implémenter
-                actions--;
+                int[] posJoueur = donjon.trouverPositionEntite(joueur);
+                if (posJoueur != null) {
+                    Position caseJoueur = donjon.getCarte()[posJoueur[0]][posJoueur[1]];
+                    if (joueur.ramasser(caseJoueur)) {
+                        actions--;
+                    }
+                }
             } else if (input.startsWith("equ ")) {
                 if(joueur.sEquiper(joueur.getInventaire().get(Integer.parseInt(input.substring(4))))){
                     actions--;

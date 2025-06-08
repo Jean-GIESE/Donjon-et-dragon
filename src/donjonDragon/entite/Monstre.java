@@ -45,6 +45,10 @@ public class Monstre extends Entite
     public int getPortee(){
         return m_portee;
     }
+    @Override
+    public String getNomEtId(){
+        return m_espece+m_numero;
+    }
     public void attaquer(Entite cible)
     {
         De UnDeVingt = new De(1,20);
@@ -72,6 +76,7 @@ public class Monstre extends Entite
             }
             else {
                 System.out.println(cible.getNom()+" meurt sur le coup !");
+                cible.setPv(pvFinal);
                 cible.setEnVie(false);
             }
         }

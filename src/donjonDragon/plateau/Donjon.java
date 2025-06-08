@@ -378,11 +378,20 @@ public class Donjon
         int[] acteurPos = trouverPositionEntite(acteur);
         int[] ciblePos = trouverPositionEntite(cible);
 
-        if (acteurPos != null && ciblePos != null && (acteur.getPortee()<=Math.abs(ciblePos[0]-acteurPos[0])) && (acteur.getPortee()<=Math.abs(ciblePos[1]-acteurPos[1]))) {
+        if (acteurPos == null || ciblePos == null) {
+            System.out.println("Erreur : position introuvable pour acteur ou cible !");
+            return false;
+        }
+
+        int distance = Math.abs(ciblePos[0] - acteurPos[0]) + Math.abs(ciblePos[1] - acteurPos[1]);
+
+        if (distance <= acteur.getPortee()) {
             acteur.attaquer(cible);
+            if (!m_carte[ciblePos[0]][ciblePos[1]].getEntite().estEnVie()){
+                m_carte[ciblePos[0]][ciblePos[1]].enleverEntite();
+            }
             return true;
         }
-        //afficher que cible pas a porté
         System.out.println("trop loin");
         return false;
     }
