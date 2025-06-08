@@ -149,7 +149,7 @@ public class Jeu {
             while (!donjonTermine) {
                 for (Entite entite : initiativeOrdre) {
                     if (auMoinsUnJoueurMort()) {
-                        afficherDefaite();
+                        AffichageJeu.afficherDefaite();
                         return;
                     }
 
@@ -157,16 +157,10 @@ public class Jeu {
                         switch (entite.getType()) {
                             case JOUEUR:
                                 AffichageJeu.afficherOrdre(nbtour, initiativeOrdre, entite);
-                                donjon.afficherCarte();
-                                joueur=(Personnage)entite;
-                                System.out.println(joueur.toString());
                                 gererTourPersonnage((Personnage) entite, donjon);
                                 break;
                             case MONSTRE:
                                 AffichageJeu.afficherOrdre(nbtour, initiativeOrdre, entite);
-                                donjon.afficherCarte();
-                                monstre=(Monstre)entite;
-                                System.out.println(monstre.toString());
                                 gererTourMonstre((Monstre) entite, donjon);
                                 break;
                             default:
@@ -188,7 +182,7 @@ public class Jeu {
                 }
             }
 
-            afficherVictoire();
+            AffichageJeu.afficherVictoire();
         }
     }
 
@@ -359,6 +353,8 @@ public class Jeu {
         String input="";
         int[]pos=new int[2];
         while (actions > 0) {
+            donjon.afficherCarte();
+            System.out.println(joueur.toString());
             AffichageJeu.afficherTourPersonnage(joueur,actions);
             input=AffichageJeu.nextLineTourPersonnage();
             if (input.startsWith("com ")) {
@@ -411,6 +407,8 @@ public class Jeu {
             System.out.print("> ");
             String input = m_scanner.nextLine();
 
+            donjon.afficherCarte();
+            System.out.println(monstre.toString());
             if (input.startsWith("com ")) {
                 System.out.println("RP : " + input.substring(4));
             } else if (input.startsWith("att ")) {
@@ -443,15 +441,5 @@ public class Jeu {
             if (!p.estEnVie()) return true;
         }
         return false;
-    }
-
-    public void afficherDefaite () {
-        System.out.println("\nTous les joueurs sont morts. Vous avez perdu !");
-        System.out.println("Cause : Défaite (au moins un joueur a été tué).");
-    }
-
-    public void afficherVictoire () {
-        System.out.println("\nTous les donjons ont été vaincus !");
-        System.out.println("Félicitations, vous avez gagné !");
     }
 }

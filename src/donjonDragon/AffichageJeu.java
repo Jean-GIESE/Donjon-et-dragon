@@ -164,5 +164,15 @@ public class AffichageJeu {
         }
     }
 
+    public static void afficherDefaite () {
+        System.out.println("\nTous les joueurs sont morts. Vous avez perdu !");
+        System.out.println("Cause : Défaite (au moins un joueur a été tué).");
+    }
+
+    public static void afficherVictoire () {
+        System.out.println("\nTous les donjons ont été vaincus !");
+        System.out.println("Félicitations, vous avez gagné !");
+    }
+
 
 }
