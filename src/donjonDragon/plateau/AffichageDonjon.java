@@ -188,7 +188,7 @@ public class AffichageDonjon
     
     public void mauvaisIcone() { System.out.println("Erreur: Il faut que l'icone soit de 3 caractères!"); }
 
-    public void afficherCarte(int tailleX, int tailleY)
+    public void afficherCarte(Position[][] donjon, int tailleX, int tailleY)
     {
         String carte = "    ";
 
@@ -214,7 +214,7 @@ public class AffichageDonjon
             }
             for (int j=0; j<tailleX; j++)
             {
-                carte += m_carte[i][j].getIcone();
+                carte += donjon[i][j].getIcone();
             }
             carte += " |\n";
         }
