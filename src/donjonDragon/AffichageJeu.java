@@ -50,7 +50,7 @@ public class AffichageJeu {
     
     public static void caracteristiqueJoueur(String nomCaracteristique) { System.out.println("Vous vous aprréter à lancer 4 dés à 4 faces pour pouvoir initialiser la caractéristique " + nomCaracteristique); }
     
-    public static void afficherInitiativeCombattant(String nomCombattant) { System.out.println("Vous vous apprétez à lancer un dés à 20 faces pour pouvoir trier l'initiative de " + nomCombattant + " comparée aux autres"); }
+    public static void afficherInitiativeCombattant(String nomCombattant) { System.out.println("Vous vous apprétez à lancer un dés à 20 faces pour pouvoir initialiser l'initiative de " + nomCombattant); }
     
     public static void afficherTourPersonnage(Personnage joueur, int actions){
         System.out.println("\n" + joueur.getNom() + ", il vous reste " + actions + " action(s). Que souhaitez-vous faire ?");
@@ -68,7 +68,8 @@ public class AffichageJeu {
         String test="";
         while(!valide){
             line = m_scanner.nextLine();
-            if (line.startsWith("att ")) {
+            if (line.startsWith("com ")) { valide = true; }
+            else if (line.startsWith("att ")) {
                 try {
                     test = line.substring(4,5);
                     nb = Integer.parseInt(line.substring(5,6));
@@ -86,7 +87,10 @@ public class AffichageJeu {
                 catch (Exception e){
                     System.out.println("Il faut une position après dep.");
                 }
-            }else if (line.startsWith("equ ")) {
+            } else if (line.startsWith("ram ")) {
+                // à implémenter
+                valide = true;
+            } else if (line.startsWith("equ ")) {
                 try {
                     nb = Integer.parseInt(line.substring(4));
                     valide=true;
@@ -162,6 +166,16 @@ public class AffichageJeu {
                 System.out.println(prefixe + mortPrefix + Icone + " "  + nom + " (" + vie + ")");
             }
         }
+    }
+
+    public static void afficherDefaite () {
+        System.out.println("\nTous les joueurs sont morts. Vous avez perdu !");
+        System.out.println("Cause : Défaite (au moins un joueur a été tué).");
+    }
+
+    public static void afficherVictoire () {
+        System.out.println("\nTous les donjons ont été vaincus !");
+        System.out.println("Félicitations, vous avez gagné !");
     }
 
 

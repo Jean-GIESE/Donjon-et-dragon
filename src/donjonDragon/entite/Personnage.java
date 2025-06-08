@@ -45,12 +45,16 @@ public class Personnage extends Entite{
             {
                 switch (objet.getType()) {
                     case ARME:
-                        m_inventaire.add(m_arme);
+                        if (m_arme != null) {
+                            m_inventaire.add(m_arme);
+                        }
                         m_arme = (Arme) objet;
                         m_inventaire.remove(i);
                         return true;
                     case ARMURE:
-                        m_inventaire.add(m_armure);
+                        if (m_armure != null) {
+                            m_inventaire.add(m_armure);
+                        }
                         m_armure = (Armure) objet;
                         m_inventaire.remove(i);
                         return true;
@@ -131,6 +135,10 @@ public class Personnage extends Entite{
     @Override
     public int getPortee(){
         return m_arme.getPortee();
+    }
+    @Override
+    public String getNomEtId(){
+        return m_nom;
     }
     @Override
     public void attaquer(Entite cible){

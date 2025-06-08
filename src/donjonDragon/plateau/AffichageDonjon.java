@@ -19,7 +19,7 @@ public class AffichageDonjon
     
     public static void mauvaiseDimension() { System.out.println("Erreur: mauvaises dimensions!"); }
     
-    public void mauvaisFormat() { System.out.println("Veuillez insérer les coordonnées dans le bon format!"); }
+    public static void mauvaisFormat() { System.out.println("Veuillez insérer les coordonnées dans le bon format!"); }
     
     public static int dimensionCarte(String axe)
     {
@@ -33,26 +33,26 @@ public class AffichageDonjon
         }
     }
     
-    public String coordonneObstacle()
+    public static String coordonneObstacle()
     {
         System.out.print("Insérer les coordonnées de l'obstacle (au format <lettre><numéro>): ");
         return m_scanner.nextLine().trim().toUpperCase();
     }
     
-    public String coordonneCombattant(String nomEntite)
+    public static String coordonneCombattant(String nomEntite)
     {
         System.out.print("Postionnez l'entité " + nomEntite + " (au format <lettre><numéro>): ");
         String coordonne = m_scanner.nextLine().trim().toUpperCase();
         return coordonne;
     }
     
-    public String coordonneEquipement(String objet)
+    public static String coordonneEquipement(String objet)
     {
         System.out.print("Placer l'équipement " + objet + " (au format <lettre><numéro>): ");
         return m_scanner.nextLine().trim().toUpperCase();
     }
     
-    public int nombreMonstres(int taille)
+    public static int nombreMonstres(int taille)
     {
         try {
             System.out.print("Combien de monstres souhaitez-vous introduire (pas plus de " + (taille - 5) + ") : ");
@@ -64,16 +64,16 @@ public class AffichageDonjon
         }
     }
     
-    public void mauvaisNbMonstres() { System.out.println("Erreur: nombres de monstres faux"); }
+    public static void mauvaisNbMonstres() { System.out.println("Erreur: nombres de monstres faux"); }
     
-    public String especeMonstres(int numMonstre)
+    public static String especeMonstres(int numMonstre)
     {
         System.out.println("Monstre n°" + numMonstre);
         System.out.print("Insérez l'espèce du monstre :");
         return m_scanner.nextLine().trim();
     }
     
-    public int[] degatsMonstre()
+    public static int[] degatsMonstre()
     {
         System.out.println("Quelles sont les dégats que fait le monstre? (au format dé)");
         int[] degat = {0,0};
@@ -89,13 +89,13 @@ public class AffichageDonjon
         }
     }
     
-    public void nombreInsuffisant() { System.out.println("Erreur: Il faut que les nombres soient supérieur à 0!"); }
+    public static void nombreInsuffisant() { System.out.println("Erreur: Il faut que les nombres soient supérieur à 0!"); }
     
-    public void nombreSuperieurEgalZero() { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0!"); }
+    public static void nombreSuperieurEgalZero() { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0!"); }
     
-    public void nombreInsuffisantAttaque() { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0 et qu'il ne soit pas à 0 s'il attaque à distance!"); }
+    public static void nombreInsuffisantAttaque() { System.out.println("Erreur: Il faut que le nombre soit supérieur ou égal à 0 et qu'il ne soit pas à 0 s'il attaque à distance!"); }
     
-    public int porteeMonstre()
+    public static int porteeMonstre()
     {
         try {
             System.out.print("insérez la portée du monstre (valant 1 si l'attaque est au corps-à-corps) :");
@@ -107,7 +107,7 @@ public class AffichageDonjon
         }
     }
     
-    public int pvMonstre()
+    public static int pvMonstre()
     {
         try {
             System.out.print("insérez les pv du monstre :");
@@ -120,7 +120,7 @@ public class AffichageDonjon
         }
     }
     
-    public int forceMonstre()
+    public static int forceMonstre()
     {
         try {
             System.out.print("insérez la force du monstre (supérieur à 0 car il combat au corps à corps):");
@@ -132,7 +132,7 @@ public class AffichageDonjon
         }
     }
     
-    public int dexteriteMonstre()
+    public static int dexteriteMonstre()
     {
         try {
             System.out.print("insérez la dextérité du monstre (supérieur à 0 car il attaque au corps à corps):");
@@ -144,7 +144,7 @@ public class AffichageDonjon
         }
     }
     
-    public int vitesseMonstre()
+    public static int vitesseMonstre()
     {
         try {
             System.out.print("insérez la vitesse du monstre (inférieur à 3 si c'est un gros tas qui peut pas bouger :p) :");
@@ -156,7 +156,7 @@ public class AffichageDonjon
         }
     }
     
-    public int initiativeMonstre()
+    public static int initiativeMonstre()
     {
         try {
             System.out.print("insérez l'initiative du monstre :");
@@ -168,7 +168,7 @@ public class AffichageDonjon
         }
     }
     
-    public int classeArmureMonstre()
+    public static int classeArmureMonstre()
     {
         try {
             System.out.print("insérez la classe d'armure du monstre :");
@@ -180,15 +180,15 @@ public class AffichageDonjon
         }
     }
     
-    public String iconeMonstre()
+    public static String iconeMonstre()
     {
         System.out.print("Insérez l'icone du monstre (Chaine de 3 caractère obligatoirement) :");
         return m_scanner.nextLine();
     }
     
-    public void mauvaisIcone() { System.out.println("Erreur: Il faut que l'icone soit de 3 caractères!"); }
+    public static void mauvaisIcone() { System.out.println("Erreur: Il faut que l'icone soit de 3 caractères!"); }
 
-    public void afficherCarte(Position[][] donjon, int tailleX, int tailleY)
+    public static void afficherCarte(Position[][] donjon, int tailleX, int tailleY)
     {
         String carte = "    ";
 

@@ -62,6 +62,7 @@ public abstract class Entite
     public String getIcone(){return  m_icone;};
     public String setIcone(){return m_icone;};
     public abstract int getPortee();
+    public abstract String getNomEtId();
 
 
     public Boolean seDeplacer(Donjon donjon, int[]pos)
@@ -86,19 +87,27 @@ public abstract class Entite
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (obj == null) return false;
 
-        Entite autre = (Entite) obj;
+        Entite autre;
+        try {
+            autre = (Entite) obj;
+        } catch (ClassCastException e) {
+            return false;
+        }
 
-        return m_pvMax == autre.m_pvMax &&
-                m_pv == autre.m_pv &&
-                m_force == autre.m_force &&
-                m_dexterite == autre.m_dexterite &&
-                m_vitesse == autre.m_vitesse &&
-                m_initiative == autre.m_initiative &&
-                m_enVie == autre.m_enVie &&
-                ((m_icone == null && autre.m_icone == null) || (m_icone != null && m_icone.equals(autre.m_icone))) &&
-                m_type == autre.m_type;
+        // On compare le type enum : si différents, pas égaux
+        if (this.m_type != autre.m_type) {
+            return false;
+        }
+
+        // On compare l'identifiant unique (nom ou espece+numero)
+        String idThis = this.getNomEtId();
+        String idAutre = autre.getNomEtId();
+
+        if (idThis == null) return idAutre == null;
+
+        return idThis.equals(idAutre);
     }
 
     @Override
