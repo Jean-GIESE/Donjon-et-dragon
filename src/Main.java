@@ -24,17 +24,17 @@ public class Main {
 //         String chaine = System.console.readline("Entrez quelque chose v2\n");
 //         System.out.println(chaine);
 
-        Entite perso = new Personnage("Jean", new Clerc(), new Halfelin(), 20, 4, 1, 5, 2);
-        Entite leMonstre = new Monstre("Dragon", 0, new De(1,6), 3, 20, 5, 0, 4, 2, 8, "0w0");
-        Equipement test = new Armure("Armure", 0, true); 
-        Donjon carte = new Donjon();
-        carte.afficherCarte();
-        carte.placerEntite(perso);
-        carte.placerObstacle();
-        carte.placerObstacle();
-        carte.placerEquipement(test);
-        carte.placerEntite(leMonstre);
-        carte.afficherCarte();
+//         Entite perso = new Personnage("Jean", new Clerc(), new Halfelin(), 20, 4, 1, 5, 2);
+//         Entite leMonstre = new Monstre("Dragon", 0, new De(1,6), 3, 20, 5, 0, 4, 2, 8, "0w0");
+//         Equipement test = new Armure("Armure", 0, true); 
+//         Donjon carte = new Donjon();
+//         carte.afficherCarte();
+//         carte.placerEntite(perso);
+//         carte.placerObstacle();
+//         carte.placerObstacle();
+//         carte.placerEquipement(test);
+//         carte.placerEntite(leMonstre);
+//         carte.afficherCarte();
 
 //         ArrayList<Equipement> equipementsParDefaut = new ArrayList<>();
 //         equipementsParDefaut.add(new Armure("Armure d'écailles", 9, false));
@@ -64,7 +64,7 @@ public class Main {
 //         AffichageDonjon donjon = new AffichageDonjon(carte.getCarte(), carte.getTailleX(), carte.getTailleY());
 //         donjon.afficherCarte();
 
-//         Jeu game = new Jeu();
-//         game.lancerPartie();
+        Jeu game = new Jeu();
+        game.lancerPartie();
     }
 }
