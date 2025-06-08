@@ -8,7 +8,7 @@ public class Roublard extends Classe
 {
     public Roublard()
     {
-        super("Roublard", 16, initialiserEquipementRoublard());
+        super("Roublard", 16, initialiserEquipementRoublard(),TypeClasse.AUTRE);
     }
     public static ArrayList<Equipement> initialiserEquipementRoublard()
     {
