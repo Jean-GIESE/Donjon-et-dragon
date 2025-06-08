@@ -364,7 +364,8 @@ public class Jeu {
                     pos[0]=donjon.coordonneX(input.charAt(4));
                     pos[1]=Integer.parseInt(input.substring(5,6));
                     if(donjon.coordonneValide(pos[0],pos[1])){
-                        if(donjon.attaquerEntite(joueur,donjon.getCarte()[pos[0]][pos[1]].getEntite()))  // Faut changer et pas faire gettersurgetter !!!
+                        System.out.println("Cible en [" + pos[0] + "," + pos[1] + "] = " + donjon.getCarte()[pos[0]][pos[1]].getEntite());
+                        if(donjon.attaquerEntite(joueur,donjon.getCarte()[pos[0]][pos[1]].getEntite()))
                         {
                             actions--;
                         }
