@@ -168,6 +168,7 @@ class Nain
 package sort
 {
 /'Définitions des sorts'/
+
 interface Sort
 {
 +lancer(entites:ArrayList<Entite>,donjon:Donjon)
