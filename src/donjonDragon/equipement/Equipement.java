@@ -14,6 +14,7 @@ public abstract class Equipement
         m_lourd = est_lourd;
         m_type = type;
     }
+    public abstract Equipement copie();
     
     public boolean getLourd()
     {

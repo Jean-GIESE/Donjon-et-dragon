@@ -17,7 +17,7 @@ public class Personnage extends Entite{
     private Armure m_armure;
 
 
-    
+
     public Personnage(String nom, Classe classe, Race race, int pvMax, int force, int dexterite, int vitesse, int initiative)
     {
         m_nom = nom;
@@ -29,16 +29,14 @@ public class Personnage extends Entite{
         m_dexterite = dexterite;
         m_vitesse = vitesse;
         m_initiative = initiative;
-        m_inventaire = m_classe.getEquipementDepart();
+        m_inventaire = copierEquipements(m_classe.getEquipementDepart());
         m_arme = null;
         m_armure = null;
         m_enVie = true;
         m_icone= m_nom.substring(0, 3);
         m_type=TypeEntite.JOUEUR;
-
-
     }
-    
+
     public boolean sEquiper(Equipement objet)
     {
         for (int i=0; i<m_inventaire.size(); i++)
@@ -61,11 +59,10 @@ public class Personnage extends Entite{
                 }
 
             }
-            
+
         }
         return false;
     }
-    
     public void ramasser(Donjon donjon, Equipement e)
     {
         if (e == null) {
@@ -80,6 +77,18 @@ public class Personnage extends Entite{
         }
 
     }
+    private ArrayList<Equipement> copierEquipements(ArrayList<Equipement> original) {
+        ArrayList<Equipement> copie = new ArrayList<>();
+        for (Equipement e : original) {
+            if (e instanceof Arme) {
+                copie.add(((Arme) e).copie());
+            } else if (e instanceof Armure) {
+                copie.add(((Armure) e).copie());
+            }
+        }
+        return copie;
+    }
+
     public void choisirEquipementDepart()
     {
         // à implémenter
@@ -89,33 +98,33 @@ public class Personnage extends Entite{
     {
         return m_nom;
     }
-    
+
     public Race getRace()
     {
         return m_race;
     }
-    
+
     public Classe getClasse()
     {
         return m_classe;
     }
-    
+
     public ArrayList<Equipement> getInventaire()
     {
         return m_inventaire;
     }
-    
+
     public Arme getArme()
     {
         return m_arme;
     }
-    
-    
+
+
     public Armure getArmure()
     {
         return m_armure;
     }
-    
+
     public int getClasseArmure(){
         return m_armure.getClasse();
     }
@@ -156,14 +165,14 @@ public class Personnage extends Entite{
             System.out.println("L'attaque manque sa cible ! "+cible.getNom()+"("+cible.getClasseArmure()+") a esquivé de peu !");
         }
     }
-    
+
     @Override
     public String toString()
     {
         String texte = m_nom + "\n\t";
         texte += "Vie: " + m_pv + "/" + m_pvMax + "\n\t";
         texte += "Armure: " + (m_armure != null ? m_armure.toString() : "Aucune") + "\n\t";
-        texte += "Arme: " + (m_armure != null ? m_arme.toString() : "Aucune") + "\n\t";
+        texte += "Arme: " + (m_arme != null ? m_arme.toString() : "Aucune") + "\n\t";
         texte += "Inventaire: [" + m_inventaire.size() + "] ";
         for (int i=0; i<m_inventaire.size(); i++)
         {

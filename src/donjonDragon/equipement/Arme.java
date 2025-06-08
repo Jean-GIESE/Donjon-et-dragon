@@ -14,6 +14,11 @@ public class Arme extends Equipement
         m_degat = degat;
         m_portee = portee;
     }
+    @Override
+    public Arme copie()
+    {
+        return new Arme(getNom(), m_degat, m_portee, getLourd());
+    }
     
     public De getDegat()
     {

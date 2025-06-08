@@ -10,6 +10,11 @@ public class Armure extends Equipement
         super(nom, est_lourd, TypeEquipement.ARMURE);
         m_classeArmure = classeArmure;
     }
+    @Override
+    public Armure copie()
+    {
+        return new Armure(getNom(), m_classeArmure, getLourd());
+    }
     
     public int getClasse()
     {
