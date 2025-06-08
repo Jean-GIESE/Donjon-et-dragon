@@ -156,7 +156,7 @@ public class Personnage extends Entite{
             System.out.println("Votre attaque perce l'armure de"+cible.getNom()+" ("+cible.getClasseArmure()+").");
             int degatInflige=0;
             System.out.println("Lancer de dé(s) pour les dégats :");
-            degatInflige=m_arme.getDegat().lancer();
+            degatInflige=m_arme.getDegat().lancer()+m_arme.getBonus();
             System.out.println(cible.getNom()+" subit "+degatInflige+" dégâts !");
             int pvFinal = cible.getPv()-degatInflige;
             if(pvFinal>0)

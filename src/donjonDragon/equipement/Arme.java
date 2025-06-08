@@ -6,6 +6,7 @@ public class Arme extends Equipement
 {
     private De m_degat;
     private int m_portee;
+    private int m_bonus;
 
     
     public Arme(String nom, De degat, int portee, boolean est_lourd)
@@ -13,6 +14,7 @@ public class Arme extends Equipement
         super(nom, est_lourd, TypeEquipement.ARME);
         m_degat = degat;
         m_portee = portee;
+        m_bonus = 0;
     }
     @Override
     public Arme copie()
@@ -29,4 +31,7 @@ public class Arme extends Equipement
     {
         return m_portee;
     }
+    public int getBonus() { return m_bonus; };
+    public void setM_bonus(int bonus) {m_bonus=bonus;};
+
 }

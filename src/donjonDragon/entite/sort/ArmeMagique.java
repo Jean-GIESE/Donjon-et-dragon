@@ -2,13 +2,15 @@ package donjonDragon.entite.sort;
 
 import donjonDragon.entite.Entite;
 import donjonDragon.entite.Personnage;
+import donjonDragon.entite.TypeEntite;
 import donjonDragon.equipement.Arme;
 import donjonDragon.equipement.Equipement;
+import donjonDragon.equipement.TypeEquipement;
 import donjonDragon.plateau.Donjon;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-/*
+
 public class ArmeMagique implements Sort{
     private Scanner m_scanner;
 
@@ -19,8 +21,24 @@ public class ArmeMagique implements Sort{
     public void lancer(ArrayList<Entite> entites, Donjon donjon)
     {
         listPerso(entites);
-        Entite cible = entites.get(Integer.parseInt(m_scanner.nextLine())-1);
-        Personnage perso=(Personnage)cible;
+        int index = -1;
+        try {
+            index = Integer.parseInt(m_scanner.nextLine()) - 1;
+            if (index < 0 || index >= entites.size()) {
+                System.out.println("Index invalide.");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("Entrée invalide.");
+            return;
+        }
+        Entite cible = entites.get(index);
+
+        if (cible.getType() != TypeEntite.JOUEUR) {
+            System.out.println("Ce sort ne peut être lancé que sur un personnage.");
+            return;
+        }
+        Personnage perso = (Personnage) cible;
 
         ArrayList<Arme> armeDispo = new ArrayList<>();
         if(perso.getArme()!=null){
@@ -32,15 +50,27 @@ public class ArmeMagique implements Sort{
             }
         }
         listArme(perso,armeDispo);
+
+        int choix = -1;
+        try {
+            choix = Integer.parseInt(m_scanner.nextLine()) - 1;
+            if (choix < 0 || choix >= armeDispo.size()) {
+                System.out.println("Choix d'arme invalide.");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("Entrée invalide.");
+            return;
+        }
+
         Arme armeCible;
-        int choix = Integer.parseInt(m_scanner.nextLine())-1;
-        if(choix==0){
-            armeCible=perso.getArme();
+        if (choix == 0) {
+            armeCible = perso.getArme();
+        } else {
+            armeCible = armeDispo.get(choix);
         }
-        else {
-            armeCible=armeDispo.get(choix);
-        }
-        //ajouter bonus a armeCible
+
+        armeCible.setM_bonus(armeCible.getBonus()+1);
 
     }
     public void listPerso(ArrayList<Entite> persos)
@@ -60,4 +90,3 @@ public class ArmeMagique implements Sort{
         }
     }
 }
-*/
