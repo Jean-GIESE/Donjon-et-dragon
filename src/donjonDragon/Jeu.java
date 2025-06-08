@@ -159,14 +159,14 @@ public class Jeu {
                                 AffichageJeu.afficherOrdre(nbtour, initiativeOrdre, entite);
                                 donjon.afficherCarte();
                                 joueur=(Personnage)entite;
-                                joueur.toString();
+                                System.out.println(joueur.toString());
                                 gererTourPersonnage((Personnage) entite, donjon);
                                 break;
                             case MONSTRE:
                                 AffichageJeu.afficherOrdre(nbtour, initiativeOrdre, entite);
                                 donjon.afficherCarte();
                                 monstre=(Monstre)entite;
-                                monstre.toString();
+                                System.out.println(monstre.toString());
                                 gererTourMonstre((Monstre) entite, donjon);
                                 break;
                             default:
