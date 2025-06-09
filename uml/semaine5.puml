@@ -125,6 +125,12 @@ class Roublard
 +«Create» Roublard(): Roublard
 +initialiserEquipementRoublard(): Equipement[*]
 }
+enum TypeClasse
+{
+CLERC
+MAGICIEN
+AUTRE
+}
 }
 
 package race
@@ -368,7 +374,7 @@ class AffichageJeu
 +{static} afficherErreur()
 +{static} nombreObjet(nbMax:Integer, nomObjet:String): Integer
 +{static} choisirEquipement(numEquipement:Integer): String
-+{static} afficherOrdre(numeroTour:Integer, listeEntites:ArrayList<Entite>, entiteActive:Entite)
++{static} afficherOrdre(numeroTour:Integer, listeEntites:Entite[*], entiteActive:Entite)
 +{static} afficherDefaite()
 +{static} afficherVictoire()
 +{static} afficherVictoireDonjon(donjonactuel:Integer)
@@ -382,22 +388,26 @@ class AffichageJeu
 }
 
 /'Définitions des relations'/
-' --- Relations d'héritage ---
-Personnage -up-|> Entite
-Monstre -up-|> Entite
+' --- Relations d'héritage et d'implémentations ---
+Personnage --|> Entite
+Monstre --|> Entite
 
-Clerc -up-|> Classe
-Guerrier -up-|> Classe
-Magicien -up-|> Classe
-Roublard -up-|> Classe
+Clerc --|> Classe
+Guerrier --|> Classe
+Magicien --|> Classe
+Roublard --|> Classe
 
-Elfe -up-|> Race
-Humain -up-|> Race
-Halfelin -up-|> Race
-Nain -up-|> Race
+Elfe --|> Race
+Humain --|> Race
+Halfelin --|> Race
+Nain --|> Race
 
-Armure -up-|> Equipement
-Arme -up-|> Equipement
+Armure --|> Equipement
+Arme --|> Equipement
+
+Guerison ..|> Sort
+BoogieWoogie ..|> Sort
+ArmeMagique ..|> Sort
 
 ' --- Relations d'appel ---
 Jeu .> Donjon : "«call»"
@@ -410,7 +420,9 @@ Jeu .> Scanner : "«call»"
 Jeu .> De : "«call»"
 
 Equipement .> Donjon : "«call»"
+
 Armure .> Equipement : "«call»"
+
 Arme .> Equipement : "«call»"
 Arme .> De : "«call»"
 
@@ -419,29 +431,42 @@ Donjon .> Equipement : "«call»"
 Donjon .> Monstre : "«call»"
 Donjon .> Personnage : "«call»"
 
-Classe -> Equipement : «call»
-Classe -> Arme : «call»
-Classe -> Armure : «call»
+Entite .> Donjon : «call»
 
-Entite -> Donjon : «call»
-Monstre -> De : «call»
+Monstre .> De : «call»
 
-Personnage -> De : «call»
-Personnage -> Classe : «call»
-Personnage -> Clerc : «call»
-Personnage -> Classe : «call»
-Personnage -> Guerrier : «call»
-Personnage -> Magicien : «call»
-Personnage -> Roublard : «call»
-Personnage -> Elfe : «call»
-Personnage -> Halfelin : «call»
-Personnage -> Humain : «call»
-Personnage -> Nain : «call»
-Personnage -> Race : «call»
-Personnage -> Equipement : «call»
-Personnage -> Arme : «call»
-Personnage -> Armure : «call»
-Personnage -> Donjon : «call»
+Personnage .> De : «call»
+Personnage .> Classe : «call»
+Personnage .> Clerc : «call»
+Personnage .> Classe : «call»
+Personnage .> Guerrier : «call»
+Personnage .> Magicien : «call»
+Personnage .> Roublard : «call»
+Personnage .> Elfe : «call»
+Personnage .> Halfelin : «call»
+Personnage .> Humain : «call»
+Personnage .> Nain : «call»
+Personnage .> Race : «call»
+Personnage .> Equipement : «call»
+Personnage .> Arme : «call»
+Personnage .> Armure : «call»
+Personnage .> Donjon : «call»
+
+
+Guerison .> De : "«call»"
+Guerison .> Entite : "«call»"
+Guerison .> Personnage : "«call»"
+
+BoogieWoogie .> Scanner : "«call»"
+BoogieWoogie .> Donjon : "«call»"
+BoogieWoogie .> Position : "«call»"
+BoogieWoogie .> Entite : "«call»"
+
+ArmeMagique .> Scanner : "«call»"
+ArmeMagique .> Personnage : "«call»"
+ArmeMagique .> Arme : "«call»"
+ArmeMagique .> Equipement : "«call»"
+
 
 ' --- Relations d'instanciation ---
 Jeu .> Donjon : "«instantiate»"
@@ -451,15 +476,51 @@ Jeu .> Monstre : "«instantiate»"
 Jeu .> De : "«instantiate»"
 Jeu .> Scanner : "«instantiate»"
 
+Clerc .> Equipement : "«instantiate»"
+Guerrier .> Equipement : "«instantiate»"
+Magicien .> Equipement : "«instantiate»"
+Roublard .> Equipement : "«instantiate»"
+
+Guerison .> Scanner : "«instantiate»"
+Guerison .> De : "«instantiate»"
+
+BoogieWoogie .> Scanner : "«instantiate»"
+
+ArmeMagique .> Scanner : "«instantiate»"
+
 ' --- Relations d'utilisation ---
 Jeu .> AffichageJeu : "«uses»"
 
+Guerison .> Personnage : "«uses»"
+Guerison .> Donjon : "«uses»"
+Guerison .> Entite : "«uses»"
 
+BoogieWoogie .> Personnage : "«uses»"
+BoogieWoogie .> Donjon : "«uses»"
+BoogieWoogie .> Position : "«uses»"
+BoogieWoogie .> Entite : "«uses»"
+
+ArmeMagique .> Personnage : "«uses»"
+ArmeMagique .> Donjon : "«uses»"
+ArmeMagique .> Entite : "«uses»"
+ArmeMagique .> TypeEntite : "«uses»"
+ArmeMagique .> Arme : "«uses»"
+ArmeMagique .> Equipement : "«uses»"
+ArmeMagique .> TypeEquipement : "«uses»"
 
 ' --- Agrégations ---
 Jeu "1" *--> "3\n-m_donjons" Donjon : contient
 Jeu "1" o--> "1..*\n-m_joueurs" Personnage : se joue avec
 
 Donjon "1" o--> "0..*\n-m_monstres" Monstre : contient
+
+Classe "1" o--> "2..*\n-m_equipementDepart" Equipement : contient
+Classe "1" o--> "1\n-m_typeClasse" TypeClasse : est de type
+
+Guerison "1" *-> "1\n-m_scanner" Scanner : instancie et possède
+
+BoogieWoogie "1" *-> "1\n-m_scanner" Scanner : instancie et possède
+
+ArmeMagique "1" *-> "1\n-m_scanner" Scanner : instancie et possède
 
 @enduml
