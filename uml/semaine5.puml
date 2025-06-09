@@ -22,24 +22,27 @@ abstract Entite<<abstract>>
 -m_pos : Integer[*]
 -m_icone : String
 
-+ {abstract} «Create» Entite
++{abstract} «Create» Entite(pvMax:Integer, pv:Integer, force:Integer, dexterite:Integer, vitesse:Integer, initiative:Integer, enVie:Boolean, icone:String, type:TypeEntite): Entite
 +getPvMax():Integer
 +getPv():Integer
 +getForce():Integer
 +getDexterite():Integer
 +getVitesse():Integer
 +getInitiative():Integer
-+getClasseArmure():Integer {abstract}
-+getNom():String {abstract}
++{abstract} getClasseArmure():Integer
++{abstract} getNom():String
++estEnVie():Boolean
 +setPv(pv:Integer)
 +setEnVie(vie:Boolean)
-+attaquer(cible:Entite) {abstract}
++{abstract} attaquer(cible:Entite)
 +getType(): TypeEntite
 +getIcone(): String
 +setIcone(): String
-+seDeplacer(donjon:Donjon,pos:Integer[*])
++{abstract}getPortee():Integer
++{abstract}getNomEtId():String
++seDeplacer(donjon:Donjon,pos:Integer[*],deplacementX:Integer,deplacementY:Integer)
 +equals(obj:Object): Boolean
-+toString():String {abstract}
++{abstract}toString():String
 
 }
 class Personnage
@@ -47,13 +50,11 @@ class Personnage
 -m_nom : String
 -m_race : Race
 -m_classe : Classe
--m_inventaire:Equipement[*]
--m_arme : Arme
--m_armure : Armure
 
 +«Create» Personnage(nom:String,classe:Classe,race:Race,pvMax:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer): Personnage
-+sEquiper(objet:Equipement):
-+ramasser():
++sEquiper(objet:Equipement):Boolean
++ramasser(Position pos):Boolean
++copierEquipements(original:Equipement[*]):Equipement[*]
 +choisirEquipementDepart()
 +getNom():String
 +getRace():Race
@@ -62,6 +63,8 @@ class Personnage
 +getArme():Arme
 +getArmure():Armure
 +getClasseArmure():Integer
++getPortee():Integer
++getNomEtId():String.
 +attaquer(cible:Entite)
 +toString():String
 
@@ -70,14 +73,16 @@ class Monstre
 {
 -m_espece : String
 -m_numero : Integer
--m_degat : De
 -m_portee : Integer
 -m_classeArmure : Integer
+
 +«Create» Monstre(espece:String,numero:Integer,degat:De,portee:Integer,pvMax:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer,classeArmure:Integer,icone:String): Monstre
 +getEspece():String
 +getNumero():Integer
 +getClasseArmure():Integer
 +getNom():String
++getPortee():Integer
++getNomEtId():String
 +attaquer(cible:Entite)
 +toString():String
 
