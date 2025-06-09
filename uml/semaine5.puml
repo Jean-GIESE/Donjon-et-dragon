@@ -411,13 +411,32 @@ ArmeMagique ..|> Sort
 
 ' --- Relations d'appel ---
 Jeu .> Donjon : "«call»"
+Jeu .> Entite : "«call»"
 Jeu .> Personnage : "«call»"
 Jeu .> Monstre : "«call»"
 Jeu .> Entite : "«call»"
+Jeu .> Classe : "«call»"
+Jeu .> Race : "«call»"
+Jeu .> Guerison : "«call»"
+Jeu .> BoogieWoogie : "«call»"
+Jeu .> ArmeMagique : "«call»"
 Jeu .> Armure : "«call»"
 Jeu .> Arme : "«call»"
 Jeu .> Scanner : "«call»"
 Jeu .> De : "«call»"
+Jeu .> Scanner : "«call»"
+Jeu .> AffichageJeu : "«call»"
+
+AffichageJeu .> Scanner : "«call»"
+AffichageJeu .> Entite : "«call»"
+AffichageJeu .> Personnage : "«call»"
+AffichageJeu .> Monstre : "«call»"
+
+AffichageDe .> Scanner : "«call»"
+AffichageDe .> StringBuilder : "«call»"
+
+Armure .> Random : "«call»"
+Armure .> AffichageDe : "«call»"
 
 Equipement .> Donjon : "«call»"
 
@@ -432,6 +451,15 @@ Donjon .> Equipement : "«call»"
 Donjon .> Position : "«call»"
 Donjon .> AffichageDonjon : "«call»"
 
+AffichageDonjon .> Scanner : "«call»"
+AffichageDonjon .> Position : "«call»"
+
+Position .> Equipement : "«call»"
+Position .> Entite : "«call»"
+
+Classe -> Equipement : «call»
+Classe -> Arme : «call»
+Classe -> Armure : «call»
 
 Entite .> Donjon : «call»
 
@@ -462,11 +490,40 @@ ArmeMagique .> Equipement : "«call»"
 
 ' --- Relations d'instanciation ---
 Jeu .> Donjon : "«instantiate»"
+Jeu .> Position : "«instantiate»"
 Jeu .> Armure : "«instantiate»"
 Jeu .> Arme : "«instantiate»"
+Jeu .> Entite : "«instantiate»"
 Jeu .> Monstre : "«instantiate»"
+Jeu .> Personnage : "«instantiate»"
+Jeu .> Classe : "«instantiate»"
+Jeu .> Race : "«instantiate»"
+Jeu .> Sort : "«instantiate»"
+Jeu .> Guerison : "«instantiate»"
+Jeu .> BoogieWoogie : "«instantiate»"
+Jeu .> ArmeMagique : "«instantiate»"
 Jeu .> De : "«instantiate»"
 Jeu .> Scanner : "«instantiate»"
+Jeu .> Equipement : "«instantiate»"
+
+AffichageJeu .> Scanner : "«instantiate»"
+AffichageJeu .> De : "«instantiate»"
+
+AffichageDe .> Scanner : "«instantiate»"
+AffichageDe .> StringBuilder : "«instantiate»"
+
+AffichageDonjon .> Scanner : "«instantiate»"
+AffichageDonjon .> Position : "«instantiate»"
+
+Position .> TypeEntite : "«instantiate»"
+Position .> TypeEquipement : "«instantiate»"
+Position .> Equipement : "«instantiate»"
+Position .> Entite : "«instantiate»"
+
+Equipement .> TypeEquipement : "«instantiate»"
+Arme .> De : "«instantiate»"
+Arme .> Arme : "«instantiate»"
+Armure .> Armure : "«instantiate»"
 
 Clerc .> Equipement : "«instantiate»"
 Guerrier .> Equipement : "«instantiate»"
@@ -489,6 +546,24 @@ Donjon .> Monstre : "«instantiate»"
 
 ' --- Relations d'utilisation ---
 Jeu .> AffichageJeu : "«uses»"
+Jeu .> Personnage : "«uses»"
+Jeu .> Monstre : "«uses»"
+Jeu .> Donjon : "«uses»"
+Jeu .> TypeClasse : "«uses»"
+
+AffichageJeu .> Entite : "«uses»"
+AffichageJeu .> Personnage : "«uses»"
+AffichageJeu .> Monstre : "«uses»"
+AffichageJeu .> TypeEntite : "«uses»"
+
+AffichageDonjon .> Position : "«uses»"
+
+Position .> Equipement : "«uses»"
+Position .> Entite : "«uses»"
+Position .> TypeEquipement : "«uses»"
+Position .> TypeEntite : "«uses»"
+
+Equipement .> TypeEquipement : "«uses»"
 
 Entite .> TypeEntite : "«uses»"
 
@@ -520,10 +595,16 @@ Donjon .> Monstre : "«uses»"
 Donjon .> Equipement : "«uses»"
 Donjon .> De : "«uses»"
 
-
 ' --- Agrégations ---
 Jeu "1" *--> "3\n-m_donjons" Donjon : contient
-Jeu "1" o--> "1..*\n-m_joueurs" Personnage : se joue avec
+Jeu "1" *--> "1..*\n-m_joueurs" Personnage : se joue avec
+Jeu "1" *--> "1\n-m_scanner" Scanner : est de type\t>
+
+AffichageJeu "1" *--> "1\n-m_scanner" Scanner : est de type\t>
+
+AffichageDe "1" *--> "1\n-m_scanner" Scanner : est de type\t>
+
+De "1" o--> "1\n-rand" Random : est de type\t>
 
 Donjon "1" o--> "0..*\n-m_monstres" Monstre : contient
 Donjon "1" o--> "0..*\n-m_carte" Position : contient
@@ -547,5 +628,16 @@ Personnage "1" *--> "*\n -m_inventaire" Equipement : possède un inventaire
 Personnage "1" *--> "0..1\n -m_arme" Arme : équipe une arme
 Personnage "1" *--> "0..1\n -m_armure" Armure : équipe une armure
 
+
+AffichageDonjon "1" *--> "1\n-m_scanner" Scanner : est de type\t>
+AffichageDonjon "1" *--> "1..*\n-m_carte" Position : contient\t>
+
+Position "0" *--> "1\n-m_typeEquipement" TypeEquipement : est de type\t>
+Position "0" *--> "1\n-m_typeEntite" TypeEntite : est de type\t>
+Position "0" *--> "1\n-m_equipement" Equipement : contient\t>
+Position "0" *--> "1\n-m_entite" Entite : contient\t>
+
+Equipement "1" o--> "1\n-m_type" TypeEquipement : est de type\t>
+Arme "1" o--> "1\n-m_degat" De : est de type\t>
 
 @enduml
