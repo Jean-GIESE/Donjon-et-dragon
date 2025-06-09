@@ -4,7 +4,6 @@ import donjonDragon.De;
 import donjonDragon.entite.classe.*;
 import donjonDragon.entite.race.*;
 import donjonDragon.equipement.*;
-import donjonDragon.plateau.Donjon;
 import donjonDragon.plateau.Position;
 
 import java.util.ArrayList;

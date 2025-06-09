@@ -52,7 +52,7 @@ class Personnage
 
 +«Create» Personnage(nom:String,classe:Classe,race:Race,pvMax:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer): Personnage
 +sEquiper(objet:Equipement):Boolean
-+ramasser(Position pos):Boolean
++ramasser(pos:Position):Boolean
 +copierEquipements(original:Equipement[*]):Equipement[*]
 +choisirEquipementDepart()
 +getNom():String
@@ -427,31 +427,23 @@ Arme .> Equipement : "«call»"
 Arme .> De : "«call»"
 
 Donjon .> Entite : "«call»"
-Donjon .> Equipement : "«call»"
 Donjon .> Monstre : "«call»"
-Donjon .> Personnage : "«call»"
+Donjon .> Equipement : "«call»"
+Donjon .> Position : "«call»"
+Donjon .> AffichageDonjon : "«call»"
+
 
 Entite .> Donjon : «call»
 
 Monstre .> De : «call»
+Monstre .> Entite : "«call»"
 
 Personnage .> De : «call»
 Personnage .> Classe : «call»
-Personnage .> Clerc : «call»
-Personnage .> Classe : «call»
-Personnage .> Guerrier : «call»
-Personnage .> Magicien : «call»
-Personnage .> Roublard : «call»
-Personnage .> Elfe : «call»
-Personnage .> Halfelin : «call»
-Personnage .> Humain : «call»
-Personnage .> Nain : «call»
 Personnage .> Race : «call»
 Personnage .> Equipement : «call»
 Personnage .> Arme : «call»
 Personnage .> Armure : «call»
-Personnage .> Donjon : «call»
-
 
 Guerison .> De : "«call»"
 Guerison .> Entite : "«call»"
@@ -488,8 +480,19 @@ BoogieWoogie .> Scanner : "«instantiate»"
 
 ArmeMagique .> Scanner : "«instantiate»"
 
+Monstre .> De : "«instantiate»"
+
+Personnage .> De : "«instantiate»"
+
+Donjon .> Position : "«instantiate»"
+Donjon .> Monstre : "«instantiate»"
+
 ' --- Relations d'utilisation ---
 Jeu .> AffichageJeu : "«uses»"
+
+Entite .> TypeEntite : "«uses»"
+
+Monstre .> Entite : "«uses»"
 
 Guerison .> Personnage : "«uses»"
 Guerison .> Donjon : "«uses»"
@@ -508,19 +511,41 @@ ArmeMagique .> Arme : "«uses»"
 ArmeMagique .> Equipement : "«uses»"
 ArmeMagique .> TypeEquipement : "«uses»"
 
+Personnage .> Equipement : "«uses»"
+Personnage .> Position : "«uses»"
+
+Donjon .> Entite : "«uses»"
+Donjon .> Personnage : "«uses»"
+Donjon .> Monstre : "«uses»"
+Donjon .> Equipement : "«uses»"
+Donjon .> De : "«uses»"
+
+
 ' --- Agrégations ---
 Jeu "1" *--> "3\n-m_donjons" Donjon : contient
 Jeu "1" o--> "1..*\n-m_joueurs" Personnage : se joue avec
 
 Donjon "1" o--> "0..*\n-m_monstres" Monstre : contient
+Donjon "1" o--> "0..*\n-m_carte" Position : contient
 
-Classe "1" o--> "2..*\n-m_equipementDepart" Equipement : contient
+Classe "1" o--> "0..*\n-m_equipementDepart" Equipement : contient
 Classe "1" o--> "1\n-m_typeClasse" TypeClasse : est de type
 
-Guerison "1" *-> "1\n-m_scanner" Scanner : instancie et possède
+Guerison "1" *--> "1\n-m_scanner" Scanner : instancie et possède
 
-BoogieWoogie "1" *-> "1\n-m_scanner" Scanner : instancie et possède
+BoogieWoogie "1" *--> "1\n-m_scanner" Scanner : instancie et possède
 
-ArmeMagique "1" *-> "1\n-m_scanner" Scanner : instancie et possède
+ArmeMagique "1" *--> "1\n-m_scanner" Scanner : instancie et possède
+
+Entite "1" o--> "1\n-m_type" TypeEntite : est de type
+
+Monstre "1" *--> "1\n-m_degat" De : utilise
+
+Personnage "*" o--> "1\n -m_classe" Classe : a pour classe
+Personnage "*" o--> "1\n -m_race" Race : est de race
+Personnage "1" *--> "*\n -m_inventaire" Equipement : possède un inventaire
+Personnage "1" *--> "0..1\n -m_arme" Arme : équipe une arme
+Personnage "1" *--> "0..1\n -m_armure" Armure : équipe une armure
+
 
 @enduml
