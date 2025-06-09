@@ -3,7 +3,6 @@
 skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 skinparam style strictuml
-top to bottom direction
 skinparam linetype ortho
 hide empty members
 package donjonDragon
@@ -126,16 +125,10 @@ class Roublard
 +«Create» Roublard(): Roublard
 +initialiserEquipementRoublard(): Equipement[*]
 }
-enum TypeEquipement {
-ARME
-ARMURE
-AUCUN
-}
 }
 
 package race
 {
-/'Définitions des classes'/
 abstract Race<<abstract>>
 {
 -m_pv : Integer
@@ -171,7 +164,6 @@ class Nain
 
 package sort
 {
-/'Définitions des sorts'/
 interface Sort
 {
 +lancer(entites:Personnage[*],donjon:Donjon)
@@ -193,13 +185,12 @@ class Guerison
 {
 +«Create» Guerison(): Guerison
 +lancer(entites:Personnage[*],donjon:Donjon)
-+listPerso(persos:APersonnage[*])
++listPerso(persos:Personnage[*])
 }
 }
 }
 package equipement
 {
-/'Définitions des classes'/
 abstract Equipement<<abstract>>
 {
 -m_nom:String
@@ -212,8 +203,7 @@ abstract Equipement<<abstract>>
 +getType(): TypeEquipement
 +toString():String
 }
-'--- Relations d'appel ---
-Equipement .> Donjon : "«call»"
+
 class Armure
 {
 -m_classeArmure:Integer
@@ -221,8 +211,7 @@ class Armure
 +copie():Armure
 +getClasse():Integer
 }
-'--- Relations d'appel ---
-Armure .> Equipement : "«call»"
+
 class Arme
 {
 -m_portee:Integer
@@ -234,12 +223,6 @@ class Arme
 +getBonus():Integer
 +setM_bonus(bonus:Integer)
 }
-'--- Relations d'appel ---
-Arme .> Equipement : "«call»"
-Arme .> De : "«call»"
-/'Définitions des relations'/
-Armure -up-|> Equipement
-Arme -up-|> Equipement
 enum TypeEquipement {
 ARME
 ARMURE
@@ -248,13 +231,11 @@ AUCUN
 }
 package plateau
 {
-/'Définitions des classes'/
 class Donjon
 {
 -m_taille:Integer
 -m_tailleX:Integer
 -m_tailleY:Integer
--m_carteAffiche:AffichageDonjon
 +«Create» Donjon(): Donjon
 +«Create» Donjon(tailleX:Integer,tailleY:Integer): Donjon
 +creerCarte(axe:String):Integer
@@ -270,7 +251,7 @@ class Donjon
 +getTailleX():Integer
 +getTailleY():Integer
 +getTaille():Integer
-+getMonstres():ArrayList<Monstre>
++getMonstres():Monstre[*]
 +creerMonstre()
 +addMonstres(monstre:Monstre)
 +trouverPositionEntite(entite:Entite):Integer[*]
@@ -280,53 +261,38 @@ class Donjon
 +attaquerEntiteMJ(position:Position,degat:De):Boolean
 +deplacementEntiteMJ(positionEntite:Position):Boolean
 }
-/'Définitions des relations'/
-'--- Relations d'appel ---
-Donjon .> Entite : "«call»"
-Donjon .> Equipement : "«call»"
-Donjon .> Monstre : "«call»"
-Donjon .> Personnage : "«call»"
-
-'--- Agrégations ---
-Donjon "1" o--> "0..*\n-m_monstres" Monstre : contient
 
 class AffichageDonjon
 {
--m_scanner:Scanner
--m_carte:Position[*][*]
-
-+«Create» AffichageDonjon(carte:Position[][]): AffichageDonjon
-+mauvaiseDimension()
-+mauvaisFormat()
-+dimensionCarte(axe:String):Integer
-+coordonneObstacle():String
-+coordonneCombattant(nomEntite:String):String
-+coordonneEquipement(objet:String): String
-+nombreMonstres(taille:Integer):Integer
-+mauvaisNbMonstres()
-+especeMonstres(numMonstre:Integer): String
-+degatsMonstre():Integer[*]
-+nombreInsuffisant()
-+nombreSuperieurEgalZero()
-+nombreInsuffisantAttaque()
-+porteeMonstre():Integer
-+pvMonstre():Integer
-+forceMonstre():Integer
-+dexteriteMonstre():Integer
-+vitesseMonstre():Integer
-+initiativeMonstre():Integer
-+classeArmureMonstre():Integer
-+iconeMonstre():String
-+mauvaisIcone()
-+afficherCarte(donjon:Position[*][*],tailleX:Integer,tailleY:Integer)
++«Create» AffichageDonjon(carte:Position[*][*]): AffichageDonjon
++{static}mauvaiseDimension()
++{static}mauvaisFormat()
++{static}dimensionCarte(axe:String):Integer
++{static}6coordonneObstacle():String
++{static}coordonneCombattant(nomEntite:String):String
++{static}coordonneEquipement(objet:String): String
++{static}nombreMonstres(taille:Integer):Integer
++{static}mauvaisNbMonstres()
++{static}especeMonstres(numMonstre:Integer): String
++{static}degatsMonstre():Integer[*]
++{static}nombreInsuffisant()
++{static}nombreSuperieurEgalZero()
++{static}nombreInsuffisantAttaque()
++{static}porteeMonstre():Integer
++{static}pvMonstre():Integer
++{static}forceMonstre():Integer
++{static}dexteriteMonstre():Integer
++{static}vitesseMonstre():Integer
++{static}initiativeMonstre():Integer
++{static}classeArmureMonstre():Integer
++{static}iconeMonstre():String
++{static}mauvaisIcone()
++{static}afficherCarte(donjon:Position[*][*],tailleX:Integer,tailleY:Integer)
++{static}nextLinedeplacementEntiteMJ():String
 }
 class Position
 {
 -m_obstacle:Boolean
--m_typeEquipement:TypeEquipement
--m_typeEntite:TypeEntite
--m_equipement:Equipement
--m_entite:Entite
 -m_icone:String
 
 +«Create» Position():Position
@@ -354,33 +320,69 @@ class De
 {
 -m_nombre:Integer
 -m_face:Integer
--m_scanner:Scanner
 +«Create» De(nombre:Integer,face:Integer): De
 +lancer():Integer
 +toString():String
 }
 class Jeu
 {
--m_donjons : Donjon[*]
 -m_donjonActuel : int
--m_joueurs : Personnage[*]
 -m_scanner : Scanner
 
 +«Create» Jeu() : Jeu
++initialiserJoueurs():Personnage[*]
++initClassePersonnage():Classe
++initRacePersonnage():Race
++initCaracteristiquePersonnage(nomCaracteristique:String):int
 +lancerPartie() :
-+proposerMiseEnPlace(donjon : Donjon) :
++proposerMiseEnPlace():Donjon
++ajoutEquipementDonjon(donjon:Donjon):Donjon
++objetSelectionnnez(nomObjet:String):Equipement
 +calculerInitiative(donjon : Donjon) : Entite[*]
-+gererTourPersonnage(joueur : Personnage, donjon : Donjon) :
-+gererTourMonstre(monstre : Monstre, donjon : Donjon) :
++gererTourPersonnage(joueur : Personnage, donjon : Donjon):
++gererTourMonstre(monstre : Monstre, donjon : Donjon):
++gererTourMJ(donjon:Donjon):
 +donjonEstTermine(donjon : Donjon) : boolean
 +restaurerVieJoueurs() :
 +auMoinsUnJoueurMort() : boolean
-+afficherDefaite() :
-+afficherVictoire() :
-}
 }
 
+class AffichageDe {
+    +{static}affichageLancerDe(nombre: int, face: int, resultats: int[], total: int)
+}
 
+class AffichageJeu
+{
++{static} nombreJoueurs(nbMax:Integer): Integer
++{static} nomJoueur(numJoueur:Integer): String
++{static} classeJoueur(): String
++{static} raceJoueur(): String
++{static} presentationCaracteristiques()
++{static} caracteristiqueJoueur(nomCaracteristique:String)
++{static} afficherInitiativeCombattant(nomCombattant:String)
++{static} afficherTourPersonnage(joueur:Personnage, actions:Integer)
++{static} nextLineTourPersonnage(): String
++{static} afficherRP(texte:String)
++{static} proposerSort(): String
++{static} mauvaiseClasse()
++{static} afficherErreur()
++{static} nombreObjet(nbMax:Integer, nomObjet:String): Integer
++{static} choisirEquipement(numEquipement:Integer): String
++{static} afficherOrdre(numeroTour:Integer, listeEntites:ArrayList<Entite>, entiteActive:Entite)
++{static} afficherDefaite()
++{static} afficherVictoire()
++{static} afficherVictoireDonjon(donjonactuel:Integer)
++{static} afficherTourMonstre(monstre:Monstre, actions:Integer)
++{static} nextLineTourMonstre(): String
++{static} afficherGererTourMJ()
++{static} nextLineGererTourMJ(): String
++{static} demanderLancerDe(): De
+}
+
+}
+
+/'Définitions des relations'/
+' --- Relations d'héritage ---
 Personnage -up-|> Entite
 Monstre -up-|> Entite
 
@@ -393,6 +395,29 @@ Elfe -up-|> Race
 Humain -up-|> Race
 Halfelin -up-|> Race
 Nain -up-|> Race
+
+Armure -up-|> Equipement
+Arme -up-|> Equipement
+
+' --- Relations d'appel ---
+Jeu .> Donjon : "«call»"
+Jeu .> Personnage : "«call»"
+Jeu .> Monstre : "«call»"
+Jeu .> Entite : "«call»"
+Jeu .> Armure : "«call»"
+Jeu .> Arme : "«call»"
+Jeu .> Scanner : "«call»"
+Jeu .> De : "«call»"
+
+Equipement .> Donjon : "«call»"
+Armure .> Equipement : "«call»"
+Arme .> Equipement : "«call»"
+Arme .> De : "«call»"
+
+Donjon .> Entite : "«call»"
+Donjon .> Equipement : "«call»"
+Donjon .> Monstre : "«call»"
+Donjon .> Personnage : "«call»"
 
 Classe -> Equipement : «call»
 Classe -> Arme : «call»
@@ -418,18 +443,6 @@ Personnage -> Arme : «call»
 Personnage -> Armure : «call»
 Personnage -> Donjon : «call»
 
-
-/'Définitions des relations'/
-' --- Relations d'appel ---
-Jeu .> Donjon : "«call»"
-Jeu .> Personnage : "«call»"
-Jeu .> Monstre : "«call»"
-Jeu .> Entite : "«call»"
-Jeu .> Armure : "«call»"
-Jeu .> Arme : "«call»"
-Jeu .> Scanner : "«call»"
-Jeu .> De : "«call»"
-
 ' --- Relations d'instanciation ---
 Jeu .> Donjon : "«instantiate»"
 Jeu .> Armure : "«instantiate»"
@@ -441,6 +454,9 @@ Jeu .> Scanner : "«instantiate»"
 ' --- Agrégations ---
 Jeu "1" *--> "3\n-m_donjons" Donjon : contient
 Jeu "1" o--> "1..*\n-m_joueurs" Personnage : se joue avec
+
+Donjon "1" o--> "0..*\n-m_monstres" Monstre : contient
+
 
 
 @enduml
