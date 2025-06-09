@@ -174,29 +174,26 @@ package sort
 /'Définitions des sorts'/
 interface Sort
 {
-+lancer(entites:ArrayList<Entite>,donjon:Donjon)
++lancer(entites:Personnage[*],donjon:Donjon)
 }
 class ArmeMagique
 {
--m_scanner: Scanner
 +«Create» ArmeMagique(): ArmeMagique
-+lancer(entites:ArrayList<Entite>,donjon:Donjon)
-+listPerso(persos:ArrayList<Entite>)
-+listArme(perso:Personnage,armeDispo:ArrayList<Arme>)
++lancer(entites:Personnage[*],donjon:Donjon)
++listPerso(persos:Personnage[*])
++listArme(perso:Personnage,armeDispo:Arme[*])
 }
 class BoogieWoogie
 {
--m_scanner: Scanner
 +«Create» BoogieWoogie(): BoogieWoogie
-+lancer(entites:ArrayList<Entite>,donjon:Donjon)
-+listEntite(Entite:ArrayList<Entite>)
++lancer(entites:Personnage[*],donjon:Donjon)
++coordonneCible(numCible:Integer,donjon:Donjon):Integer[*]
 }
 class Guerison
 {
--m_scanner: Scanner
 +«Create» Guerison(): Guerison
-+lancer(entites:ArrayList<Entite>,donjon:Donjon)
-+listPerso(persos:ArrayList<Entite>)
++lancer(entites:Personnage[*],donjon:Donjon)
++listPerso(persos:APersonnage[*])
 }
 }
 }
@@ -207,9 +204,9 @@ abstract Equipement<<abstract>>
 {
 -m_nom:String
 -m_lourd:Boolean
--m_type: TypeEquipement
 
 +«Create» Equipement(nom:String,est_lourd:Boolean,type:TypeEquipement): Equipement
++{abstract} copie():Equipement
 +getNom():String
 +getLourd():Boolean
 +getType(): TypeEquipement
@@ -220,18 +217,22 @@ Equipement .> Donjon : "«call»"
 class Armure
 {
 -m_classeArmure:Integer
-+«Create» Armure(nom:Integer,classeArmure,est_lourd:Boolean): Armure
++«Create» Armure(nom:Integer,classeArmure:Integer,est_lourd:Boolean): Armure
++copie():Armure
 +getClasse():Integer
 }
 '--- Relations d'appel ---
 Armure .> Equipement : "«call»"
 class Arme
 {
--m_degat:De
 -m_portee:Integer
+-m_bonus:Integer
 +«Create» Armure(nom:String,degat:De,portee:Integer,est_lourd:Boolean): Armure
++copie():Arme
 +getDegat():De
 +getPortee():Integer
++getBonus():Integer
++setM_bonus(bonus:Integer)
 }
 '--- Relations d'appel ---
 Arme .> Equipement : "«call»"
@@ -253,8 +254,6 @@ class Donjon
 -m_taille:Integer
 -m_tailleX:Integer
 -m_tailleY:Integer
--m_carte:Position[*][*]
--m_monstres:ArrayList<Monstre>
 -m_carteAffiche:AffichageDonjon
 +«Create» Donjon(): Donjon
 +«Create» Donjon(tailleX:Integer,tailleY:Integer): Donjon
@@ -266,7 +265,7 @@ class Donjon
 +placerObstacle()
 +placerEntite(entite:Entite)
 +placerEquipement(objet:Equipement)
-+donjonDefaut(persos:ArrayList<Personnage>,objets:ArrayList<Equipement>,monstres:ArrayList<Monstre>)
++donjonDefaut(persos:Personnage[*],objets:Equipement[*],monstres:Monstre[*])
 +getCarte():Position[*][*]
 +getTailleX():Integer
 +getTailleY():Integer
@@ -275,9 +274,11 @@ class Donjon
 +creerMonstre()
 +addMonstres(monstre:Monstre)
 +trouverPositionEntite(entite:Entite):Integer[*]
-+deplacementEntite(entite:Entite,pos,Integer[*]):Boolean
++deplacementEntite(entite:Entite,pos:Integer[*]):Boolean
 +afficherCarte()
 +attaquerEntite(acteur:Entite,cible:Entite):Boolean
++attaquerEntiteMJ(position:Position,degat:De):Boolean
++deplacementEntiteMJ(positionEntite:Position):Boolean
 }
 /'Définitions des relations'/
 '--- Relations d'appel ---
