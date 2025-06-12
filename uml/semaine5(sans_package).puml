@@ -1,0 +1,511 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+skinparam linetype ortho
+hide empty members
+abstract Entite<<abstract>>{
+-m_pvMax : Integer
+-m_pv : Integer
+-m_force : Integer
+-m_dexterite : Integer
+-m_vitesse : Integer
+-m_initiative : Integer
+-m_enVie : Boolean
+-m_pos : Integer[*]
+-m_icone : String
++{abstract} «Create» Entite(pvMax:Integer, pv:Integer, force:Integer, dexterite:Integer, vitesse:Integer, initiative:Integer, enVie:Boolean, icone:String, type:TypeEntite): Entite
++getPvMax():Integer
++getPv():Integer
++getForce():Integer
++getDexterite():Integer
++getVitesse():Integer
++getInitiative():Integer
++{abstract} getClasseArmure():Integer
++{abstract} getNom():String
++estEnVie():Boolean
++setPv(pv:Integer)
++setEnVie(vie:Boolean)
++{abstract} attaquer(cible:Entite)
++getType(): TypeEntite
++getIcone(): String
++setIcone(): String
++{abstract}getPortee():Integer
++{abstract}getNomEtId():String
++seDeplacer(donjon:Donjon,pos:Integer[*],deplacementX:Integer,deplacementY:Integer)
++equals(obj:Object): Boolean
++{abstract}toString():String
+}
+class Personnage{
+-m_nom : String
+-m_race : Race
+-m_classe : Classe
++«Create» Personnage(nom:String,classe:Classe,race:Race,pvMax:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer): Personnage
++sEquiper(objet:Equipement):Boolean
++ramasser(pos:Position):Boolean
++copierEquipements(original:Equipement[*]):Equipement[*]
++choisirEquipementDepart()
++getNom():String
++getRace():Race
++getClasse():Classe
++getInventaire():Equipement[*]
++getArme():Arme
++getArmure():Armure
++getClasseArmure():Integer
++getPortee():Integer
++getNomEtId():String.
++attaquer(cible:Entite)
++toString():String
+}
+class Monstre{
+-m_espece : String
+-m_numero : Integer
+-m_portee : Integer
+-m_classeArmure : Integer
++«Create» Monstre(espece:String,numero:Integer,degat:De,portee:Integer,pvMax:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer,classeArmure:Integer,icone:String): Monstre
++getEspece():String
++getNumero():Integer
++getClasseArmure():Integer
++getNom():String
++getPortee():Integer
++getNomEtId():String
++attaquer(cible:Entite)
++toString():String
+}
+enum TypeEntite{
+JOUEUR
+MONSTRE
+AUCUN
+}
+abstract Classe<<abstract>>{
+-m_nom:String
+-m_pv:Integer
++«Create»Classe(nom:String,pv:Integer,equipementDepart:Equipement[*],typeClasse:TypeClasse): Classe
++getPv():Integer
++getEquipementDepart():Equipement[*]
++getTypeClasse():TypeClasse
++toString():String
+}
+class Clerc{
++«Create» Clerc(): Clerc
++initialiserEquipementClerc(): Equipement[*]
+}
+class Guerrier{
++«Create» Guerrier(): Guerrier
++initialiserEquipementGuerrier(): Equipement[*]
+}
+class Magicien{
++«Create» Magicien(): Magicien
++initialiserEquipementMagicien(): Equipement[*]
+}
+class Roublard{
++«Create» Roublard(): Roublard
++initialiserEquipementRoublard(): Equipement[*]
+}
+enum TypeClasse{
+CLERC
+MAGICIEN
+AUTRE
+}
+abstract Race<<abstract>>{
+-m_pv : Integer
+-m_force : Integer
+-m_dexterite : Integer
+-m_vitesse : Integer
+-m_initiative : Integer
++«Create» Race(pv:Integer,force:Integer,dexterite:Integer,vitesse:Integer,initiative:Integer): Race
++getPv():Integer
++getForce():Integer
++getDexterite():Integer
++getVitesse():Integer
++getInitiative():Integer
++toString():String
+}
+class Elfe{
++«Create» Elfe(): Elfe
+}
+class Humain{
++«Create» Humain(): Humain
+}
+class Halfelin{
++«Create» Halfelin(): Halfelin
+}
+class Nain{
++«Create» Nain(): Nain
+}
+interface Sort{
++lancer(entites:Personnage[*],donjon:Donjon)
+}
+class ArmeMagique{
++«Create» ArmeMagique(): ArmeMagique
++lancer(entites:Personnage[*],donjon:Donjon)
++listPerso(persos:Personnage[*])
++listArme(perso:Personnage,armeDispo:Arme[*])
+}
+class BoogieWoogie{
++«Create» BoogieWoogie(): BoogieWoogie
++lancer(entites:Personnage[*],donjon:Donjon)
++coordonneCible(numCible:Integer,donjon:Donjon):Integer[*]
+}
+class Guerison{
++«Create» Guerison(): Guerison
++lancer(entites:Personnage[*],donjon:Donjon)
++listPerso(persos:Personnage[*])
+}
+abstract Equipement<<abstract>>{
+-m_nom:String
+-m_lourd:Boolean
++«Create» Equipement(nom:String,est_lourd:Boolean,type:TypeEquipement): Equipement
++{abstract} copie():Equipement
++getNom():String
++getLourd():Boolean
++getType(): TypeEquipement
++toString():String
+}
+class Armure{
+-m_classeArmure:Integer
++«Create» Armure(nom:Integer,classeArmure:Integer,est_lourd:Boolean): Armure
++copie():Armure
++getClasse():Integer
+}
+class Arme{
+-m_portee:Integer
+-m_bonus:Integer
++«Create» Armure(nom:String,degat:De,portee:Integer,est_lourd:Boolean): Armure
++copie():Arme
++getDegat():De
++getPortee():Integer
++getBonus():Integer
++setM_bonus(bonus:Integer)
+}
+enum TypeEquipement {
+ARME
+ARMURE
+AUCUN
+}
+class Donjon{
+-m_taille:Integer
+-m_tailleX:Integer
+-m_tailleY:Integer
++«Create» Donjon(): Donjon
++«Create» Donjon(tailleX:Integer,tailleY:Integer): Donjon
++creerCarte(axe:String):Integer
++tailleMax():Integer
++initialiserCarte():Position[*][*]
++cordonneX(lettreX:char):Integer
++cordonneValide(coordX:Integer,coordY:Integer):Booleans
++placerObstacle()
++placerEntite(entite:Entite)
++placerEquipement(objet:Equipement)
++donjonDefaut(persos:Personnage[*],objets:Equipement[*],monstres:Monstre[*])
++getCarte():Position[*][*]
++getTailleX():Integer
++getTailleY():Integer
++getTaille():Integer
++getMonstres():Monstre[*]
++creerMonstre()
++addMonstres(monstre:Monstre)
++trouverPositionEntite(entite:Entite):Integer[*]
++deplacementEntite(entite:Entite,pos:Integer[*]):Boolean
++afficherCarte()
++attaquerEntite(acteur:Entite,cible:Entite):Boolean
++attaquerEntiteMJ(position:Position,degat:De):Boolean
++deplacementEntiteMJ(positionEntite:Position):Boolean
+}
+class AffichageDonjon{
++«Create» AffichageDonjon(carte:Position[*][*]): AffichageDonjon
++{static}mauvaiseDimension()
++{static}mauvaisFormat()
++{static}dimensionCarte(axe:String):Integer
++{static}6coordonneObstacle():String
++{static}coordonneCombattant(nomEntite:String):String
++{static}coordonneEquipement(objet:String): String
++{static}nombreMonstres(taille:Integer):Integer
++{static}mauvaisNbMonstres()
++{static}especeMonstres(numMonstre:Integer): String
++{static}degatsMonstre():Integer[*]
++{static}nombreInsuffisant()
++{static}nombreSuperieurEgalZero()
++{static}nombreInsuffisantAttaque()
++{static}porteeMonstre():Integer
++{static}pvMonstre():Integer
++{static}forceMonstre():Integer
++{static}dexteriteMonstre():Integer
++{static}vitesseMonstre():Integer
++{static}initiativeMonstre():Integer
++{static}classeArmureMonstre():Integer
++{static}iconeMonstre():String
++{static}mauvaisIcone()
++{static}afficherCarte(donjon:Position[*][*],tailleX:Integer,tailleY:Integer)
++{static}nextLinedeplacementEntiteMJ():String
+}
+class Position{
+-m_obstacle:Boolean
+-m_icone:String
++«Create» Position():Position
++getObstacle():Boolean
++getTypeEquipement():TypeEquipement
++getTypeEntite():TypeEntite
++getEntite():Entite
++getEquipement():Equipement
++getIcone():String
++setIcone(icone:String)
++setTypeEntite(entite:TypeEntite)
++setTypeEquipement(equipement:TypeEquipement)
++setObstacle(obstacle:Boolean)
++placerEquipement(equipement:Equipement)
++placerEntite(entite:Entite)
++enleverEquipement()
++enleverEntite()
++miseAJourIcone()
++estVide()
++aJusteEquipement()
++toString():String
+}
+class De{
+-m_nombre:Integer
+-m_face:Integer
++«Create» De(nombre:Integer,face:Integer): De
++lancer():Integer
++toString():String
+}
+class Jeu{
+-m_donjonActuel : int
+-m_scanner : Scanner
++«Create» Jeu() : Jeu
++initialiserJoueurs():Personnage[*]
++initClassePersonnage():Classe
++initRacePersonnage():Race
++initCaracteristiquePersonnage(nomCaracteristique:String):int
++lancerPartie() :
++proposerMiseEnPlace():Donjon
++ajoutEquipementDonjon(donjon:Donjon):Donjon
++objetSelectionnnez(nomObjet:String):Equipement
++calculerInitiative(donjon : Donjon) : Entite[*]
++gererTourPersonnage(joueur : Personnage, donjon : Donjon):
++gererTourMonstre(monstre : Monstre, donjon : Donjon):
++gererTourMJ(donjon:Donjon):
++donjonEstTermine(donjon : Donjon) : boolean
++restaurerVieJoueurs() :
++auMoinsUnJoueurMort() : boolean
+}
+class AffichageDe {
++{static}affichageLancerDe(nombre: int, face: int, resultats: int[], total: int)
+}
+class AffichageJeu{
++{static} nombreJoueurs(nbMax:Integer): Integer
++{static} nomJoueur(numJoueur:Integer): String
++{static} classeJoueur(): String
++{static} raceJoueur(): String
++{static} presentationCaracteristiques()
++{static} caracteristiqueJoueur(nomCaracteristique:String)
++{static} afficherInitiativeCombattant(nomCombattant:String)
++{static} afficherTourPersonnage(joueur:Personnage, actions:Integer)
++{static} nextLineTourPersonnage(): String
++{static} afficherRP(texte:String)
++{static} proposerSort(): String
++{static} mauvaiseClasse()
++{static} afficherErreur()
++{static} nombreObjet(nbMax:Integer, nomObjet:String): Integer
++{static} choisirEquipement(numEquipement:Integer): String
++{static} afficherOrdre(numeroTour:Integer, listeEntites:Entite[*], entiteActive:Entite)
++{static} afficherDefaite()
++{static} afficherVictoire()
++{static} afficherVictoireDonjon(donjonactuel:Integer)
++{static} afficherTourMonstre(monstre:Monstre, actions:Integer)
++{static} nextLineTourMonstre(): String
++{static} afficherGererTourMJ()
++{static} nextLineGererTourMJ(): String
++{static} demanderLancerDe(): De
+}
+/'Définitions des relations'/
+' --- Relations d'héritage et d'implémentations ---
+Personnage --|> Entite
+Monstre --|> Entite
+Clerc --|> Classe
+Guerrier --|> Classe
+Magicien --|> Classe
+Roublard --|> Classe
+Elfe --|> Race
+Humain --|> Race
+Halfelin --|> Race
+Nain --|> Race
+Armure --|> Equipement
+Arme --|> Equipement
+Guerison ..|> Sort
+BoogieWoogie ..|> Sort
+ArmeMagique ..|> Sort
+' --- Relations d'appel ---
+Jeu .> Donjon : "«call»"
+Jeu .> Entite : "«call»"
+Jeu .> Personnage : "«call»"
+Jeu .> Monstre : "«call»"
+Jeu .> Entite : "«call»"
+Jeu .> Classe : "«call»"
+Jeu .> Race : "«call»"
+Jeu .> Guerison : "«call»"
+Jeu .> BoogieWoogie : "«call»"
+Jeu .> ArmeMagique : "«call»"
+Jeu .> Armure : "«call»"
+Jeu .> Arme : "«call»"
+Jeu .> Scanner : "«call»"
+Jeu .> De : "«call»"
+Jeu .> Scanner : "«call»"
+Jeu .> AffichageJeu : "«call»"
+AffichageJeu .> Scanner : "«call»"
+AffichageJeu .> Entite : "«call»"
+AffichageJeu .> Personnage : "«call»"
+AffichageJeu .> Monstre : "«call»"
+AffichageDe .> Scanner : "«call»"
+AffichageDe .> StringBuilder : "«call»"
+Armure .> Random : "«call»"
+Armure .> AffichageDe : "«call»"
+Equipement .> Donjon : "«call»"
+Armure .> Equipement : "«call»"
+Arme .> Equipement : "«call»"
+Arme .> De : "«call»"
+Donjon .> Entite : "«call»"
+Donjon .> Monstre : "«call»"
+Donjon .> Equipement : "«call»"
+Donjon .> Position : "«call»"
+Donjon .> AffichageDonjon : "«call»"
+AffichageDonjon .> Scanner : "«call»"
+AffichageDonjon .> Position : "«call»"
+Position .> Equipement : "«call»"
+Position .> Entite : "«call»"
+Classe -> Equipement : «call»
+Classe -> Arme : «call»
+Classe -> Armure : «call»
+Entite .> Donjon : «call»
+Monstre .> De : «call»
+Monstre .> Entite : "«call»"
+Personnage .> De : «call»
+Personnage .> Classe : «call»
+Personnage .> Race : «call»
+Personnage .> Equipement : «call»
+Personnage .> Arme : «call»
+Personnage .> Armure : «call»
+Guerison .> De : "«call»"
+Guerison .> Entite : "«call»"
+Guerison .> Personnage : "«call»"
+BoogieWoogie .> Scanner : "«call»"
+BoogieWoogie .> Donjon : "«call»"
+BoogieWoogie .> Position : "«call»"
+BoogieWoogie .> Entite : "«call»"
+ArmeMagique .> Scanner : "«call»"
+ArmeMagique .> Personnage : "«call»"
+ArmeMagique .> Arme : "«call»"
+ArmeMagique .> Equipement : "«call»"
+' --- Relations d'instanciation ---
+Jeu .> Donjon : "«instantiate»"
+Jeu .> Position : "«instantiate»"
+Jeu .> Armure : "«instantiate»"
+Jeu .> Arme : "«instantiate»"
+Jeu .> Entite : "«instantiate»"
+Jeu .> Monstre : "«instantiate»"
+Jeu .> Personnage : "«instantiate»"
+Jeu .> Classe : "«instantiate»"
+Jeu .> Race : "«instantiate»"
+Jeu .> Sort : "«instantiate»"
+Jeu .> Guerison : "«instantiate»"
+Jeu .> BoogieWoogie : "«instantiate»"
+Jeu .> ArmeMagique : "«instantiate»"
+Jeu .> De : "«instantiate»"
+Jeu .> Scanner : "«instantiate»"
+Jeu .> Equipement : "«instantiate»"
+AffichageJeu .> Scanner : "«instantiate»"
+AffichageJeu .> De : "«instantiate»"
+AffichageDe .> Scanner : "«instantiate»"
+AffichageDe .> StringBuilder : "«instantiate»"
+AffichageDonjon .> Scanner : "«instantiate»"
+AffichageDonjon .> Position : "«instantiate»"
+Position .> TypeEntite : "«instantiate»"
+Position .> TypeEquipement : "«instantiate»"
+Position .> Equipement : "«instantiate»"
+Position .> Entite : "«instantiate»"
+Equipement .> TypeEquipement : "«instantiate»"
+Arme .> De : "«instantiate»"
+Arme .> Arme : "«instantiate»"
+Armure .> Armure : "«instantiate»"
+Clerc .> Equipement : "«instantiate»"
+Guerrier .> Equipement : "«instantiate»"
+Magicien .> Equipement : "«instantiate»"
+Roublard .> Equipement : "«instantiate»"
+Guerison .> Scanner : "«instantiate»"
+Guerison .> De : "«instantiate»"
+BoogieWoogie .> Scanner : "«instantiate»"
+ArmeMagique .> Scanner : "«instantiate»"
+Monstre .> De : "«instantiate»"
+Personnage .> De : "«instantiate»"
+Donjon .> Position : "«instantiate»"
+Donjon .> Monstre : "«instantiate»"
+' --- Relations d'utilisation ---
+Jeu .> AffichageJeu : "«uses»"
+Jeu .> Personnage : "«uses»"
+Jeu .> Monstre : "«uses»"
+Jeu .> Donjon : "«uses»"
+Jeu .> TypeClasse : "«uses»"
+AffichageJeu .> Entite : "«uses»"
+AffichageJeu .> Personnage : "«uses»"
+AffichageJeu .> Monstre : "«uses»"
+AffichageJeu .> TypeEntite : "«uses»"
+AffichageDonjon .> Position : "«uses»"
+Position .> Equipement : "«uses»"
+Position .> Entite : "«uses»"
+Position .> TypeEquipement : "«uses»"
+Position .> TypeEntite : "«uses»"
+Equipement .> TypeEquipement : "«uses»"
+Entite .> TypeEntite : "«uses»"
+Monstre .> Entite : "«uses»"
+Guerison .> Personnage : "«uses»"
+Guerison .> Donjon : "«uses»"
+Guerison .> Entite : "«uses»"
+BoogieWoogie .> Personnage : "«uses»"
+BoogieWoogie .> Donjon : "«uses»"
+BoogieWoogie .> Position : "«uses»"
+BoogieWoogie .> Entite : "«uses»"
+ArmeMagique .> Personnage : "«uses»"
+ArmeMagique .> Donjon : "«uses»"
+ArmeMagique .> Entite : "«uses»"
+ArmeMagique .> TypeEntite : "«uses»"
+ArmeMagique .> Arme : "«uses»"
+ArmeMagique .> Equipement : "«uses»"
+ArmeMagique .> TypeEquipement : "«uses»"
+Personnage .> Equipement : "«uses»"
+Personnage .> Position : "«uses»"
+Donjon .> Entite : "«uses»"
+Donjon .> Personnage : "«uses»"
+Donjon .> Monstre : "«uses»"
+Donjon .> Equipement : "«uses»"
+Donjon .> De : "«uses»"
+' --- Agrégations ---
+Jeu "1" *--> "3\n-m_donjons" Donjon : contient
+Jeu "1" *--> "1..*\n-m_joueurs" Personnage : se joue avec
+Jeu "1" *--> "1\n-m_scanner" Scanner : est de type\t>
+AffichageJeu "1" *--> "1\n-m_scanner" Scanner : est de type\t>
+AffichageDe "1" *--> "1\n-m_scanner" Scanner : est de type\t>
+De "1" o--> "1\n-rand" Random : est de type\t>
+Donjon "1" o--> "0..*\n-m_monstres" Monstre : contient
+Donjon "1" o--> "0..*\n-m_carte" Position : contient
+Classe "1" o--> "0..*\n-m_equipementDepart" Equipement : contient
+Classe "1" o--> "1\n-m_typeClasse" TypeClasse : est de type
+Guerison "1" *--> "1\n-m_scanner" Scanner : instancie et possède
+BoogieWoogie "1" *--> "1\n-m_scanner" Scanner : instancie et possède
+ArmeMagique "1" *--> "1\n-m_scanner" Scanner : instancie et possède
+Entite "1" o--> "1\n-m_type" TypeEntite : est de type
+Monstre "1" *--> "1\n-m_degat" De : utilise
+Personnage "*" o--> "1\n -m_classe" Classe : a pour classe
+Personnage "*" o--> "1\n -m_race" Race : est de race
+Personnage "1" *--> "*\n -m_inventaire" Equipement : possède un inventaire
+Personnage "1" *--> "0..1\n -m_arme" Arme : équipe une arme
+Personnage "1" *--> "0..1\n -m_armure" Armure : équipe une armure
+AffichageDonjon "1" *--> "1\n-m_scanner" Scanner : est de type\t>
+AffichageDonjon "1" *--> "1..*\n-m_carte" Position : contient\t>
+Position "0" *--> "1\n-m_typeEquipement" TypeEquipement : est de type\t>
+Position "0" *--> "1\n-m_typeEntite" TypeEntite : est de type\t>
+Position "0" *--> "1\n-m_equipement" Equipement : contient\t>
+Position "0" *--> "1\n-m_entite" Entite : contient\t>
+Equipement "1" o--> "1\n-m_type" TypeEquipement : est de type\t>
+Arme "1" o--> "1\n-m_degat" De : est de type\t>
+@enduml
