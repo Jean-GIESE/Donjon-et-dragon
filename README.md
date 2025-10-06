@@ -26,6 +26,11 @@ $ git config --global user.email "[login]@unistra.fr"
 ```sh
 $ git clone https://github.com/Jean-GIESE/Donjon-et-dragon.git
 ```
+Si vous n'avez pas java sur votre ordinateur, installez-le
+
+### Lancement du jeu
+
+Allez dans le répertoire 'projet-doojon-et-dragons/src' et tapez la commande 'java Main'
 
 ## Le jeu
 
