@@ -3,6 +3,30 @@
 On souhaite développer une application pour **un nouveau un jeu D&D**.
 C'est un jeu de rôle de Medieval Fantasy où les joueurs incarnent des personnages affrontant des monstres dans plusieurs donjons successifs.
 
+- Membres du goupe : [Jean GIESE](https://git.unistra.fr/jgiese), [Hugo LEGER](https://git.unistra.fr/legerh)
+
+## Installation / lancement du jeu
+
+Ouvrez un terminal et mettez-vous dans un répertoire où vous placerez le projet
+
+### Mise en place du dépôt Git
+
+1. Installer git sur votre ordinateur personnel (rien à faire si vous avez déjà Git) :
+```sh
+$ sudo apt install git
+```
+
+2. Configurer vos informations d'utilisateur :
+```sh
+$ git config --global user.name "[Prenom] [Nom]"
+$ git config --global user.email "[login]@unistra.fr"
+```
+
+3. Cloner ce dépôt sur votre ordinateur personnel :
+```sh
+$ git clone 
+```
+
 ## Le jeu
 
 Il s'agit d'un jeu avec plusieurs joueurs face à des monstres contrôlés par le maître du jeu, qui se joue **au tour par tour**. Les joueurs incarnant les personnages doivent éliminer les monstres de trois donjons successifs. Un autre joueur est Maître du Jeu et a pour rôle de narrer l'histoire et expliquer le contexte aux joueurs. Si un seul joueur est éliminé par un monstre dans un des donjons, l'équipe a perdu.
