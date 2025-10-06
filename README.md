@@ -24,7 +24,7 @@ $ git config --global user.email "[login]@unistra.fr"
 
 3. Cloner ce dépôt sur votre ordinateur personnel :
 ```sh
-$ git clone 
+$ git clone https://github.com/Jean-GIESE/Donjon-et-dragon.git
 ```
 
 ## Le jeu
