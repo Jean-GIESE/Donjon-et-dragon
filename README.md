@@ -45,8 +45,8 @@ Il s'agit d'un jeu avec plusieurs joueurs face à des monstres contrôlés par l
 <img src="screenshots/lancementJeu.png" width="700" alt="Menu Screen">
 
 #### Le début du jeu :
-<img src="game/screenshots/DebutdeJeu1.png" width="700" alt="Jeu en cours 1">
-<img src="game/screenshots/DebutdeJeu2.png" width="700" alt="Jeu en cours 2">
+<img src="screenshots/DebutdeJeu1.png" width="700" alt="Jeu en cours 1">
+<img src="screenshots/DebutdeJeu2.png" width="700" alt="Jeu en cours 2">
 
 ### Les personnages
 
