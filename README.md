@@ -39,6 +39,14 @@ Il s'agit d'un jeu avec plusieurs joueurs face à des monstres contrôlés par l
  Le jeu se base sur des jets de dés désignés par <nombre de dés>d<nombre de faces des dés>.
  Par exemple, 3d4 désigne le jet de 3 dés à 4 faces.
 
+### Captures d'écran
+
+#### Écran de lancement :
+<img src="screenshots/lancementJeu.png" width="700" alt="Menu Screen">
+
+#### Le début du jeu :
+<img src="game/screenshots/DebutdeJeu1.png" width="700" alt="Jeu en cours 1">
+<img src="game/screenshots/DebutdeJeu2.png" width="700" alt="Jeu en cours 2">
 
 ### Les personnages
 
