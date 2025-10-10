@@ -176,7 +176,7 @@ Au début de chaque donjon, le maître du jeu
 - positionne des équipements sur la carte que les joueurs pourront récupérer
 - présente en quelques phrases le contexte aux joueurs
 
-Afin de faciliter la tâche au maître du jeu, un choix de mise en place du donjon par défaut devra être proposé pour chaque donjon.
+Afin de faciliter la tâche au maître du jeu, un choix de mise en place du donjon par défaut est proposé pour chaque donjon.
 
 Chaque joueur et chaque monstre lance 1d20 et ajoute leur caractéristique d'initiative. Ils joueront par ordre décroissant du résultat d'initiative.
 
@@ -281,8 +281,6 @@ Caelynn il vous reste 2 actions que souhaitez vous faire ?
   Le Demogorgon subit 3 dégâts!
   Il lui reste 22 PV.
 ```
-
-Il n'est pas nécessaire de reproduire le visuel tel quel mais toutes les informations doivent être présentes.
 
 ### Fin du jeu
 
