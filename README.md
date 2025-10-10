@@ -92,6 +92,7 @@ Chaque personnage est défini par:
 - les armes de guerre au corps-à-corps
   - épée longue, dégât: 1d8, portée: 1 case
   - rapière, dégât: 1d8, portée: 1 case
+  - l'épée à deux mains, dégât: 2d6, portée: 1 case
 - les armes à distance
   - arbalète légère, dégât: 1d8, portée 16 cases
   - fronde, dégât 1d4, portée 6 cases
@@ -121,6 +122,13 @@ Les armures lourdes lorsqu'elles sont équipées par un personnage diminuent de 
 - les Roublards possèdent à leur création:
   - 16 points de vie
   - un équipement contenant une rapière et un arc court
+
+#### Sorts
+Certains personnages vont se voir dotés de sorts. L'utilisation d'un sort se fait au tour de jeu du personnage doté de ce sort. L'utilisation d'un sort compte comme une action. Les monstres ne peuvent pas être dotés de sorts.
+- Guérison: le personnage détenteur du sort peut choisir un personnage (y compris lui-même) et lance 1d10 pour connaître le nombre de points de vie que le personnage visé regagnera. Le personnage soigné ne peut pas dépasser le nombre de points de vie qu'il avait à sa création.
+- Boogie Woogie : le personnage détenteur du sort peut choisir deux personnages (y compris lui-même), de deux monstres ou d'un personnage (y compris lui-même) et d'un monstre et échanger leur position dans le donjon.  
+- Arme magique : le personnage détenteur du pouvoir peut choisir une arme détenue par un personnage (mais pas forcément équipée) à améliorer. L'arme gagne alors un bonus de 1 lors des jets d'attaque et de 1 lors des jets de dégâts (les bonus peuvent se cumuler).
+Les personnages de classe Clerc peuvent lancer le sort Guérison. Les magiciens peuvent lancer n'importe quel sort.
 
 #### Création d'un personnage
 Au début d'une partie, chaque joueur crée son personnage de la façon suivante:
@@ -208,6 +216,12 @@ L'attaquant attaque avec l'arme  qu'il porte.
 #### Ramasser un équipement *(uniquement pour les personnages)*
 Si un joueur est sur une case contenant un équipement (une arme ou une armure), il peut prendre l'équipement pour l'ajouter à son inventaire (l'équipement disparaît de la carte)
 
+#### Le maître du jeu intervient
+En plus de pouvoir commenter l'action d'un joueur, le maître du jeu peut intervenir à la fin d'une action d'un joueur ou d'un monstre pour :
+- déplacer un monstre ou un personnage
+- par le jet de dés de son choix(nombre de dés et nombre de faces au choix), il peut infliger des dégâts à un joueur ou un monstre,
+- ajouter des obstacles dans le donjon
+
 #### Fin d'un donjon
 Un donjon se termine lorsqu'un joueur est tué (défaite) ou lorsque tous les monstres sont éliminés (victoire).
 
@@ -285,27 +299,3 @@ Caelynn il vous reste 2 actions que souhaitez vous faire ?
 ### Fin du jeu
 
 À la fin du jeu, un écran affiche "Vous avez perdu" ou "Vous avez gagné" et indique la cause de la défaite ou de la victoire.
-
-
-# DOOnjon&Dragon Project, Phase 2
-
-On souhaite ajouter les fonctionnalités suivantes au jeu.
-
-## Le maître du jeu intervient
-En plus de pouvoir commenter l'action d'un joueur, le maître du jeu peut intervenir à la fin d'une action d'un joueur ou d'un monstre pour :
-- déplacer un monstre ou un personnage
-- par le jet de dés de son choix(nombre de dés et nombre de faces au choix), il peut infliger des dégâts à un joueur ou un monstre,
-- ajouter des obstacles dans le donjon
-
-## Sorts
-Certains personnages vont se voir dotés de sorts. L'utilisation d'un sort se fait au tour de jeu du personnage doté de ce sort. L'utilisation d'un sort compte comme une action. Les monstres ne peuvent pas être dotés de sorts.
-- Guérison: le personnage détenteur du sort peut choisir un personnage (y compris lui-même) et lance 1d10 pour connaître le nombre de points de vie que le personnage visé regagnera. Le personnage soigné ne peut pas dépasser le nombre de points de vie qu'il avait à sa création.
-- Boogie Woogie : le personnage détenteur du sort peut choisir deux personnages (y compris lui-même), de deux monstres ou d'un personnage (y compris lui-même) et d'un monstre et échanger leur position dans le donjon.  
-- Arme magique : le personnage détenteur du pouvoir peut choisir une arme détenue par un personnage (mais pas forcément équipée) à améliorer. L'arme gagne alors un bonus de 1 lors des jets d'attaque et de 1 lors des jets de dégâts (les bonus peuvent se cumuler).
-Les personnages de classe Clerc peuvent lancer le sort Guérison. Les magiciens peuvent lancer n'importe quel sort.
-
-
-## Une nouvelle arme
-Une nouvelle arme de guerre est disponible pour toujours plus de sang !
-- l'épée à deux mains, dégât: 2d6, portée: 1 case
-
