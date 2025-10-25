@@ -24,13 +24,24 @@ $ git config --global user.email "[email]"
 
 3. Cloner ce dépôt sur votre ordinateur personnel :
 ```sh
-$ git clone https://github.com/Jean-GIESE/Donjon-et-dragon.git
+git clone https://github.com/Jean-GIESE/Donjon-et-dragon.git
 ```
 Si vous n'avez pas java sur votre ordinateur, installez-le
 
 ### Lancement du jeu
 
-Allez dans le répertoire 'projet-doojon-et-dragons/src' et tapez la commande 'java Main'
+Allez dans le répertoire `Donjon-et-dragons/src` et tapez la commande `javac Main.java`, cela va vous créer un fichier nommé **Main.class**.
+
+Pour le lancer, tapez `java Main`
+
+Vous pouvez aussi visualer l'arborescence des classes via l'uml dans le répertoire `src/uml/`, soit directement avec intellij, soit avec une commande dans le bash comme
+
+```sh
+plantuml semaine5.puml
+```
+Si vous n'avez pas plantuml, la commande ne marchera pas, il faudra dans ce cas l'installer.
+
+Il se peut que l'affichage ne marche pas car l'uml est trop gros, dans ce cas il faut faire la même commande mais avec `semaine5(sans_package).puml`
 
 ## Le jeu
 
