@@ -26,7 +26,7 @@ git config --global user.email "[email]"
 ```sh
 git clone https://github.com/Jean-GIESE/Donjon-et-dragon.git
 ```
-Si vous n'avez pas java sur votre ordinateur, installez-le
+Si vous n'avez pas java sur votre ordinateur, installez-le directement sur la [page web dédiée](https://www.java.com/fr/download/help/download_options.html)
 
 ### Lancement du jeu
 
@@ -34,7 +34,7 @@ Allez dans le répertoire `Donjon-et-dragons/src` et tapez la commande `javac Ma
 
 Pour le lancer, tapez `java Main`
 
-Vous pouvez aussi visualer l'arborescence des classes via l'uml dans le répertoire `src/uml/`, soit directement avec intellij, soit avec une commande dans le bash comme
+Vous pouvez aussi visualer l'arborescence des classes via l'uml dans le répertoire `src/uml/`, soit directement avec intellij ([lien vers l'installation](https://www.jetbrains.com/idea/download/?section=windows)), soit avec une commande dans le bash comme
 
 ```sh
 plantuml semaine5.puml
